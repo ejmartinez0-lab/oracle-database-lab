@@ -50,6 +50,8 @@ Probablemente el repositorio remoto tiene commits que mi copia local todavía no
 
 Para añadir un índice de rendimiento a una tabla usaría `perf(db): add customer lookup index`, porque es una mejora de rendimiento. Para corregir una restricción mal definida usaría `fix(db): correct customer foreign key`, porque corrige un error. Para actualizar el README usaría `docs: update README`, porque es un cambio exclusivamente documental.## Lecciones aprendidas
 
+# Lecciones aprendidas — Laboratorio 1: Git Fundamentals
+
 - Al vincular el remoto copié la URL de ejemplo del documento (`tu-usuario`) y `git remote -v` me lo mostró; lo corregí con `git remote set-url origin`.
 - Las carpetas vacías no llegaban a GitHub hasta que subí los `.gitkeep` con su propio commit.
 - Para saber qué ocurre en cada paso uso `git status` antes de cada commit y `git log --oneline --graph --all` para leer el historial; en mi repositorio el merge `df45ed0` une las ramas `fix/readme-title` y `fix/readme-subtitle`.
