@@ -1,3 +1,3 @@
-# Oracle Database Lab Training repository for Oracle Database administration, testing, change management and Git workflows.
+# Oracle Database Lab (Training Edition)
 Name: Esteban Martinez
 Professor: Richard Aviles Lopez
