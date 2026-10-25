@@ -1,0 +1,93 @@
+Esperando a que oralab-26ai este healthy (max. 5 min)
+intento 1: healthy
+
+Estado final
+oralab-26ai Up 6 minutes (healthy)
+
+Registro de arranque (docker logs)
+Starting Oracle Net Listener.
+Oracle Net Listener started.
+Starting Oracle AI Database instance FREE.
+Oracle AI Database instance FREE started.
+
+The Oracle base remains unchanged with value /opt/oracle
+
+SQL*Plus: Release 23.26.3.0.0 - Production on Sun Oct 25 15:57:10 2026
+Version 23.26.3.0.0
+
+Copyright (c) 1982, 2026, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+Version 23.26.3.0.0
+
+SQL> 
+User altered.
+
+SQL> 
+User altered.
+
+SQL> 
+Session altered.
+
+SQL> 
+User altered.
+
+SQL> Disconnected from Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+Version 23.26.3.0.0
+#########################
+DATABASE IS READY TO USE!
+#########################
+The following output is now a tail of the alert.log:
+Completed: Pluggable database FREEPDB1 opened read write 
+Completed: ALTER DATABASE OPEN
+2026-10-25T15:57:12.652267+00:00
+FREEPDB1(3):TABLE AUDSYS.AUD$UNIFIED: ADDED INTERVAL PARTITION SYS_P496 (4500) VALUES LESS THAN (TIMESTAMP' 2026-10-26 00:00:00')
+2026-10-25T15:57:13.796319+00:00
+===========================================================
+Dumping current patch information
+===========================================================
+No patches have been applied
+===========================================================
+2026-10-25T15:57:14.328389+00:00
+FREEPDB1(3):Resize operation completed for file# 13, fname /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf, old size 409600K, new size 419840K
+2026-10-25T15:57:18.423126+00:00
+TABLE SYS.WRP$_REPORTS: ADDED AUTOLIST FRAGMENT SYS_P656 (3) VALUES (( 1509902213, TO_DATE(' 2026-10-19 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+TABLE SYS.WRP$_REPORTS_DETAILS: ADDED AUTOLIST FRAGMENT SYS_P657 (3) VALUES (( 1509902213, TO_DATE(' 2026-10-19 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+TABLE SYS.WRP$_REPORTS_TIME_BANDS: ADDED AUTOLIST FRAGMENT SYS_P660 (3) VALUES (( 1509902213, TO_DATE(' 2026-10-19 00:00:00', 'syyyy-mm-dd hh24:mi:ss', 'nls_calendar=gregorian') ))
+2026-10-25T15:57:28.645540+00:00
+--ATTENTION--
+The system is observing online redo log writes that are taking longer than expected to complete. This can lead to system performance instability.
+2026-10-25T15:57:51.062617+00:00
+--ATTENTION--
+The system is observing online redo log writes that are taking longer than expected to complete. This can lead to system performance instability.
+2026-10-25T15:58:27.552739+00:00
+--ATTENTION--
+Time drifted forward by (1277518) micro seconds at 11820899395 whereas allowed drift is 1000000
+2026-10-25T15:58:31.451590+00:00
+--ATTENTION--
+Time drifted forward by (1168177) micro seconds at 11824900260 whereas allowed drift is 1000000
+2026-10-25T15:58:38.033024+00:00
+--ATTENTION--
+The system is observing online redo log writes that are taking longer than expected to complete. This can lead to system performance instability.
+2026-10-25T15:59:38.555081+00:00
+--ATTENTION--
+Time drifted forward by (3333490) micro seconds at 11892199944 whereas allowed drift is 1000000
+2026-10-25T16:00:17.960961+00:00
+--ATTENTION--
+Time drifted forward by (1165537) micro seconds at 11931700223 whereas allowed drift is 1000000
+2026-10-25T16:00:18.962510+00:00
+--ATTENTION--
+The system is observing online redo log writes that are taking longer than expected to complete. This can lead to system performance instability.
+2026-10-25T16:01:16.157160+00:00
+--ATTENTION--
+Time drifted forward by (7875373) micro seconds at 11990099732 whereas allowed drift is 1000000
+--ATTENTION--
+Time drifted forward by (9000000) micro seconds at 1792944076 whereas allowed drift is 5000000
+2026-10-25T16:01:33.361372+00:00
+--ATTENTION--
+Time drifted forward by (2787766) micro seconds at 12007401513 whereas allowed drift is 1000000
+2026-10-25T16:02:19.413402+00:00
+--ATTENTION--
+Time drifted forward by (1104012) micro seconds at 12053501730 whereas allowed drift is 1000000
