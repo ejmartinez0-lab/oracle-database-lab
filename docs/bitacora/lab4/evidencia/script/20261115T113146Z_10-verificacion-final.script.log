@@ -1,0 +1,35 @@
+=== Parte B: integridad del backup ===
+OK: Backup integro: /home/esteban/oracle-database-lab/backups/20261115T105252Z_lab3-final
+=== Estado SQL ===
+OK: Tablespaces de negocio = 5
+OK: Tablespaces de negocio ONLINE = 5
+OK: Datafiles fuera de carpeta estandar = 0
+OK: Propietarios sin autenticacion = 5
+OK: Datos V002 = 20000/40/60000
+OK: CDB abierta = READWRITE
+OK: PDB abierta = READWRITE
+OK: Cuenta comun C##OPS_RO = YES
+OK: OPEN_CURSORS raiz = 300
+OK: OPEN_CURSORS PDB = 300
+OK: DB_FILES sin cambio pendiente = FALSE
+=== Rutas reales de los archivos de la base ===
+OK: Archivos reales fuera del volumen = 0
+OK: Puerto 8181 no publicado
+=== Evidencias 00 a 09 ===
+OK: Evidencia 00
+OK: Evidencia 01
+OK: Evidencia 02
+OK: Evidencia 03
+OK: Evidencia 04
+OK: Evidencia 05
+OK: Evidencia 06
+OK: Evidencia 07
+OK: Evidencia 08
+OK: Evidencia 09
+OK: PFILE versionado
+=== Proteccion del repositorio ===
+OK: config.env fuera de Git
+OK: Sin backups ni tar.gz versionados
+OK: V000 y V001 sin cambios
+
+RESULTADO: TODO OK. Verificacion tecnica completada.
