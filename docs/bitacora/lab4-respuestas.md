@@ -510,3 +510,96 @@ que impide el arranque.
 - docs/bitacora/lab4/evidencia/script/20261115T112120Z_07-parametros-cambios.script.log
 - docs/bitacora/lab4/evidencia/script/20261115T112211Z_07-pfile.script.log
 - docs/bitacora/lab4/evidencia/spool/20261115T111954Z_07-parametros-lectura.spool.log
+
+## Parte G. Memoria y Buffer Cache
+
+### 16. Modelo de gestion de memoria
+
+Evidencia: spool/*_08-memoria.spool.log.
+
+La instancia utiliza ASMM, gestion automatica de memoria compartida:
+- MEMORY_TARGET=0.
+- MEMORY_SIZE=0.
+- SGA_TARGET=1536M.
+
+La PGA se gestiona por separado:
+PGA_AGGREGATE_TARGET=512M y PGA_AGGREGATE_LIMIT=2G.
+El primero es un objetivo, no un limite rigido.
+
+DB_CACHE_SIZE=0 y SHARED_POOL_SIZE=0 no significan ausencia de esos
+componentes: no se ha fijado un minimo manual mediante esos parametros.
+
+La captura mostro:
+- Database Buffers: 1024 MB en V$SGA.
+- Shared Pool Size: 464 MB en V$SGAINFO.
+- DEFAULT buffer cache: 944 MB en V$SGA_DYNAMIC_COMPONENTS.
+- Shared IO Pool: 80 MB en esa misma vista.
+
+Se conservan los valores de cada vista sin sumarlos indiscriminadamente
+ni tratar todos sus conceptos como componentes independientes.
+
+La PGA mostraba 298.8 MB en uso, 397.1 MB asignados y un maximo
+observado de 460.6 MB. OVER ALLOCATION COUNT era 0.
+
+El asesor mostro el mismo factor de tiempo estimado y las mismas
+lecturas fisicas para todos los tamanos considerados. Esta captura,
+con poca carga representativa, no basta para decidir reducir la SGA.
+
+### 17. Experimento de cache
+
+Evidencia: script/*_08-experimento-cache.script.log.
+
+ACA_ESTUDIANTES tiene 20000 filas y 244 bloques segun sus estadisticas.
+
+Resultados:
+- Ronda fria: 17600 filas ACTIVO, 357 lecturas logicas y 261 fisicas.
+- Ronda caliente: 17600 filas ACTIVO, 247 lecturas logicas y 0 fisicas.
+- V$BH mostro 245 entradas de bloques de la tabla presentes en cache.
+
+La segunda consulta reutilizo los bloques ya cargados y no necesito
+lecturas fisicas. Esto demuestra el efecto del Buffer Cache.
+
+La tasa estimada se calculo como:
+100 * (1 - lecturas_fisicas / lecturas_logicas).
+
+Ronda fria: 26.89 %.
+Ronda caliente: 100 %.
+
+A diferencia del ejemplo del documento, mis lecturas logicas no fueron
+iguales en ambas rondas. Los contadores son de la sesion e incluyen
+trabajo adicional, no exclusivamente la lectura de los bloques de datos
+de esta tabla. La primera ejecucion puede incluir trabajo de preparacion
+y consultas recursivas. No se ha aislado la contribucion exacta de cada
+causa.
+
+Por eso no atribuyo las 261 lecturas fisicas solo a los 244 bloques de
+datos de la tabla. Las 245 entradas observadas en cache son compatibles
+con los bloques de datos mas la cabecera de segmento descrita en el
+laboratorio.
+
+El 100 % del experimento se refiere al intervalo medido en la segunda
+ronda, no a una garantia de acierto de toda la base.
+
+### 18. Por que no sumar el RSS de los procesos
+
+La SGA es memoria compartida que puede aparecer en el RSS de varios
+procesos. Sumar sus RSS contaria repetidamente paginas compartidas.
+Para analizar la memoria se deben distinguir SGA y PGA y contrastar
+con medidas del contenedor, sin confundir ambos ambitos.
+
+### Pregunta tipo examen P9
+
+Opcion B.
+Con ASMM, DB_CACHE_SIZE=512M establece un minimo para el buffer cache,
+no obliga a que tenga exactamente ese tamano.
+
+### Pregunta tipo examen P10
+
+Opciones A y D.
+El area de ordenacion y la memoria de sesion en servidor dedicado
+pertenecen a la PGA; shared pool, log buffer y buffer cache son de la SGA.
+
+### Archivos de evidencia de la Parte G
+
+- docs/bitacora/lab4/evidencia/script/20261115T112730Z_08-experimento-cache.script.log
+- docs/bitacora/lab4/evidencia/spool/20261115T112643Z_08-memoria.spool.log

@@ -1,0 +1,16 @@
+=== 1. Estadisticas de la tabla ===
+
+TABLE_NAME		 NUM_ROWS     BLOCKS AVG_ROW_LEN
+---------------------- ---------- ---------- -----------
+ACA_ESTUDIANTES 	    20000	 244	      78
+=== 2. Vaciar Buffer Cache: solo laboratorio ===
+=== 3. Misma consulta: dos rondas ===
+Ronda 1: cache fria | filas ACTIVO=17600 | logicas=357 | fisicas=261
+Tasa de acierto estimada (%)=26.89
+Ronda 2: cache caliente | filas ACTIVO=17600 | logicas=247 | fisicas=0
+Tasa de acierto estimada (%)=100
+=== 4. Bloques de la tabla presentes en cache ===
+
+OBJECT_NAME	       BLOQUES_EN_CACHE
+---------------------- ----------------
+ACA_ESTUDIANTES 		    245
