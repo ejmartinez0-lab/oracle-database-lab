@@ -233,74 +233,6 @@ Opciones A y C.
 STARTUP_TIME cambia al arrancar la instancia.
 CREATED indica cuando se creo la base, no cuando se inicio la instancia.
 
-## Parte D. Instancia, base de datos y servicios
-
-### 8. Tres datos de instancia y tres de base de datos
-
-Evidencias:
-- script/*_02-cuenta-observabilidad.script.log.
-- spool/*_05-instancia-y-base.spool.log.
-- script/*_05-instancia-so.script.log.
-
-Datos de la instancia:
-1. INSTANCE_NAME: FREE.
-2. HOST_NAME: d1d9aadc0fa5.
-3. STARTUP_TIME: 2026-11-15 11:06:44, segun la salida de Oracle.
-
-Datos de la base:
-1. DBID: 1509902213.
-2. Fecha de creacion: 2026-07-05.
-3. LOG_MODE: ARCHIVELOG.
-
-La instancia estaba OPEN y ACTIVE. La base estaba READ WRITE.
-La fecha de arranque corresponde a la instancia, no a la creacion
-de la base.
-
-Al recrear el contenedor, el hostname cambio de d75ed86cf6d5 a
-d1d9aadc0fa5, pero el DBID siguio siendo 1509902213.
-La instancia se vuelve a iniciar; los archivos de la base permanecen
-en el volumen.
-
-### Cuenta y contexto de observacion
-
-C##OPS_RO aparece como usuario comun (COMMON=YES), OPEN, en CDB$ROOT
-y FREEPDB1. La consulta se ejecuto como C##OPS_RO, mediante el servicio
-free, dentro de CDB$ROOT. El SID observado fue 57; identifica esa sesion
-y puede cambiar en otra conexion.
-
-La contrasena se conserva en config.env, excluido de Git.
-El ejecutor ro.sh recibe la conexion por entrada estandar, sin pasar
-la contrasena como argumento del proceso.
-
-### Servicios y vista desde Linux
-
-El servicio free corresponde a la raiz y freepdb1 a la PDB.
-El listener mostro ambos servicios con la instancia FREE en estado READY.
-
-Linux mostro 59 procesos de background y el proceso tnslsnr del listener.
-No aparecio un servidor dedicado oracleFREE en esa captura; la consulta
-SQL anterior ya habia terminado.
-
-El consumo observado del contenedor fue 2.175 GiB sobre un limite de
-5.79 GiB. Es una medida del contenedor completo, no solo de la SGA.
-
-### Archivos observados
-
-La consulta SQL mostro:
-- 16 datafiles, con 3974 MB en total.
-- 3 tempfiles, con 60 MB en total.
-- 3 miembros de redo.
-- 2 control files.
-
-El listado de Linux confirma los datafiles de negocio en FREE/FREEPDB1
-y los control files y redo logs bajo FREE.
-
-### Pregunta tipo examen P3
-
-Opciones A y C.
-STARTUP_TIME cambia al arrancar la instancia.
-CREATED indica cuando se creo la base, no cuando se inicio la instancia.
-
 ### Archivos de evidencia de la Parte D
 
 - docs/bitacora/lab4/evidencia/script/20261115T111219Z_02-cuenta-observabilidad.script.log
@@ -697,3 +629,36 @@ que trabaja en NOARCHIVELOG.
 
 - docs/bitacora/lab4/evidencia/script/20261115T113005Z_09-procesos-so.script.log
 - docs/bitacora/lab4/evidencia/spool/20261115T112929Z_09-procesos.spool.log
+
+## Parte I. Verificacion final
+
+Evidencia: archivo indicado en la lista siguiente.
+
+El verificador termino con resultado 0 y todas las comprobaciones OK:
+backup integro, cinco tablespaces ONLINE, rutas correctas, propietarios
+sin autenticacion, datos V002 completos, CDB y PDB abiertas,
+C##OPS_RO comun, parametros restaurados, puerto 8181 retirado,
+evidencias presentes y PFILE versionado.
+
+V000 y V001 permanecen sin cambios. No hay backups ni config.env
+versionados. Esta verificacion tecnica no sustituye la revision del PR.
+
+## Parte J. Control previo a la entrega
+
+Evidencia:
+script/20261115T113312Z_10-control-secretos.script.log.
+
+El escaneo de las contrasenas actuales ORACLE_PWD y OPS_RO_PWD
+mostro 0 archivos y 0 lineas de historial con coincidencias.
+El alcance es el contenido versionado y el historial local disponible
+examinados por verificar-secretos.sh; no constituye un escaneo
+universal de cualquier secreto posible.
+
+Se reviso el indice de respuestas y se elimino una copia duplicada
+de la Parte D. La entrega en GitHub requiere completar la revision,
+el merge del PR y la publicacion de lab4-final.
+
+### Evidencias finales disponibles
+
+- docs/bitacora/lab4/evidencia/script/20261115T113146Z_10-verificacion-final.script.log
+- docs/bitacora/lab4/evidencia/script/20261115T113312Z_10-control-secretos.script.log
