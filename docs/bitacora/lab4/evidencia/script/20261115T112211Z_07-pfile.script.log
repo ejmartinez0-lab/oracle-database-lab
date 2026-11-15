@@ -1,0 +1,10 @@
+=== Lineas de los PFILE ===
+  32 docs/bitacora/lab4/evidencia/config/initFREE-lab4-antes.ora
+ 122 docs/bitacora/lab4/evidencia/config/initFREE-lab4-memoria.ora
+  32 docs/bitacora/lab4/evidencia/config/initFREE-lab4.ora
+ 186 total
+=== Parametros presentes en MEMORY pero no escritos en SPFILE ===
+=== Archivos guardados ===
+-rw-r--r-- 1 esteban esteban 1.1K Nov 15 12:21 docs/bitacora/lab4/evidencia/config/initFREE-lab4-antes.ora
+-rw-r--r-- 1 esteban esteban 4.2K Nov 15 12:21 docs/bitacora/lab4/evidencia/config/initFREE-lab4-memoria.ora
+-rw-r--r-- 1 esteban esteban 1.1K Nov 15 12:21 docs/bitacora/lab4/evidencia/config/initFREE-lab4.ora

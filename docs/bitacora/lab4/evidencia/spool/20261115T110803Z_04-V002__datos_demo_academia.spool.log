@@ -1,0 +1,26 @@
+
+Session altered.
+
+
+Session altered.
+
+V002: ya hay 20000 estudiantes; no se inserta nada.
+
+PL/SQL procedure successfully completed.
+
+=== Recuento final ===
+
+ESTUDIANTES ASIGNATURAS MATRICULAS
+----------- ----------- ----------
+      20000	     40      60000
+
+1 row selected.
+
+=== Fila de referencia ===
+
+ESTUDIANTE_ID DNI		   ESTADO
+------------- -------------------- --------------------
+	  101 00000101X 	   ACTIVO
+
+1 row selected.
+

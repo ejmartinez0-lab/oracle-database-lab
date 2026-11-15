@@ -1,0 +1,60 @@
+=== A. Diagnostico SQL ===
+=== 1. Instancia ===
+
+INSTANCE_NAME	 HOST_NAME	  VERSION_FULL	    STATUS	 ARRANQUE
+---------------- ---------------- ----------------- ------------ -------------------
+FREE		 d75ed86cf6d5	  23.26.3.0.0	    OPEN	 2026-11-15 10:55:09
+=== 2. Base de datos ===
+
+NAME										      CDB LOG_MODE     OPEN_MODE
+------------------------------------------------------------------------------------- --- ------------ --------------------
+FREE										      YES ARCHIVELOG   READ WRITE
+=== 3. Contenedores ===
+
+    CON_ID NAME 										 OPEN_MODE
+---------- ------------------------------------------------------------------------------------- ----------
+	 1 CDB$ROOT										 READ WRITE
+	 2 PDB$SEED										 READ ONLY
+	 3 FREEPDB1										 READ WRITE
+=== 4. Datafiles de FREEPDB1 ===
+
+     FILE# NAME 											 MB
+---------- ------------------------------------------------------------------------------------- ----------
+	12 /opt/oracle/oradata/FREE/FREEPDB1/system01.dbf						300
+	13 /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf						450
+	14 /opt/oracle/oradata/FREE/FREEPDB1/undotbs01.dbf						100
+	15 /opt/oracle/oradata/FREE/FREEPDB1/users01.dbf						 72
+	16 /opt/oracle/product/26ai/dbhomeFree/dbs/academia01.dbf					100
+	17 /opt/oracle/product/26ai/dbhomeFree/dbs/clinica01.dbf					100
+	18 /opt/oracle/product/26ai/dbhomeFree/dbs/retail01.dbf 					100
+	19 /opt/oracle/product/26ai/dbhomeFree/dbs/logistica01.dbf					100
+	20 /opt/oracle/product/26ai/dbhomeFree/dbs/fintech01.dbf					100
+=== 5. Destinos de creacion de archivos y recuperacion ===
+
+NAME										      VALUE
+------------------------------------------------------------------------------------- -----------------------------------------------------------------
+db_create_file_dest								      (vacio)
+db_recovery_file_dest								      (vacio)
+=== B. Rutas reales de los datafiles de negocio ===
+DENTRO, carpeta NO estandar: /opt/oracle/product/26ai/dbhomeFree/dbs/academia01.dbf -> /opt/oracle/oradata/dbconfig/FREE/dbs/academia01.dbf
+DENTRO, carpeta NO estandar: /opt/oracle/product/26ai/dbhomeFree/dbs/clinica01.dbf -> /opt/oracle/oradata/dbconfig/FREE/dbs/clinica01.dbf
+DENTRO, carpeta NO estandar: /opt/oracle/product/26ai/dbhomeFree/dbs/fintech01.dbf -> /opt/oracle/oradata/dbconfig/FREE/dbs/fintech01.dbf
+DENTRO, carpeta NO estandar: /opt/oracle/product/26ai/dbhomeFree/dbs/logistica01.dbf -> /opt/oracle/oradata/dbconfig/FREE/dbs/logistica01.dbf
+DENTRO, carpeta NO estandar: /opt/oracle/product/26ai/dbhomeFree/dbs/retail01.dbf -> /opt/oracle/oradata/dbconfig/FREE/dbs/retail01.dbf
+=== C. ORACLE_HOME/dbs y sus enlaces ===
+ORACLE_HOME=/opt/oracle/product/26ai/dbhomeFree
+lrwxrwxrwx 1 oracle oinstall 37 Jul  5 22:02 /opt/oracle/product/26ai/dbhomeFree/dbs -> /opt/oracle/oradata/dbconfig/FREE/dbs
+total 616064
+-rw-r----- 1 oracle oinstall 104865792 Nov 15 10:55 academia01.dbf
+-rw-r----- 1 oracle oinstall  68800512 Oct 25 15:57 arch1_1_1237845575.dbf
+-rw-r----- 1 oracle oinstall  18907136 Oct 25 16:22 c-1509902213-20261025-00
+-rw-r----- 1 oracle oinstall 104865792 Nov 15 10:55 clinica01.dbf
+-rw-r----- 1 oracle oinstall 104865792 Nov 15 10:55 fintech01.dbf
+-rw-rw---- 1 oracle oinstall      1544 Nov 15 10:55 hc_FREE.dat
+-rw-r----- 1 oracle oinstall      3079 May 14  2015 init.ora
+-rw-r----- 1 oracle oinstall        24 Jul  5 21:57 lkFREE
+-rw-r----- 1 oracle oinstall 104865792 Nov 15 10:55 logistica01.dbf
+-rw-r----- 1 oracle oinstall      2048 Nov 15 10:55 orapwFREE
+-rw-r----- 1 oracle oinstall 104865792 Nov 15 10:55 retail01.dbf
+-rw-r----- 1 oracle oinstall  18792448 Oct 25 16:22 snapcf_FREE.f
+-rw-r----- 1 oracle oinstall      3584 Nov 15 10:55 spfileFREE.ora

@@ -7,7 +7,7 @@ export CONTNAME=oralab-26ai
 export VOLNAME=oralab-26ai-data
 export IMG=container-registry.oracle.com/database/free:latest
 export PORTDB=1521
-export PORTORDS=8181
+export PORTORDS=8181 # Lab 4: OBSOLETA; ORDS usa ORDS_PORT en Linux
 export SERVICE_CDB=FREE
 export SERVICE_PDB=FREEPDB1
 export BACKUP_DIR="$(pwd)/backups"
@@ -22,3 +22,7 @@ export ORDS_HOME="/opt/oracle/ords"
 export ORDS_CONFIG="/etc/ords/config"
 export ORDS_LOGS="/var/log/ords"
 export ORDS_PORT=8080
+
+export HELPER_IMG="ubuntu:24.04"
+export DATA_ROOT="/opt/oracle/oradata"
+export EVID_LAB4="docs/bitacora/lab4/evidencia"
