@@ -394,3 +394,119 @@ Mi base ya estaba en ARCHIVELOG y no cambie su modo.
 
 - docs/bitacora/lab4/evidencia/script/20261115T111615Z_06-arranque-por-etapas.script.log
 - docs/bitacora/lab4/evidencia/script/20261115T111802Z_06-alert-log.script.log
+
+## Parte F. Parametros, alcances y PFILE
+
+Evidencias:
+- spool/*_07-parametros-lectura.spool.log.
+- script/*_07-parametros-cambios.script.log.
+- script/*_07-pfile.script.log.
+- config/initFREE-lab4-antes.ora.
+- config/initFREE-lab4.ora.
+- config/initFREE-lab4-memoria.ora.
+
+### 12. V$PARAMETER frente a V$SPPARAMETER
+
+V$PARAMETER muestra el valor efectivo de los parametros en la sesion.
+V$SPPARAMETER muestra lo registrado en el archivo de parametros
+persistente, que puede ser distinto de lo que esta activo.
+
+Mi evidencia de DB_FILES muestra:
+- Estado inicial: memoria 200, sin entrada explicita en SPFILE.
+- Tras SET con SCOPE=SPFILE: memoria 200, SPFILE 300.
+- Tras RESET: memoria 200 y SPFILE ISSPECIFIED=FALSE.
+
+No se reinicio la instancia durante este experimento.
+El valor 300 de DB_FILES se retiro antes de que pudiera aplicarse
+en un arranque posterior.
+
+### 13. MEMORY, SPFILE y BOTH
+
+OPEN_CURSORS con SCOPE=MEMORY paso a 400 en memoria y siguio en
+300 en el SPFILE: el cambio no persistiria tras reiniciar.
+
+Con SCOPE=BOTH paso a 500 tanto en memoria como en SPFILE.
+El comentario "Lab4 prueba SCOPE BOTH" tambien aparece en la evidencia.
+
+Finalmente se devolvio a 300 en ambos y se retiro el comentario.
+Al arrancar con SPFILE, el SCOPE por defecto de ALTER SYSTEM SET
+es BOTH, siempre que el parametro admita esa modificacion.
+
+SCOPE=SPFILE modifica solo la configuracion persistente; permite
+preparar un cambio estatico para el siguiente arranque.
+
+### 14. PROCESSES y limites de la metadata
+
+La consulta inicial muestra PROCESSES con ISSYS_MODIFIABLE=IMMEDIATE,
+pero el intento de cambiarlo en memoria fue rechazado con
+ORA-02097 y ORA-02095.
+
+PROCESSES dimensiona estructuras al arrancar y en esta prueba no
+admite el cambio en memoria. Para cambiarlo se utilizaria
+SCOPE=SPFILE y un reinicio planificado.
+La metadata debe contrastarse con el comportamiento observado.
+
+MEMORY_SIZE=1600M tambien fue rechazado, con ORA-62352:
+no se puede activar dinamicamente si no estaba configurado al arrancar.
+Su valor final permanecio en 0.
+
+### Alcances PDB y sesion
+
+En FREEPDB1, OPEN_CURSORS se cambio temporalmente a 350 en memoria.
+Tras RESET volvio a heredar 300.
+
+El intento de cambiar PROCESSES desde FREEPDB1 fue rechazado con
+ORA-65040: no es modificable en ese ambito.
+
+ALTER SESSION cambio NLS_DATE_FORMAT solo para la conexion del
+experimento. No se modifico el formato global de la instancia.
+
+### 15. PFILE y deriva de configuracion
+
+Antes de modificar parametros se creo initFREE-lab4-antes.ora desde
+el SPFILE, como copia legible de seguridad.
+
+Al finalizar se exportaron:
+- initFREE-lab4.ora desde SPFILE.
+- initFREE-lab4-memoria.ora desde MEMORY.
+
+El exportado de memoria puede incluir parametros derivados o por
+defecto que no estaban escritos explicitamente en el SPFILE.
+
+Versionar estas fotografias permite comparar configuraciones con
+git diff y detectar cambios no documentados: configuration drift.
+Los PFILE son archivos de configuracion; no sustituyen al backup
+de los archivos de la base.
+
+### Estado final comprobado
+
+- OPEN_CURSORS: 300 en CDB$ROOT y FREEPDB1.
+- DB_FILES: 200 en memoria, sin entrada explicita pendiente en SPFILE.
+- PROCESSES: 200.
+- MEMORY_SIZE: 0.
+- Experimento terminado con resultado 0.
+
+### Pregunta tipo examen P6
+
+Opcion B: con SPFILE y sin especificar SCOPE, el cambio del parametro
+dinamico se aplica a memoria y SPFILE.
+
+### Pregunta tipo examen P7
+
+Opcion C: PROCESSES no es modificable a nivel de PDB y se obtiene
+ORA-65040.
+
+### Pregunta tipo examen P8
+
+Opciones A y C: arrancar con un PFILE valido y reconstruir el SPFILE
+desde ese archivo permite corregir una configuracion persistente
+que impide el arranque.
+
+### Archivos de evidencia de la Parte F
+
+- docs/bitacora/lab4/evidencia/config/initFREE-lab4-antes.ora
+- docs/bitacora/lab4/evidencia/config/initFREE-lab4-memoria.ora
+- docs/bitacora/lab4/evidencia/config/initFREE-lab4.ora
+- docs/bitacora/lab4/evidencia/script/20261115T112120Z_07-parametros-cambios.script.log
+- docs/bitacora/lab4/evidencia/script/20261115T112211Z_07-pfile.script.log
+- docs/bitacora/lab4/evidencia/spool/20261115T111954Z_07-parametros-lectura.spool.log
