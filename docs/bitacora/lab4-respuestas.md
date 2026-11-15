@@ -603,3 +603,97 @@ pertenecen a la PGA; shared pool, log buffer y buffer cache son de la SGA.
 
 - docs/bitacora/lab4/evidencia/script/20261115T112730Z_08-experimento-cache.script.log
 - docs/bitacora/lab4/evidencia/spool/20261115T112643Z_08-memoria.spool.log
+
+## Parte H. Procesos Oracle y Linux
+
+### 19. Correspondencia entre SPID y PID
+
+Evidencias:
+- spool/*_09-procesos.spool.log.
+- script/*_09-procesos-so.script.log.
+
+Oracle mostro LGWR con SPID 1254.
+La consulta directa de /proc/1254 dentro del contenedor mostro:
+- Pid: 1254.
+- PPid: 1.
+- Comando: db_lgwr_FREE.
+
+docker top mostro ese mismo proceso db_lgwr_FREE con PID 6890.
+Los numeros difieren porque se observan desde espacios de nombres
+de PID distintos: interior del contenedor y anfitrion de Docker.
+No son dos procesos LGWR diferentes.
+
+La consulta SQL registro 87 entradas de background en V$PROCESS,
+pero 54 SPID distintos. Por tanto, no hay correspondencia uno a uno
+entre todas las entradas Oracle y los procesos Linux; algunas entradas
+comparten un proceso del sistema operativo.
+
+La captura posterior de /proc encontro 58 procesos con el patron
+de nombres de background. No se tomo simultaneamente con SQL y usa
+un criterio de recuento diferente: no se exige igualdad entre cifras.
+
+Mi sesion SQLcl se identifico con SID 177, SERIAL# 12653 y SPID 2441.
+En la captura posterior de Linux ya no habia servidores dedicados
+oracleFREE: la conexion SQLcl habia terminado.
+
+### 20. PMON y SMON
+
+PMON se relaciona con la deteccion y limpieza de procesos de usuario
+fallidos y la liberacion de recursos. En versiones modernas parte
+del trabajo de limpieza se delega en procesos como CLMN.
+Ejemplo: una conexion desaparece dejando recursos que deben liberarse.
+
+SMON se relaciona con la recuperacion de instancia al arrancar cuando
+es necesaria y con tareas de limpieza del sistema.
+Ejemplo: recuperacion tras una parada no limpia de la instancia.
+En esta practica no se provoco un SHUTDOWN ABORT.
+
+Otros procesos identificados:
+- DBW0, SPID 1252: escribe bloques modificados en los datafiles.
+- LGWR, SPID 1254: escribe redo en los redo logs.
+- CKPT, SPID 1257: coordina checkpoints y actualiza informacion asociada.
+- LREG, SPID 1270: registra servicios de la instancia en el listener.
+- ARC0 a ARC3: cuatro archivadores, coherentes con ARCHIVELOG.
+
+### 21. Por que observar con C##OPS_RO
+
+La cuenta dispone de los permisos de conexion, cambio de contenedor
+y consulta de catalogo concedidos en la Parte D, sin usar una cuenta
+administrativa general como SYSTEM o SYS.
+
+No se le han concedido privilegios para modificar las tablas de negocio
+ni para realizar operaciones SYSDBA como arrancar o parar la instancia.
+Se aplica minimo privilegio para reducir el riesgo de una operacion
+administrativa accidental.
+
+### 22. Vias de exposicion de contrasenas corregidas
+
+1. V000 contenia credenciales de propietarios de esquema.
+   V003 las invalido convirtiendo las cuentas en NO AUTHENTICATION,
+   sin modificar las migraciones historicas.
+
+2. El ejecutor de migraciones pasaba la contrasena de SYS como argumento.
+   La nueva version utiliza autenticacion del sistema operativo dentro
+   del contenedor, sin contrasena en la linea de comandos.
+
+La nueva contrasena de observabilidad se conserva en config.env,
+excluido de Git, y se envia por entrada estandar.
+La ausencia de secretos en archivos e historial se comprobara en J.2.
+
+### Pregunta tipo examen P11
+
+Opcion C: LGWR.
+En un COMMIT sincrono normal, el proceso confirma la escritura del redo
+necesario antes de devolver el control. DBWn no tiene que escribir en
+ese momento todos los bloques modificados a los datafiles.
+
+### Pregunta tipo examen P12
+
+Opciones B y D: PMON y SMON.
+ARC0 depende del modo de archivado; no es obligatorio en una instancia
+que trabaja en NOARCHIVELOG.
+
+### Archivos de evidencia de la Parte H
+
+- docs/bitacora/lab4/evidencia/script/20261115T113005Z_09-procesos-so.script.log
+- docs/bitacora/lab4/evidencia/spool/20261115T112929Z_09-procesos.spool.log

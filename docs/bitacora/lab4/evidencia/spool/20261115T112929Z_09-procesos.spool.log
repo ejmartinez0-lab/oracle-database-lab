@@ -1,0 +1,55 @@
+=== 1. Procesos Oracle y procesos Linux distintos ===
+
+TIPO         PROCESOS_ORACLE PROCESOS_LINUX
+------------ --------------- --------------
+background                87             54
+servidor                   4              4
+=== 2. Procesos de background y sus funciones ===
+
+PNAME    SPID         DESCRIPTION                                     
+-------- ------------ ------------------------------------------------
+ARC0     1357         Archival Process 0                              
+ARC1     1359         Archival Process 1                              
+ARC2     1361         Archival Process 2                              
+ARC3     1363         Archival Process 3                              
+CJQ0     1558         Job Queue Coordinator                           
+CKPT     1257         checkpoint                                      
+CLMN     1210         process cleanup                                 
+DBW0     1252         db writer process 0                             
+DIA0     1250         diagnosibility process 0                        
+DIAG     1236         diagnosibility process                          
+LGWR     1254         Redo etc.                                       
+LREG     1270         Listener Registration                           
+MMAN     1228         Memory Manager                                  
+MMNL     1282         Manageability Monitor Process 2                 
+MMON     1279         Manageability Monitor Process                   
+PMAN     1248         process manager                                 
+PMON     1206         process cleanup                                 
+PSP0     1214         process spawner 0                               
+RECO     1267         distributed recovery                            
+SMON     1260         System Monitor Process                          
+VKTM     1218         Virtual Keeper of TiMe process                  
+=== 3. Modo de archivado y archivadores activos ===
+
+LOG_MODE
+------------
+ARCHIVELOG
+
+PROCESOS_ARCN
+-------------
+            4
+=== 4. Mi sesion y su proceso servidor ===
+
+       SID    SERIAL# USERNAME         MACHINE                  PROGRAM                                SPID        
+---------- ---------- ---------------- ------------------------ -------------------------------------- ------------
+       177      12653 C##OPS_RO        NB-ESTEBAN               SQLcl                                  2441        
+=== 5. Sesiones de usuario ===
+
+       SID USERNAME         STATUS   MACHINE                  PROGRAM                                SPID        
+---------- ---------------- -------- ------------------------ -------------------------------------- ------------
+       177 C##OPS_RO        ACTIVE   NB-ESTEBAN               SQLcl                                  2441        
+=== 6. SPID de LGWR para el siguiente paso ===
+
+PNAME    SPID        
+-------- ------------
+LGWR     1254        
