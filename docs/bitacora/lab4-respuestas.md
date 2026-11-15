@@ -307,3 +307,90 @@ CREATED indica cuando se creo la base, no cuando se inicio la instancia.
 - docs/bitacora/lab4/evidencia/script/20261115T111329Z_05-instancia-so.script.log
 - docs/bitacora/lab4/evidencia/spool/20261115T111312Z_05-instancia-y-base.spool.log
 - docs/bitacora/lab4/evidencia/spool/20261115T111407Z_05-instancia-y-base.spool.log
+
+## Parte E. Arranque por etapas y alert log
+
+### 9. NOMOUNT, MOUNT y OPEN
+
+Evidencia:
+script/20261115T111615Z_06-arranque-por-etapas.script.log.
+
+NOMOUNT:
+Oracle lee los parametros de arranque, reserva la SGA e inicia los
+procesos de background. La instancia aparece como STARTED.
+V$PARAMETER devuelve DB_NAME, SPFILE y CONTROL_FILES.
+La consulta a V$DATABASE produce ORA-01507 porque la base aun no esta
+montada: los control files todavia no se han abierto.
+
+MOUNT:
+Oracle abre los control files y conoce la estructura de la base.
+La instancia aparece como MOUNTED. Se muestran dos control files
+y 16 datafiles conocidos.
+DBA_TABLES produce ORA-01219 porque la base todavia no esta abierta
+y no se puede consultar normalmente el diccionario almacenado en
+sus datafiles.
+
+OPEN:
+Oracle abre los datafiles y los redo logs para el funcionamiento normal.
+La instancia termina OPEN y ACTIVE, y la base READ WRITE.
+La grabacion finaliza con codigo 0.
+Los errores ORA-01507 y ORA-01219 fueron provocados deliberadamente.
+
+### 10. Apertura automatica de FREEPDB1
+
+La evidencia muestra FREEPDB1 en READ WRITE tras ALTER DATABASE OPEN.
+DBA_PDB_SAVED_STATES muestra:
+FREEPDB1 | FREE | OPEN.
+
+La PDB tiene guardado su estado de apertura.
+Si no se abriera automaticamente, desde CDB$ROOT ejecutaria:
+
+    ALTER PLUGGABLE DATABASE FREEPDB1 OPEN;
+    ALTER PLUGGABLE DATABASE FREEPDB1 SAVE STATE;
+
+No fue necesario ejecutar estos cambios durante la prueba.
+
+### 11. Clasificacion de mensajes del alert log
+
+Evidencia: script/*_06-alert-log.script.log.
+Archivo revisado:
+ /opt/oracle/diag/rdbms/free/FREE/trace/alert_FREE.log.
+Alcance de la revision: ultimas 400 lineas.
+
+Se observa ORA-00800 con Set Priority Failed para VKTM y LGWR.
+El contexto indica que no se pudo elevar la prioridad de esos procesos.
+Coincide con el aviso conocido de restricciones del contenedor descrito
+en el laboratorio. No impidio montar y abrir la base:
+el log termina mostrando la apertura de FREEPDB1 en lectura y escritura
+y Completed: ALTER DATABASE OPEN.
+
+No se observo ORA-20013 en el fragmento revisado.
+El documento describe el caso asociado a DBMS_QOPATCH y al inventario
+de parches como un aviso conocido de esta imagen; no afirmo haberlo
+reproducido en mi ejecucion.
+
+Esta clasificacion depende del contexto del mensaje. No implica que
+cualquier ORA-00800 u ORA-20013 deba ignorarse en cualquier entorno.
+
+El log tambien recoge el cierre limpio, Instance shutdown complete,
+Starting ORACLE instance, MOUNT y OPEN.
+La mera aparicion del texto Crash Recovery no demuestra por si sola
+un cierre anterior mediante ABORT: la prueba ejecutada fue
+SHUTDOWN IMMEDIATE y el log indica PDB cerradas limpiamente.
+
+### Pregunta tipo examen P4
+
+Opciones A y C.
+En NOMOUNT se pueden consultar parametros y crear o recrear el
+control file. Todavia no se puede consultar normalmente el diccionario.
+
+### Pregunta tipo examen P5
+
+Opcion B: MOUNT.
+El cambio a ARCHIVELOG requiere la base montada, pero no abierta.
+Mi base ya estaba en ARCHIVELOG y no cambie su modo.
+
+### Archivos de evidencia de la Parte E
+
+- docs/bitacora/lab4/evidencia/script/20261115T111615Z_06-arranque-por-etapas.script.log
+- docs/bitacora/lab4/evidencia/script/20261115T111802Z_06-alert-log.script.log

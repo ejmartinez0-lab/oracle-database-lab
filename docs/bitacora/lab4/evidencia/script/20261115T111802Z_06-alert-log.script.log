@@ -1,0 +1,79 @@
+=== Archivo revisado ===
+/opt/oracle/diag/rdbms/free/FREE/trace/alert_FREE.log
+=== Parada, arranque y apertura: ultimas 400 lineas ===
+ORA-00800: soft external error, arguments: [Set Priority Failed], [VKTM], [Check traces and OS configuration], [Check Oracle document and MOS notes], []
+ORA-00800: soft external error, arguments: [Set Priority Failed], [LGWR], [Check traces and OS configuration], [Check Oracle document and MOS notes], []
+ALTER DATABASE   MOUNT
+Successful mount of redo thread 1, with mount id 1521500038
+Completed: ALTER DATABASE   MOUNT
+ALTER DATABASE OPEN
+Crash Recovery excluding pdb 2 which was cleanly closed.
+Crash Recovery excluding pdb 3 which was cleanly closed.
+Thread 1 opened at log sequence 2
+Successful open of redo thread 1
+PDB$SEED(2):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+FREEPDB1(3):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+Completed: Pluggable database FREEPDB1 opened read write 
+Completed: ALTER DATABASE OPEN
+Shutting down ORACLE instance (immediate) (OS id: 1201)
+Shutting down instance: further logons disabled
+Completed: Pluggable database FREEPDB1 closed services=None
+Completed: alter pluggable database all close immediate
+ALTER DATABASE CLOSE NORMAL
+Completed: alter pluggable database all close immediate
+Completed: alter pluggable database all close immediate
+Completed: ALTER DATABASE CLOSE NORMAL
+ALTER DATABASE DISMOUNT
+Completed: ALTER DATABASE DISMOUNT
+Instance shutdown complete (OS id: 1201)
+Starting ORACLE instance (normal) (OS id: 1203)
+ORA-00800: soft external error, arguments: [Set Priority Failed], [VKTM], [Check traces and OS configuration], [Check Oracle document and MOS notes], []
+ORA-00800: soft external error, arguments: [Set Priority Failed], [LGWR], [Check traces and OS configuration], [Check Oracle document and MOS notes], []
+ALTER DATABASE MOUNT
+Successful mount of redo thread 1, with mount id 1521483461
+Completed: ALTER DATABASE MOUNT
+ALTER DATABASE OPEN
+Crash Recovery excluding pdb 2 which was cleanly closed.
+Crash Recovery excluding pdb 3 which was cleanly closed.
+Thread 1 opened at log sequence 3
+Successful open of redo thread 1
+PDB$SEED(2):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+FREEPDB1(3):Opening pdb with Resource Manager plan: DEFAULT_PLAN
+Completed: Pluggable database FREEPDB1 opened read write 
+Completed: ALTER DATABASE OPEN
+=== Mensajes ORA con contexto en el mismo fragmento ===
+60-2026-11-15T11:06:45.543902+00:00
+61-Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_vktm_54.trc  (incident=8051) (PDBNAME=CDB$ROOT):
+62:ORA-00800: soft external error, arguments: [Set Priority Failed], [VKTM], [Check traces and OS configuration], [Check Oracle document and MOS notes], []
+63-Incident details in: /opt/oracle/diag/rdbms/free/FREE/incident/incdir_8051/FREE_vktm_54_i8051.trc
+64---ATTENTION--
+65-The priority of process VKTM cannot be elevated.
+66-
+67-Failed to elevate VKTM's priority from 0 to 1, policy 5
+--
+71-2026-11-15T11:06:45.952808+00:00
+72-Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_lgwr_94.trc  (incident=8171) (PDBNAME=CDB$ROOT):
+73:ORA-00800: soft external error, arguments: [Set Priority Failed], [LGWR], [Check traces and OS configuration], [Check Oracle document and MOS notes], []
+74-Incident details in: /opt/oracle/diag/rdbms/free/FREE/incident/incdir_8171/FREE_lgwr_94_i8171.trc
+75---ATTENTION--
+76-The priority of process LGWR cannot be elevated.
+77-
+78-Failed to elevate LGWR's priority from 0 to 1, policy 5
+--
+316-2026-11-15T11:16:20.378144+00:00
+317-Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_vktm_1218.trc  (incident=9653) (PDBNAME=CDB$ROOT):
+318:ORA-00800: soft external error, arguments: [Set Priority Failed], [VKTM], [Check traces and OS configuration], [Check Oracle document and MOS notes], []
+319-Incident details in: /opt/oracle/diag/rdbms/free/FREE/incident/incdir_9653/FREE_vktm_1218_i9653.trc
+320---ATTENTION--
+321-The priority of process VKTM cannot be elevated.
+322-
+323-Failed to elevate VKTM's priority from 0 to 1, policy 5
+--
+327-2026-11-15T11:16:20.809063+00:00
+328-Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_lgwr_1254.trc  (incident=9773) (PDBNAME=CDB$ROOT):
+329:ORA-00800: soft external error, arguments: [Set Priority Failed], [LGWR], [Check traces and OS configuration], [Check Oracle document and MOS notes], []
+330-Incident details in: /opt/oracle/diag/rdbms/free/FREE/incident/incdir_9773/FREE_lgwr_1254_i9773.trc
+331---ATTENTION--
+332-The priority of process LGWR cannot be elevated.
+333-
+334-Failed to elevate LGWR's priority from 0 to 1, policy 5
