@@ -1,0 +1,78 @@
+=== 0. Comprobaciones de seguridad ===
+=== 1. ANTES: identidad, archivos y datos ===
+=== Identidad de la base ===
+
+      DBID NAME      OPEN_MODE
+---------- --------- --------------------
+1509902213 FREE      READ WRITE
+=== Datafiles de negocio ===
+
+TABLESPACE_NAME  FILE_NAME								   MB ONLINE_STATUS
+---------------- ----------------------------------------------------------------- ---------- --------------
+TBS_ACADEMIA	 /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf			  100 ONLINE
+TBS_CLINICA	 /opt/oracle/oradata/FREE/FREEPDB1/clinica01.dbf			  100 ONLINE
+TBS_FINTECH	 /opt/oracle/oradata/FREE/FREEPDB1/fintech01.dbf			  100 ONLINE
+TBS_LOGISTICA	 /opt/oracle/oradata/FREE/FREEPDB1/logistica01.dbf			  100 ONLINE
+TBS_RETAIL	 /opt/oracle/oradata/FREE/FREEPDB1/retail01.dbf 			  100 ONLINE
+=== Tablas por propietario ===
+
+OWNER			   TABLAS
+---------------------- ----------
+ADMIN_ACADEMIA			3
+ADMIN_CLINICA			3
+ADMIN_FINTECH			2
+ADMIN_LOGISTICA 		3
+ADMIN_RETAIL			3
+=== Datos de Academia ===
+
+ESTUDIANTES ESTADO_FILA_101
+----------- --------------------
+	  0
+=== 2. Parada limpia y eliminacion SOLO del contenedor ===
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+oralab-26ai
+DRIVER    VOLUME NAME
+local     oralab-26ai-data
+=== 3. Recrear con el mismo volumen ===
+El volumen ya contiene FREE: se reutiliza sin pasar contrasenas.
+d1d9aadc0fa5d63574edbd4e41e7229e26d44a2f042f3b61964ea6434aeefb14
+Contenedor oralab-26ai creado.
+CONTAINER ID   IMAGE                                                COMMAND                  CREATED        STATUS                                     PORTS                                         NAMES
+d1d9aadc0fa5   container-registry.oracle.com/database/free:latest   "/bin/bash -c $SCRIP…"   1 second ago   Up Less than a second (health: starting)   0.0.0.0:1521->1521/tcp, [::]:1521->1521/tcp   oralab-26ai
+t=0s docker=starting cdb+pdb=no-disponible
+t=10s docker=starting cdb+pdb=READWRITEREADWRITE
+=== 4. DESPUES: identidad, archivos y datos ===
+=== Identidad de la base ===
+
+      DBID NAME      OPEN_MODE
+---------- --------- --------------------
+1509902213 FREE      READ WRITE
+=== Datafiles de negocio ===
+
+TABLESPACE_NAME  FILE_NAME								   MB ONLINE_STATUS
+---------------- ----------------------------------------------------------------- ---------- --------------
+TBS_ACADEMIA	 /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf			  100 ONLINE
+TBS_CLINICA	 /opt/oracle/oradata/FREE/FREEPDB1/clinica01.dbf			  100 ONLINE
+TBS_FINTECH	 /opt/oracle/oradata/FREE/FREEPDB1/fintech01.dbf			  100 ONLINE
+TBS_LOGISTICA	 /opt/oracle/oradata/FREE/FREEPDB1/logistica01.dbf			  100 ONLINE
+TBS_RETAIL	 /opt/oracle/oradata/FREE/FREEPDB1/retail01.dbf 			  100 ONLINE
+=== Tablas por propietario ===
+
+OWNER			   TABLAS
+---------------------- ----------
+ADMIN_ACADEMIA			3
+ADMIN_CLINICA			3
+ADMIN_FINTECH			2
+ADMIN_LOGISTICA 		3
+ADMIN_RETAIL			3
+=== Datos de Academia ===
+
+ESTUDIANTES ESTADO_FILA_101
+----------- --------------------
+	  0
+=== 5. Puertos publicados ===
+1521/tcp -> 0.0.0.0:1521
+1521/tcp -> [::]:1521
+OK: prueba completada y puerto 8181 no publicado.

@@ -50,3 +50,117 @@ corresponden a la comprobación del arranque, no a una restauración completa.
 Opciones A y D. Tras un cierre limpio, la copia completa es consistente
 y puede restaurarse y abrirse sin recuperación con redo por un cierre
 inconsistente.
+
+## Parte C. Diagnostico y correcciones
+
+### 4. Ubicacion inicial de los datafiles
+
+Evidencia: script/*_01-diagnostico.script.log.
+
+Los cinco datafiles de negocio estaban registrados bajo
+/opt/oracle/product/26ai/dbhomeFree/dbs/.
+DB_CREATE_FILE_DEST estaba vacio y V000 utilizaba rutas relativas.
+
+En mi imagen, dbhomeFree/dbs es un enlace simbolico hacia
+/opt/oracle/oradata/dbconfig/FREE/dbs/.
+Por ello los archivos estaban dentro del volumen, aunque fuera de la
+carpeta estandar de FREEPDB1. No estaban expuestos a perderse simplemente
+por borrar el contenedor en esta configuracion concreta.
+
+DB_CREATE_FILE_DEST, configurado con un destino adecuado, habria permitido
+usar Oracle Managed Files al crear archivos sin indicar su nombre.
+Para las migraciones del laboratorio se emplean rutas absolutas dentro
+del volumen.
+
+### 5. Procedimiento de reubicacion
+
+Evidencias:
+- script/*_03-reubicar-datafiles.script.log.
+- script/*_03-reubicar-idempotencia.script.log.
+
+RENAME DATAFILE cambia la ruta registrada en Oracle; no copia el archivo.
+Se ejecuto OFFLINE NORMAL, copia fisica con cp -p, RENAME DATAFILE,
+ONLINE y configuracion del crecimiento. Solo despues se retiro el original.
+
+Los cinco tablespaces quedaron ONLINE, con archivos de 100 MB bajo
+/opt/oracle/oradata/FREE/FREEPDB1/, AUTOEXTEND activado y MAXSIZE de 1024 MB.
+
+La segunda ejecucion respondio "Nada que reubicar", demostrando
+idempotencia.
+
+### 6. Migraciones y credenciales expuestas
+
+Evidencias:
+- spool/*_04-V003__cuentas_esquema_sin_password.spool.log.
+- spool/*_04-verificacion-cuentas.spool.log.
+- database/migrations/V003__cuentas_esquema_sin_password.sql.
+- scripts/deployment/env/08-aplicar-migraciones.sh.
+
+V000 y V001 permanecen sin modificar: describen cambios ya aplicados.
+La correccion se introduce mediante V003.
+
+Los cinco propietarios ADMIN_* muestran AUTHENTICATION_TYPE=NONE.
+Conservan sus objetos, pero no pueden iniciar sesion mediante las
+contrasenas antiguas. La prueba manual de conexion como ADMIN_ACADEMIA
+devolvio ORA-01017.
+
+Borrar una contrasena del archivo actual no la elimina del historial.
+Invalidarla impide utilizar la credencial expuesta.
+
+El ejecutor de migraciones utiliza autenticacion del sistema operativo
+dentro del contenedor: no pasa la contrasena de SYS como argumento.
+
+### 7. Prueba de persistencia y definicion del contenedor
+
+Evidencia: script/*_03-prueba-persistencia.script.log.
+
+Se paro Oracle limpiamente, se elimino solo el contenedor y se recreo
+utilizando el volumen oralab-26ai-data.
+
+Antes y despues:
+- DBID: 1509902213.
+- Cinco tablespaces de negocio ONLINE.
+- Tablas: Academia 3, Clinica 3, Fintech 2, Logistica 3 y Retail 3.
+- Estudiantes: 0, porque V002 todavia no se habia aplicado.
+
+La prueba demuestra conservacion de la base y de su estructura.
+No demuestra conservacion de filas de Academia, porque estaban vacias.
+
+Se realiza despues de la reubicacion para que los archivos esten en el
+destino previsto dentro del volumen y no dependan del enlace de la imagen.
+
+La nueva definicion publica solo el puerto 1521, no el 8181.
+Al reutilizar el volumen no se pasa ORACLE_PWD al contenedor.
+PORTORDS se conserva marcado como obsoleto.
+La plantilla utiliza APP_USER_PWD y existen V000 y V001 con sus nombres
+correspondientes.
+
+### Carga de demostracion V002
+
+Evidencias: spool/*_04-V002__datos_demo_academia.spool.log.
+
+Primera ejecucion:
+- 20000 estudiantes.
+- 40 asignaturas.
+- 60000 matriculas.
+- Estudiante 101: DNI 00000101X, estado ACTIVO.
+
+La segunda ejecucion no inserto datos y mantuvo los mismos recuentos.
+La migracion recopila estadisticas del esquema para el optimizador.
+
+### Pregunta tipo examen P2
+
+Opcion B: OFFLINE, copia fisica, RENAME DATAFILE y ONLINE.
+El cambio de nombre registrado en Oracle no mueve fisicamente el archivo.
+
+### Archivos de evidencia de la Parte C
+
+- docs/bitacora/lab4/evidencia/script/20261115T105808Z_01-diagnostico.script.log
+- docs/bitacora/lab4/evidencia/script/20261115T105913Z_03-reubicar-datafiles.script.log
+- docs/bitacora/lab4/evidencia/script/20261115T105958Z_03-reubicar-idempotencia.script.log
+- docs/bitacora/lab4/evidencia/script/20261115T110635Z_03-prueba-persistencia.script.log
+- docs/bitacora/lab4/evidencia/spool/20261115T110115Z_04-V003__cuentas_esquema_sin_password.spool.log
+- docs/bitacora/lab4/evidencia/spool/20261115T110401Z_04-verificacion-cuentas.spool.log
+- docs/bitacora/lab4/evidencia/spool/20261115T110532Z_04-verificacion-cuentas.spool.log
+- docs/bitacora/lab4/evidencia/spool/20261115T110742Z_04-V002__datos_demo_academia.spool.log
+- docs/bitacora/lab4/evidencia/spool/20261115T110803Z_04-V002__datos_demo_academia.spool.log
