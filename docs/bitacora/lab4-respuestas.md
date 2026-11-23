@@ -698,3 +698,21 @@ restauracion medido para esta copia.
 
 La copia permanece fuera de Git. Se conserva tambien la copia
 anterior del Lab 3 y no se han modificado las etiquetas publicadas.
+
+### Compatibilidad del ejecutor de migraciones con el Lab 5
+
+Se adapto scripts/deployment/env/08-aplicar-migraciones.sh para
+aceptar dos variables opcionales:
+
+- MIG_EVID: carpeta de destino de las evidencias.
+- MIG_PARTE: numero de parte utilizado en el nombre del log.
+
+Si no se indican, se mantienen los valores anteriores:
+docs/bitacora/lab4/evidencia/spool y parte 04.
+
+La comprobacion bash -n termino con codigo 0.
+La revision del diff confirmo que solo se modificaron las dos
+lineas que construyen el destino y el nombre de la evidencia.
+
+No se ejecutaron migraciones durante este ajuste. La comprobacion
+real de estas opciones con las migraciones del Lab 5 queda pendiente.
