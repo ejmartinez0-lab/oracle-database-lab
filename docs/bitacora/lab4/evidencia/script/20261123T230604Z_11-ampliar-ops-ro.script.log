@@ -1,0 +1,13 @@
+
+Session altered.
+
+
+Grant succeeded.
+
+
+GRANTEE 	   OWNER      TABLE_NAME		PRIVILEGE    COM
+------------------ ---------- ------------------------- ------------ ---
+C##OPS_RO	   SYS	      V_$DIAG_ALERT_EXT 	SELECT	     YES
+
+1 row selected.
+

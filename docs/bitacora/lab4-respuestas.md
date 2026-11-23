@@ -948,3 +948,120 @@ No se repitio el experimento ni se modifico FREEPDB1 para restaurarlo.
 - docs/bitacora/lab4/evidencia/script/20261123T230037Z_10-usuario-comun.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T230137Z_10-previo-ciclo-pdb.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T230235Z_10-ciclo-vida-pdb.script.log
+
+### Parte J: inventario de archivos y acceso al alert log
+
+#### J.1. Permiso puntual de observabilidad
+
+Se concedio SELECT sobre SYS.V_$DIAG_ALERT_EXT a C##OPS_RO
+con CONTAINER=ALL. DBA_TAB_PRIVS mostro SELECT y COMMON=YES.
+
+La prueba real mediante ro.sh se identifico como C##OPS_RO
+en CDB$ROOT y devolvio los ultimos ocho mensajes del alert log.
+La concesion y la prueba terminaron con codigo 0.
+No se concedio DBA ni ningun permiso de escritura.
+
+El alert log mostro un aviso de escrituras de redo mas lentas de
+lo esperado. Se registra como hallazgo de rendimiento pendiente
+de investigar; no se ha demostrado su causa.
+
+#### J.2. Inventario desde Oracle
+
+El inventario se ejecuto como C##OPS_RO en CDB$ROOT.
+
+| Tipo | Archivos | MB mostrados por Oracle |
+|---|---:|---:|
+| Datafiles | 16 | 3984 |
+| Tempfiles | 3 | 60 |
+| Control files | 2 | 35.8 |
+| Miembros de redo | 3 | 600 |
+
+Hay tres grupos de redo de 200 MB, cada uno con un solo miembro.
+Los dos control files estan en la misma carpeta y en el mismo
+volumen de Docker. El Lab 5 trabajara su multiplexacion y la del redo.
+
+Configuracion observada:
+- DB_BLOCK_SIZE: 8192 bytes.
+- DB_CREATE_FILE_DEST: sin configurar.
+- ARCHIVELOG activo y base READ WRITE.
+- DB_RECOVERY_FILE_DEST: sin configurar.
+- DB_RECOVERY_FILE_DEST_SIZE: 0.
+- V$RECOVERY_FILE_DEST: sin filas.
+- Password file con formato 12.
+- SYS es la unica cuenta mostrada en V$PWFILE_USERS.
+- TEMP aparece en CDB_TABLESPACES para raiz y FREEPDB1.
+
+La primera ejecucion se detuvo con ORA-00904 porque el script
+utilizaba FILENAME en V$PASSWORDFILE_INFO. Se corrigio a FILE_NAME.
+Se conserva la evidencia fallida y el inventario corregido termino
+con codigo 0. No fue necesario ampliar permisos para resolverlo.
+
+#### J.3. Contraste desde Linux
+
+Docker mostro un unico montaje de volumen en /opt/oracle/oradata.
+
+Las rutas de SPFILE y password file se resolvieron a:
+- /opt/oracle/oradata/dbconfig/FREE/dbs/spfileFREE.ora: 3584 bytes.
+- /opt/oracle/oradata/dbconfig/FREE/dbs/orapwFREE: 2048 bytes.
+
+La resolucion de las rutas demuestra que estan dentro del volumen,
+aunque el listado de cada archivo no lo muestre como enlace individual.
+
+academia01.dbf mide 104865792 bytes en Linux:
+100 MiB de datos mas 8192 bytes.
+Cada miembro de redo mide 209715712 bytes, equivalentes a 200 MiB.
+Se conservan los tamanos reales sin forzar que todos los tipos de
+archivo tengan el mismo sobrecoste de cabecera.
+
+El ADR resuelve a /opt/oracle/diag/rdbms/free/FREE, fuera del
+montaje persistente mostrado. Ocupaba 25 MB segun du y contenia
+282 trazas .trc. El alert log media 138977 bytes.
+
+Hallazgo: el ADR queda en la capa del contenedor, por lo que su
+historia no queda protegida por el volumen de datos. Se propone
+persistencia especifica o envio centralizado de logs. No se
+cambio su ubicacion durante este apartado.
+
+El inventario de Linux termino con codigo 0.
+
+#### Comprobacion adicional del archivado
+
+V$ARCHIVE_DEST mostro el destino 1 VALID, sin error, terminado
+en /dbs/arch. La primera comprobacion busco una carpeta arch
+y no la encontro. Eso no demostraba un fallo de archivado.
+
+La comprobacion posterior mostro:
+- LOG_ARCHIVE_DEST y LOG_ARCHIVE_DEST_1 sin valor explicito.
+- LOG_ARCHIVE_FORMAT: %t_%s_%r.dbf.
+- Tres archivados registrados, secuencias 1, 2 y 3 del thread 1.
+- STATUS=A y DELETED=NO.
+- Los tres archivos existian fisicamente.
+
+Los nombres eran arch1_1_1237845575.dbf,
+arch1_2_1237845575.dbf y arch1_3_1237845575.dbf.
+arch es un prefijo de archivo, no una carpeta.
+
+Las rutas reales de los tres estan bajo:
+ /opt/oracle/oradata/dbconfig/FREE/dbs/
+
+Por tanto, estos archivados estan dentro del volumen, aunque
+no se almacenen en una FRA. No se borraron ni se forzo un cambio
+de log. La comprobacion termino con codigo 0.
+
+#### Esperas de redo observadas
+
+La fotografia acumulada desde el arranque mostro:
+- log file parallel write: 1508 esperas, media 5.45 ms.
+- log file sync: 124 esperas, media 22.48 ms.
+
+Estas medias no son una medida aislada del intervalo del aviso
+del alert log ni demuestran su causa. No se aplicaron ajustes
+de rendimiento basados solo en esta fotografia.
+
+#### Evidencias de la Parte J
+- docs/bitacora/lab4/evidencia/script/20261123T230604Z_11-ampliar-ops-ro.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230604Z_11-probar-alert-log.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230712Z_11-archivos.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230759Z_11-archivos-corregido.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230913Z_11-archivos-so.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231007Z_11-comprobar-archivados.script.log

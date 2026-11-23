@@ -1,0 +1,84 @@
+SQL Format Cleared
+=== 1. Contexto ===
+
+USUARIO            CONTENEDOR    
+------------------ --------------
+C##OPS_RO          CDB$ROOT      
+
+1 row selected. 
+
+=== 2. Archivos de datos, temporales, control y redo ===
+
+TIPO                   CONTENEDOR     RUTA                                                                                                    MB ESTADO        
+---------------------- -------------- ----------------------------------------------------------------------------------------------- ---------- --------------
+control file           CDB            /opt/oracle/oradata/FREE/control01.ctl                                                                17.9 OK            
+control file           CDB            /opt/oracle/oradata/FREE/control02.ctl                                                                17.9 OK            
+datafile               CDB$ROOT       /opt/oracle/oradata/FREE/sysaux01.dbf                                                                  670 ONLINE        
+datafile               CDB$ROOT       /opt/oracle/oradata/FREE/system01.dbf                                                                 1070 SYSTEM        
+datafile               CDB$ROOT       /opt/oracle/oradata/FREE/undotbs01.dbf                                                                  25 ONLINE        
+datafile               CDB$ROOT       /opt/oracle/oradata/FREE/users01.dbf                                                                     7 ONLINE        
+datafile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf                                                       100 ONLINE        
+datafile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/clinica01.dbf                                                        100 ONLINE        
+datafile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/fintech01.dbf                                                        100 ONLINE        
+datafile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/logistica01.dbf                                                      100 ONLINE        
+datafile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/retail01.dbf                                                         100 ONLINE        
+datafile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf                                                         450 ONLINE        
+datafile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/system01.dbf                                                         300 SYSTEM        
+datafile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/undotbs01.dbf                                                        100 ONLINE        
+datafile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/users01.dbf                                                           72 ONLINE        
+datafile               PDB$SEED       /opt/oracle/oradata/FREE/pdbseed/sysaux01.dbf                                                          400 ONLINE        
+datafile               PDB$SEED       /opt/oracle/oradata/FREE/pdbseed/system01.dbf                                                          290 SYSTEM        
+datafile               PDB$SEED       /opt/oracle/oradata/FREE/pdbseed/undotbs01.dbf                                                         100 ONLINE        
+redo grupo 1           CDB            /opt/oracle/oradata/FREE/redo01.log                                                                    200 CURRENT       
+redo grupo 2           CDB            /opt/oracle/oradata/FREE/redo02.log                                                                    200 INACTIVE      
+redo grupo 3           CDB            /opt/oracle/oradata/FREE/redo03.log                                                                    200 INACTIVE      
+tempfile               CDB$ROOT       /opt/oracle/oradata/FREE/temp01.dbf                                                                     20 ONLINE        
+tempfile               FREEPDB1       /opt/oracle/oradata/FREE/FREEPDB1/temp01.dbf                                                            20 ONLINE        
+tempfile               PDB$SEED       /opt/oracle/oradata/FREE/pdbseed/temp01.dbf                                                             20 ONLINE        
+
+24 rows selected. 
+
+=== 3. Grupos y miembros de redo ===
+
+    GROUP#    MEMBERS MB_POR_MIEMBRO STATUS           ARC
+---------- ---------- -------------- ---------------- ---
+         1          1            200 CURRENT          NO 
+         2          1            200 INACTIVE         YES
+         3          1            200 INACTIVE         YES
+
+3 rows selected. 
+
+=== 4. Resumen de archivos actuales ===
+
+TIPO                     ARCHIVOS         MB
+---------------------- ---------- ----------
+datafiles                      16       3984
+tempfiles                       3         60
+control files                   2       35.8
+miembros redo                   3        600
+
+4 rows selected. 
+
+=== 5. Configuracion y archivos relacionados ===
+
+NAME                                VALUE                                                                                                         
+----------------------------------- --------------------------------------------------------------------------------------------------------------
+control_files                       /opt/oracle/oradata/FREE/control01.ctl, /opt/oracle/oradata/FREE/control02.ctl                                
+db_block_size                       8192                                                                                                          
+db_create_file_dest                 (sin configurar)                                                                                              
+db_recovery_file_dest               (sin configurar)                                                                                              
+db_recovery_file_dest_size          0                                                                                                             
+diagnostic_dest                     /opt/oracle                                                                                                   
+spfile                              /opt/oracle/product/26ai/dbhomeFree/dbs/spfileFREE.ora                                                        
+
+7 rows selected. 
+
+
+Error starting at line : 70 File @ file:/home/esteban/oracle-database-lab/scripts/lab4/11-archivos.sql
+In command -
+SELECT filename AS ruta, format AS formato
+FROM v$passwordfile_info
+Error at Command Line : 70 Column : 8 File @ file:/home/esteban/oracle-database-lab/scripts/lab4/11-archivos.sql
+Error report -
+SQL Error: ORA-00904: "FILENAME": invalid identifier
+Help: https://docs.oracle.com/error-help/db/ora-00904/
