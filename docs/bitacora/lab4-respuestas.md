@@ -662,3 +662,39 @@ el merge del PR y la publicacion de lab4-final.
 
 - docs/bitacora/lab4/evidencia/script/20261115T113146Z_10-verificacion-final.script.log
 - docs/bitacora/lab4/evidencia/script/20261115T113312Z_10-control-secretos.script.log
+
+## Ampliacion del Lab 4 a la version v3 — Issue #9
+
+### Punto de partida y copia previa
+
+La ampliacion parte del cierre anterior del Lab 4, fusionado mediante
+el PR #8 y etiquetado como lab4-final, en el commit aefda12.
+
+Antes de introducir cambios se ejecuto de nuevo el verificador
+scripts/lab4/10-verificacion-final.sh. Todas las comprobaciones
+terminaron en OK, con codigo de salida 0.
+
+Se creo una copia en frio del estado actual:
+backups/20261123T223543Z_lab4-pre-ampliacion.
+
+Evidencia:
+docs/bitacora/lab4/evidencia/script/20261123T223543Z_00-backup-pre-ampliacion.script.log
+
+Resultados observados:
+- Base FREE en ARCHIVELOG antes de la copia.
+- Cierre limpio mediante SHUTDOWN IMMEDIATE y parada del contenedor.
+- Todos los archivos inventariados estan dentro del volumen al resolver sus rutas reales.
+- SPFILE y password file apuntan mediante enlaces a rutas dentro del volumen.
+- Archivos externos al volumen: 0.
+- Comprobacion SHA-256: todos los archivos en OK.
+- Tamano comprimido mostrado: 578 MB.
+- Tras el arranque, CDB y FREEPDB1 en READ WRITE.
+- Codigo de salida del backup: 0.
+- Codigo de salida de escritura de la evidencia: 0.
+
+Se ha comprobado la integridad de la copia, pero no se ha realizado
+una restauracion de prueba. No se dispone todavia de un RTO de
+restauracion medido para esta copia.
+
+La copia permanece fuera de Git. Se conserva tambien la copia
+anterior del Lab 3 y no se han modificado las etiquetas publicadas.
