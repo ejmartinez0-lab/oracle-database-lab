@@ -822,3 +822,129 @@ Todos los scripts de este bloque terminaron con codigo 0.
 - docs/bitacora/lab4/evidencia/script/20261123T225513Z_08-diagnostico-firmas-inmediato.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T225513Z_08-parse-repeticion.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T225513Z_08-reto-literales-inmediato.script.log
+
+### Parte I ampliada: contenedores, usuarios y diccionario
+
+#### I.1. Mapa de contenedores
+
+Como SYS en CDB$ROOT se observaron:
+- CDB$ROOT, CON_ID 1, READ WRITE.
+- PDB$SEED, CON_ID 2, READ ONLY.
+- FREEPDB1, CON_ID 3, READ WRITE.
+- Datafiles por contenedor: 4 en la raiz, 3 en la semilla y 9 en FREEPDB1.
+- Tres grupos de redo con CON_ID 0.
+- DBA_TABLESPACES: 5 tablespaces de la raiz.
+- CDB_TABLESPACES: 15, repartidos entre raiz (5) y FREEPDB1 (10).
+- COMMON_USER_PREFIX: C##.
+
+Desde FREEPDB1, V$DATAFILE mostro solo sus 9 archivos.
+DBA_TABLESPACES y CDB_TABLESPACES devolvieron 10 tablespaces,
+todos de CON_ID 3. El contexto de la sesion cambia el alcance observado.
+
+El redo aparecio con CON_ID 0, no asociado a una PDB concreta.
+El script del mapa termino con codigo 0.
+
+#### I.2. Usuario local y privilegio de esquema
+
+LAB4ANALISTA se creo en FREEPDB1 con solo CREATE SESSION.
+No tenia tablas propias ni acceso a las de Academia.
+
+Recibio ORA-00942 al consultar DBA_TABLES, V$SESSION y
+ADMIN_ACADEMIA.ACA_ESTUDIANTES. Son objetos existentes, pero no
+accesibles para esa cuenta. El cambio a CDB$ROOT fue rechazado
+con ORA-01031.
+
+Tras conceder READ ANY TABLE ON SCHEMA admin_academia:
+- Vio las tres tablas de Academia.
+- Pudo contar 20000 estudiantes.
+- Clinica siguio inaccesible, con ORA-00942.
+- El UPDATE fue rechazado con ORA-41900 por falta de ese privilegio.
+
+Se ejecuto ROLLBACK por precaucion y se elimino el usuario.
+Recuento final del usuario: 0. Fila 101: ACTIVO.
+El experimento termino con codigo 0.
+
+El privilegio de lectura de esquema permite acceder a las tablas
+presentes y futuras de Academia, pero no concede escritura ni acceso
+a otros esquemas. Un permiso global de lectura seria mas amplio.
+
+#### I.2. Usuario comun y CONTAINER_DATA
+
+C##LAB4AUDITOR se creo con CREATE SESSION, SET CONTAINER y
+SELECT_CATALOG_ROLE concedidos con CONTAINER=ALL.
+
+Desde CDB$ROOT vio solo los 5 tablespaces de la raiz.
+En V$SESSION vio 86 sesiones de CON_ID 0 y 3 de CON_ID 1.
+Los recuentos corresponden al momento de la prueba.
+
+Pudo cambiar a FREEPDB1 y consultar desde dentro sus 10 tablespaces.
+Poder cambiar de contenedor no le dio visibilidad agregada desde la raiz.
+
+CDB_CONTAINER_DATA mostro C##OPS_RO con DEFAULT_ATTR=Y y
+ALL_CONTAINERS=Y, pero ninguna entrada para C##LAB4AUDITOR.
+
+Para configurar en el auditor la misma visibilidad agregada se usaria,
+desde la raiz:
+ALTER USER c##lab4auditor SET CONTAINER_DATA=ALL CONTAINER=CURRENT;
+
+Esta sentencia se documenta como respuesta; no se ejecuto.
+El auditor se elimino al finalizar. Los recuentos finales del usuario
+comun y del usuario local fueron 0. Codigo del experimento: 0.
+
+#### I.3. Diccionario con la cuenta de observabilidad
+
+La consulta se ejecuto como C##OPS_RO en CDB$ROOT, con codigo 0.
+
+Recuentos de vistas:
+- USER: 656.
+- ALL: 590.
+- DBA: 1309.
+- CDB: 1307.
+- V$: 921.
+- GV$: 880.
+
+DBA_TABLESPACES devolvio 5 y CDB_TABLESPACES 15:
+5 de CDB$ROOT y 10 de FREEPDB1.
+
+V$FIXED_TABLE mostro 1591 estructuras TABLE y 1803 VIEW.
+La definicion de GV$LOG incluyo X$KCCLE y X$KCCRT.
+
+#### I.4. Usuarios comunes/locales y ciclo de vida de una PDB
+
+Se comprobaron estos rechazos:
+- Crear LAB4LOCAL en la raiz: ORA-65096, por faltar el prefijo C##.
+- Crear C##LAB4COMUN dentro de FREEPDB1: ORA-65094.
+
+LAB4LOCAL se creo correctamente en FREEPDB1 sin autenticacion:
+COMMON=NO y AUTHENTICATION_TYPE=NONE. Despues se elimino.
+
+PDBLAB4 se creo desde PDB$SEED, con archivos bajo:
+ /opt/oracle/oradata/FREE/PDBLAB4/
+
+Se observaron estos estados y resultados:
+- Tras crearla: CON_ID 4, MOUNTED.
+- Tras abrirla: READ WRITE.
+- Datafiles SYSTEM, SYSAUX y UNDO en la carpeta prevista.
+- Servicio pdblab4.
+- C##OPS_RO presente como usuario comun en CON_ID 4.
+- Intento de borrado abierta: ORA-65025, capturado como esperado.
+- Cierre y DROP INCLUDING DATAFILES completados.
+- PDB de prueba restante: 0.
+- Usuarios de prueba restantes: 0.
+- Carpeta vacia retirada.
+
+No se capturo el codigo final del bloque de terminal por una
+instruccion incompleta al terminar el pegado. No se atribuye
+retrospectivamente un codigo de salida a ese bloque.
+
+La comprobacion posterior confirmo CDB y FREEPDB1 en READ WRITE,
+contenedor healthy y ausencia de la ruta PDBLAB4.
+No se repitio el experimento ni se modifico FREEPDB1 para restaurarlo.
+
+#### Evidencias de la Parte I ampliada
+- docs/bitacora/lab4/evidencia/script/20261123T225715Z_10-mapa-contenedores.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225822Z_10-diccionario.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225922Z_10-usuario-local.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230037Z_10-usuario-comun.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230137Z_10-previo-ciclo-pdb.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230235Z_10-ciclo-vida-pdb.script.log

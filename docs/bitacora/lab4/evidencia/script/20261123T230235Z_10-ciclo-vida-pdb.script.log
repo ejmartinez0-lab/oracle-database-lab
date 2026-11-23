@@ -1,0 +1,120 @@
+
+Session altered.
+
+=== 1. Guardias: no reutilizar objetos existentes ===
+
+PL/SQL procedure successfully completed.
+
+=== 2. Crear usuario sin C## en la raiz: ORA-65096 esperado ===
+ESPERADO: ORA-65096: common user or role name must start with prefix C##
+
+PL/SQL procedure successfully completed.
+
+
+Session altered.
+
+=== 3. Crear usuario C## dentro de la PDB: ORA-65094 esperado ===
+ESPERADO: ORA-65094: invalid local user or role name
+
+PL/SQL procedure successfully completed.
+
+=== 4. Usuario local correcto, sin autenticacion, y limpieza ===
+
+User created.
+
+
+USERNAME             COM AUTHENTI
+-------------------- --- --------
+LAB4LOCAL            NO  NONE
+
+1 row selected.
+
+
+User dropped.
+
+
+Session altered.
+
+=== 5. Crear PDBLAB4 desde la semilla ===
+
+PL/SQL procedure successfully completed.
+
+
+    CON_ID NAME               OPEN_MODE
+---------- ------------------ ------------
+         2 PDB$SEED           READ ONLY
+         3 FREEPDB1           READ WRITE
+         4 PDBLAB4            MOUNTED
+
+3 rows selected.
+
+=== 6. Abrir la PDB y mostrar archivos, servicio y usuario comun ===
+
+Pluggable database altered.
+
+
+    CON_ID NAME               OPEN_MODE
+---------- ------------------ ------------
+         2 PDB$SEED           READ ONLY
+         3 FREEPDB1           READ WRITE
+         4 PDBLAB4            READ WRITE
+
+3 rows selected.
+
+
+ARCHIVO
+----------------------------------------------------------------------------------------------------
+/opt/oracle/oradata/FREE/PDBLAB4/system01.dbf
+/opt/oracle/oradata/FREE/PDBLAB4/sysaux01.dbf
+/opt/oracle/oradata/FREE/PDBLAB4/undotbs01.dbf
+
+3 rows selected.
+
+
+    CON_ID NAME               NETWORK_NAME
+---------- ------------------ ----------------------------------------
+         4 pdblab4            pdblab4
+
+1 row selected.
+
+
+    CON_ID USERNAME             COM
+---------- -------------------- ---
+         4 C##OPS_RO            YES
+
+1 row selected.
+
+=== 7. Intentar borrar la PDB abierta: ORA-65025 esperado ===
+ESPERADO: ORA-65025: Pluggable database PDBLAB4 is not closed on all instances.
+
+PL/SQL procedure successfully completed.
+
+=== 8. Cerrar y eliminar solo PDBLAB4 con sus archivos ===
+
+Pluggable database altered.
+
+
+Pluggable database dropped.
+
+
+    CON_ID NAME               OPEN_MODE
+---------- ------------------ ------------
+         2 PDB$SEED           READ ONLY
+         3 FREEPDB1           READ WRITE
+
+2 rows selected.
+
+
+PDB_PRUEBA_RESTANTE
+-------------------
+                  0
+
+1 row selected.
+
+
+USUARIOS_PRUEBA_RESTANTES
+-------------------------
+                        0
+
+1 row selected.
+

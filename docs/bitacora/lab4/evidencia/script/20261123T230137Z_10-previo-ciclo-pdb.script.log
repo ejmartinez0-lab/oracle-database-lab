@@ -1,0 +1,43 @@
+
+Session altered.
+
+=== 1. PDB existentes ===
+
+    CON_ID NAME 	      OPEN_MODE
+---------- ------------------ ------------
+	 2 PDB$SEED	      READ ONLY
+	 3 FREEPDB1	      READ WRITE
+
+2 rows selected.
+
+=== 2. Archivos de la semilla ===
+
+    CON_ID ARCHIVO
+---------- ----------------------------------------------------------------------------------------------------
+	 2 /opt/oracle/oradata/FREE/pdbseed/system01.dbf
+	 2 /opt/oracle/oradata/FREE/pdbseed/sysaux01.dbf
+	 2 /opt/oracle/oradata/FREE/pdbseed/undotbs01.dbf
+
+3 rows selected.
+
+
+    CON_ID ARCHIVO
+---------- ----------------------------------------------------------------------------------------------------
+	 2 /opt/oracle/oradata/FREE/pdbseed/temp01.dbf
+
+1 row selected.
+
+=== 3. Nombres reservados para el siguiente experimento ===
+
+no rows selected
+
+
+PDB_PRUEBA_EXISTENTE
+--------------------
+		   0
+
+1 row selected.
+
+
+=== 4. CARPETA DE DESTINO ===
+Destino libre: /opt/oracle/oradata/FREE/PDBLAB4

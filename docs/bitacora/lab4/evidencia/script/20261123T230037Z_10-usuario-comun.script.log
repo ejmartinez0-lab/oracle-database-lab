@@ -1,0 +1,89 @@
+
+Session altered.
+
+=== 1. Comprobar que el nombre comun esta libre ===
+
+PL/SQL procedure successfully completed.
+
+
+User created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+=== 2. Usuario comun sin CONTAINER_DATA configurado ===
+
+USUARIO              CONTENEDOR
+-------------------- ------------------
+C##LAB4AUDITOR       CDB$ROOT
+
+1 row selected.
+
+
+    CON_ID TABLESPACES
+---------- -----------
+         1           5
+
+1 row selected.
+
+
+    CON_ID   SESIONES
+---------- ----------
+         0         86
+         1          3
+
+2 rows selected.
+
+=== 3. Con SET CONTAINER puede entrar en FREEPDB1 ===
+
+Session altered.
+
+
+USUARIO              CONTENEDOR
+-------------------- ------------------
+C##LAB4AUDITOR       FREEPDB1
+
+1 row selected.
+
+
+TABLESPACES_PDB
+---------------
+             10
+
+1 row selected.
+
+=== 4. Comparar atributos desde SYS en la raiz ===
+
+Session altered.
+
+
+USERNAME             DEFAULT_ATTR   ALL_CONTAINERS
+-------------------- -------------- ----------------
+C##OPS_RO            Y              Y
+
+1 row selected.
+
+=== 5. Eliminar el usuario comun temporal ===
+
+User dropped.
+
+
+USUARIOS_COMUNES_PRUEBA_RESTANTES
+---------------------------------
+                                0
+
+1 row selected.
+
+
+Session altered.
+
+
+USUARIOS_LOCALES_PRUEBA_RESTANTES
+---------------------------------
+                                0
+
+1 row selected.
+
