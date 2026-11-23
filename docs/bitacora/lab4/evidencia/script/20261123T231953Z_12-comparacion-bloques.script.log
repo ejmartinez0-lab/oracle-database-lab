@@ -1,0 +1,104 @@
+
+======================================================================
+ESTUDIANTE 101 | BLOQUE 780 | RANURA 7
+Traza: docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt
+
+--- CABECERA E ITL ---
+Block header dump:  0x0000030c
+ Object id on Block? Y
+ seg/obj: 0x11da6  csc:  0x0000000000305ec2  itc: 2  flg: E-  typ: 1 - DATA
+     brn: 0  bdba: 0x308 ver: 0x01 opc: 0
+     inc: 0  exflg: 0
+ 
+ Itl           Xid                  Uba         Flag  Lck        Scn/Fsc
+0x01   0x0001.018.00000241  0x00000122.00ae.04  --U-   88  fsc 0x0000.0030643f
+0x02   0x0000.000.00000000  0x00000000.0000.00  ----    0  fsc 0x0000.00000000
+bdba: 0x0000030c type: 0x06 SAGE: 0
+
+--- CABECERA DE DATOS ---
+data_block_dump,data header at 0xbf7f2064
+===============
+tsiz: 0x1f98
+hsiz: 0xc2
+pbl: 0xbf7f2064
+     76543210
+flag=--------
+ntab=1
+nrow=88
+frre=-1
+fsbo=0xc2
+fseo=0x41b
+avsp=0x359
+tosp=0x359
+0xe:pti[0]	nrow=88	offs=0
+
+--- FILA SELECCIONADA ---
+tab 0, row 7, @0x1d68
+tl: 80 fb: --H-FL-- lb: 0x1  cc: 7
+col  0: [ 3]  c2 02 02
+col  1: [ 9]  30 30 30 30 30 31 30 31 58
+col  2: [10]  4e 6f 6d 62 72 65 20 31 30 31
+col  3: [12]  41 70 65 6c 6c 69 64 6f 20 31 30 31
+col  4: [19]  65 73 74 31 30 31 40 61 6c 75 2e 75 63 61 6d 2e 65 64 75
+col  5: [ 6]  41 43 54 49 56 4f
+col  6: [11]  78 7e 0b 0f 0c 08 2b 25 25 7d b0
+
+--- ESPACIO LIBRE ---
+fsbo=194; fseo=1051
+fseo-fsbo=857; avsp=857; tosp=857
+Coincide diferencia con avsp: True
+
+======================================================================
+ESTUDIANTE 19001 | BLOQUE 1175 | RANURA 22
+Traza: docs/bitacora/lab4/evidencia/config/20261123T231848Z_12-volcado-bloque-reto.trc.txt
+
+--- CABECERA E ITL ---
+Block header dump:  0x00000497
+ Object id on Block? Y
+ seg/obj: 0x11da6  csc:  0x0000000000306011  itc: 2  flg: E-  typ: 1 - DATA
+     brn: 0  bdba: 0x480 ver: 0x01 opc: 0
+     inc: 0  exflg: 0
+ 
+ Itl           Xid                  Uba         Flag  Lck        Scn/Fsc
+0x01   0x0001.018.00000241  0x00000f5a.00c0.02  --U-   84  fsc 0x0000.0030643f
+0x02   0x0000.000.00000000  0x00000000.0000.00  ----    0  fsc 0x0000.00000000
+bdba: 0x00000497 type: 0x06 SAGE: 0
+
+--- CABECERA DE DATOS ---
+data_block_dump,data header at 0x7e057b251064
+===============
+tsiz: 0x1f98
+hsiz: 0xba
+pbl: 0x7e057b251064
+     76543210
+flag=--------
+ntab=1
+nrow=84
+frre=-1
+fsbo=0xba
+fseo=0x3e1
+avsp=0x327
+tosp=0x327
+0xe:pti[0]	nrow=84	offs=0
+
+--- FILA SELECCIONADA ---
+tab 0, row 22, @0xa20
+tl: 84 fb: --H-FL-- lb: 0x1  cc: 7
+col  0: [ 4]  c3 02 5b 02
+col  1: [ 9]  30 30 30 31 39 30 30 31 58
+col  2: [12]  4e 6f 6d 62 72 65 20 31 39 30 30 31
+col  3: [11]  41 70 65 6c 6c 69 64 6f 20 35 38
+col  4: [21]
+ 65 73 74 31 39 30 30 31 40 61 6c 75 2e 75 63 61 6d 2e 65 64 75
+col  5: [ 6]  41 43 54 49 56 4f
+col  6: [11]  78 7e 0b 0f 0c 08 2b 25 25 7d b0
+
+--- ESPACIO LIBRE ---
+fsbo=186; fseo=993
+fseo-fsbo=807; avsp=807; tosp=807
+Coincide diferencia con avsp: True
+
+=== RESUMEN COMPARATIVO ===
+Estudiante | Bloque | Ranura | nrow | tl fila | avsp bytes
+101 | 780 | 7 | 88 | 80 | 857
+19001 | 1175 | 22 | 84 | 84 | 807

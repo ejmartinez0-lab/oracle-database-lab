@@ -1,0 +1,77 @@
+Traza leida: docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt
+
+=== CABECERA DEL BLOQUE E ITL — linea 530 ===
+Block header dump:  0x0000030c
+ Object id on Block? Y
+ seg/obj: 0x11da6  csc:  0x0000000000305ec2  itc: 2  flg: E-  typ: 1 - DATA
+     brn: 0  bdba: 0x308 ver: 0x01 opc: 0
+     inc: 0  exflg: 0
+ 
+ Itl           Xid                  Uba         Flag  Lck        Scn/Fsc
+0x01   0x0001.018.00000241  0x00000122.00ae.04  --U-   88  fsc 0x0000.0030643f
+0x02   0x0000.000.00000000  0x00000000.0000.00  ----    0  fsc 0x0000.00000000
+bdba: 0x0000030c type: 0x06 SAGE: 0
+data_block_dump,data header at 0xbf7f2064
+===============
+tsiz: 0x1f98
+hsiz: 0xc2
+pbl: 0xbf7f2064
+     76543210
+
+=== CABECERA DE DATOS Y DIRECTORIO — linea 540 ===
+data_block_dump,data header at 0xbf7f2064
+===============
+tsiz: 0x1f98
+hsiz: 0xc2
+pbl: 0xbf7f2064
+     76543210
+flag=--------
+ntab=1
+nrow=88
+frre=-1
+fsbo=0xc2
+fseo=0x41b
+avsp=0x359
+tosp=0x359
+0xe:pti[0]	nrow=88	offs=0
+0x12:pri[0]	offs=0x1b4f
+0x14:pri[1]	offs=0x1b9b
+0x16:pri[2]	offs=0x1be7
+0x18:pri[3]	offs=0x1c33
+0x1a:pri[4]	offs=0x1c7f
+0x1c:pri[5]	offs=0x1ccb
+0x1e:pri[6]	offs=0x1d17
+0x20:pri[7]	offs=0x1d68
+0x22:pri[8]	offs=0x1db8
+0x24:pri[9]	offs=0x1e08
+0x26:pri[10]	offs=0x1e58
+0x28:pri[11]	offs=0x1ea8
+0x2a:pri[12]	offs=0x1ef8
+0x2c:pri[13]	offs=0x1f48
+0x2e:pri[14]	offs=0x41b
+
+=== FILA 101, RANURA 7 — linea 707 ===
+tab 0, row 7, @0x1d68
+tl: 80 fb: --H-FL-- lb: 0x1  cc: 7
+col  0: [ 3]  c2 02 02
+col  1: [ 9]  30 30 30 30 30 31 30 31 58
+col  2: [10]  4e 6f 6d 62 72 65 20 31 30 31
+col  3: [12]  41 70 65 6c 6c 69 64 6f 20 31 30 31
+col  4: [19]  65 73 74 31 30 31 40 61 6c 75 2e 75 63 61 6d 2e 65 64 75
+col  5: [ 6]  41 43 54 49 56 4f
+col  6: [11]  78 7e 0b 0f 0c 08 2b 25 25 7d b0
+tab 0, row 8, @0x1db8
+tl: 80 fb: --H-FL-- lb: 0x1  cc: 7
+col  0: [ 3]  c2 02 03
+col  1: [ 9]  30 30 30 30 30 31 30 32 58
+col  2: [10]  4e 6f 6d 62 72 65 20 31 30 32
+col  3: [12]  41 70 65 6c 6c 69 64 6f 20 31 30 32
+col  4: [19]  65 73 74 31 30 32 40 61 6c 75 2e 75 63 61 6d 2e 65 64 75
+
+=== COMPROBACION DE ESPACIO LIBRE ===
+fsbo: 0xc2 = 194 bytes
+fseo: 0x41b = 1051 bytes
+avsp: 0x359 = 857 bytes
+tosp: 0x359 = 857 bytes
+fseo - fsbo = 857 bytes
+Coincide con avsp: True

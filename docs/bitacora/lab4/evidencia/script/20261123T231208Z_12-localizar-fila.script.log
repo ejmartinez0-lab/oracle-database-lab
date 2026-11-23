@@ -1,0 +1,97 @@
+
+Session altered.
+
+=== 1. Tablespace de ACA_ESTUDIANTES ===
+
+TABLESPACE_NAME      BIG BLOCK_SIZE EXTENT_MAN ALLOCATIO SEGMEN   PCT_FREE  INI_TRANS
+-------------------- --- ---------- ---------- --------- ------ ---------- ----------
+TBS_ACADEMIA         YES       8192 LOCAL      SYSTEM    AUTO           10          1
+
+1 row selected.
+
+=== 2. Segmentos del esquema Academia ===
+
+SEGMENT_NAME                   SEGMENT_TYPE    TABLESPACE_NAME         EXTENTS     BLOCKS         KB
+------------------------------ --------------- -------------------- ---------- ---------- ----------
+ACA_MATRICULAS                 TABLE           TBS_ACADEMIA                 18        384       3072
+UQ_ACA_MATRICULA_UNICA         INDEX           TBS_ACADEMIA                 18        384       3072
+ACA_ESTUDIANTES                TABLE           TBS_ACADEMIA                 17        256       2048
+IDX_ACA_MAT_ASI                INDEX           TBS_ACADEMIA                 17        256       2048
+IDX_ACA_MAT_EST                INDEX           TBS_ACADEMIA                 17        256       2048
+SYS_C008673                    INDEX           TBS_ACADEMIA                 17        256       2048
+UQ_ACA_EMAIL                   INDEX           TBS_ACADEMIA                 17        256       2048
+UQ_ACA_DNI                     INDEX           TBS_ACADEMIA                  9         72        576
+SYS_C008659                    INDEX           TBS_ACADEMIA                  7         56        448
+ACA_ASIGNATURAS                TABLE           TBS_ACADEMIA                  1          8         64
+SYS_C008666                    INDEX           TBS_ACADEMIA                  1          8         64
+UQ_ACA_CODIGO                  INDEX           TBS_ACADEMIA                  1          8         64
+
+12 rows selected.
+
+=== 3. Extensiones de ACA_ESTUDIANTES ===
+
+ EXTENT_ID    FILE_ID   BLOCK_ID     BLOCKS         KB
+---------- ---------- ---------- ---------- ----------
+         0         16        776          8         64
+         1         16        808          8         64
+         2         16        824          8         64
+         3         16        848          8         64
+         4         16        872          8         64
+         5         16        880          8         64
+         6         16        896          8         64
+         7         16        920          8         64
+         8         16        928          8         64
+         9         16        944          8         64
+        10         16        968          8         64
+        11         16        992          8         64
+        12         16       1000          8         64
+        13         16       1016          8         64
+        14         16       1032          8         64
+        15         16       1056          8         64
+        16         16       1152        128       1024
+
+17 rows selected.
+
+=== 4. Direccion fisica de la fila 101 ===
+
+ESTUDIANTE_ID ESTADO               ROWID_FILA           DATA_OBJECT_ID    ARCHIVO     BLOQUE     RANURA
+------------- -------------------- -------------------- -------------- ---------- ---------- ----------
+          101 ACTIVO               AAAR2mAAAAAAAMMAAH            73126         16        780          7
+
+1 row selected.
+
+=== 5. Archivo y objeto correspondientes ===
+
+   FILE_ID RELATIVE_FNO TABLESPACE_NAME      FILE_NAME
+---------- ------------ -------------------- -------------------------------------------------------------------------------------
+        16         1024 TBS_ACADEMIA         /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf
+
+1 row selected.
+
+
+OWNER                                                                                                                            OBJECT_NAME               OBJECT_TYPE             DATA_OBJECT_ID
+-------------------------------------------------------------------------------------------------------------------------------- ------------------------- ----------------------- --------------
+ADMIN_ACADEMIA                                                                                                                   ACA_ESTUDIANTES           TABLE                            73126
+
+1 row selected.
+
+=== 6. Representacion interna de valores de la fila ===
+
+COLUMNA              BYTES_INTERNOS
+-------------------- ----------------------------------------------------------------------------------------------------
+ESTUDIANTE_ID        Typ=2 Len=3: c2,2,2
+DNI                  Typ=1 Len=9: 30,30,30,30,30,31,30,31,58
+NOMBRES              Typ=1 Len=10: 4e,6f,6d,62,72,65,20,31,30,31
+ESTADO               Typ=1 Len=6: 41,43,54,49,56,4f
+FECHA_REGISTRO       Typ=180 Len=11: 78,7e,b,f,c,8,2b,25,25,7d,b0
+
+5 rows selected.
+
+=== 7. Bytes de valores frente a longitud media estadistica ===
+
+BYTES_VALORES_FILA_101 AVG_ROW_LEN
+---------------------- -----------
+                    70          78
+
+1 row selected.
+

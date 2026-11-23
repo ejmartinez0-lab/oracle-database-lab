@@ -1065,3 +1065,135 @@ de rendimiento basados solo en esta fotografia.
 - docs/bitacora/lab4/evidencia/script/20261123T230759Z_11-archivos-corregido.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T230913Z_11-archivos-so.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T231007Z_11-comprobar-archivados.script.log
+
+### Parte K: del tablespace al bloque y a la fila
+
+#### K.1. Jerarquia de almacenamiento
+
+ACA_ESTUDIANTES pertenece a TBS_ACADEMIA:
+- BIGFILE=YES.
+- Bloques de 8192 bytes.
+- Gestion local de extensiones.
+- ALLOCATION_TYPE=SYSTEM y SEGMENT_SPACE_MANAGEMENT=AUTO.
+- PCTFREE=10 e INITRANS=1.
+
+El segmento tenia 17 extensiones y 256 bloques asignados, 2048 KB.
+Las primeras 16 extensiones eran de 8 bloques, 64 KB cada una.
+La extension 16 tenia 128 bloques, 1024 KB.
+
+El bloque 780 pertenece a la extension 0, que abarca del 776 al 783.
+El bloque 1175 pertenece a la extension 16, que comienza en 1152.
+
+#### K.2. Direccion fisica de la fila 101
+
+Resultados obtenidos:
+- ROWID: AAAR2mAAAAAAAMMAAH.
+- DATA_OBJECT_ID: 73126.
+- Archivo absoluto: 16.
+- Bloque BIGFILE: 780.
+- Ranura: 7.
+- Estado: ACTIVO.
+
+DBA_DATA_FILES relaciono el archivo 16 con:
+ /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf
+
+RELATIVE_FNO mostro 1024; no se utilizo como numero absoluto
+del archivo. Este se obtuvo con ROWID_TO_ABSOLUTE_FNO.
+El bloque se obtuvo indicando BIGFILE en ROWID_BLOCK_NUMBER.
+
+DBA_OBJECTS confirmo que DATA_OBJECT_ID=73126 corresponde a
+ADMIN_ACADEMIA.ACA_ESTUDIANTES.
+
+#### K.3. Ocupacion del segmento
+
+DBMS_SPACE.SPACE_USAGE devolvio:
+- FULL: 236 bloques.
+- FS1: 0.
+- FS2: 0.
+- FS3: 1.
+- FS4: 7.
+- Sin formatear: 0.
+
+La suma de las categorias observadas es 244 bloques.
+Se distingue de los 256 bloques asignados al segmento.
+Estas medidas no representan exactamente el mismo concepto.
+
+#### K.4. Volcado del bloque 780
+
+La traza completa se guardo como texto en evidencia/config.
+El volcado mostro:
+- Block header dump: 0x30c = 780.
+- seg/obj: 0x11da6 = 73126.
+- itc=2: dos entradas ITL.
+- typ=1 - DATA.
+- ntab=1 y nrow=88.
+- tsiz=0x1f98 = 8088 bytes.
+- hsiz y fsbo: 0xc2 = 194.
+- fseo: 0x41b = 1051.
+- avsp y tosp: 0x359 = 857.
+
+Comprobacion: 1051 - 194 = 857 bytes.
+En este bloque el hueco entre fsbo y fseo coincide con avsp y tosp.
+
+El directorio pri[7] apunta a 0x1d68, donde aparece la fila 101:
+tl=80, fb=--H-FL--, lb=0x1 y cc=7.
+
+Los valores de sus siete columnas ocupan:
+3 + 9 + 10 + 12 + 19 + 6 + 11 = 70 bytes.
+
+La longitud del registro se reconstruye como:
+70 bytes de valores + 7 de longitudes + 3 de cabecera = 80 bytes.
+La entrada de 2 bytes en el directorio queda fuera de esos 80.
+
+AVG_ROW_LEN era 78: es una media estadistica, no la longitud
+exacta de esta fila ni el total con su entrada de directorio.
+
+La primera entrada ITL mostro --U-, Lck=88 y la fila lb=0x1.
+Es coherente con la informacion de una transaccion confirmada
+pendiente de limpieza completa del bloque. No se interpreta
+Lck=88 como prueba de 88 bloqueos activos actuales.
+
+#### Reto: comparar con el estudiante 19001
+
+Se genero una traza independiente sin modificar la fila.
+La direccion obtenida fue archivo 16, bloque 1175, ranura 22.
+
+| Medida | Fila 101 | Fila 19001 |
+|---|---:|---:|
+| Bloque | 780 | 1175 |
+| Ranura | 7 | 22 |
+| nrow | 88 | 84 |
+| tl de la fila | 80 | 84 |
+| fsbo | 194 | 186 |
+| fseo | 1051 | 993 |
+| avsp | 857 | 807 |
+
+El bloque 1175 mostro 0x497 y el mismo seg/obj=0x11da6.
+Su directorio y su fila seleccionada se localizaron en la ranura 22.
+
+Para la fila 19001, los valores ocupan:
+4 + 9 + 12 + 11 + 21 + 6 + 11 = 74 bytes.
+Con longitudes y cabecera: 74 + 7 + 3 = 84 bytes.
+
+En ese bloque: 993 - 186 = 807 bytes, igual que avsp y tosp.
+
+Ambos bloques tienen itc=2, la primera ITL con --U- y la segunda
+sin transaccion registrada. La primera muestra Lck=88 en el
+bloque 780 y Lck=84 en el 1175. Ambos conservan informacion
+coherente con limpieza diferida.
+
+La diferencia de tamanos de las filas demuestra que no todas
+ocupan lo mismo. No se atribuye toda la diferencia de ocupacion
+entre bloques solo a las dos filas seleccionadas.
+
+La localizacion, ambos volcados y la extraccion/comparacion
+terminaron con codigo 0. No se modificaron filas ni se vaciaron caches.
+
+#### Evidencias de la Parte K
+- docs/bitacora/lab4/evidencia/script/20261123T231208Z_12-localizar-fila.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231323Z_12-bloque.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231426Z_12-extracto-bloque.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231848Z_12-reto-bloque.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231953Z_12-comparacion-bloques.script.log
+- docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt
+- docs/bitacora/lab4/evidencia/config/20261123T231848Z_12-volcado-bloque-reto.trc.txt
