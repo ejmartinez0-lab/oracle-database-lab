@@ -1,0 +1,55 @@
+
+Session altered.
+
+=== 1. Comprobar que id=5 sigue en la lista de diagnostico ===
+
+PL/SQL procedure successfully completed.
+
+
+
+
+
+1 row selected.
+
+
+        ID ROWID_CABEZA         LONGITUD_TXT
+---------- -------------------- ------------
+         5 AAAR/4AAAAAABYOAAE            300
+
+1 row selected.
+
+=== 2. Generar el volcado del bloque de la cabeza ===
+
+Session altered.
+
+
+System altered.
+
+
+System altered.
+
+
+RUTA_TRAZA
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+/opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_4035_lab4_migra_cabeza.trc
+
+1 row selected.
+
+
+
+
+
+1 row selected.
+
+=== 3. Extraer la ranura de id=5 y sus lineas siguientes ===
+
+no rows selected
+
+=== 4. Confirmar que no se ha reorganizado la tabla ===
+
+  NUM_ROWS     BLOCKS  CHAIN_CNT
+---------- ---------- ----------
+      5000         58       1000
+
+1 row selected.
+

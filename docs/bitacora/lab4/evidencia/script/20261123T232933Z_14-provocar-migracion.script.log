@@ -1,0 +1,78 @@
+
+Session altered.
+
+=== 1. Comprobar el banco y evitar sobrescribir objetos ===
+
+PL/SQL procedure successfully completed.
+
+=== 2. Crear filas pequenas sin reserva para crecimiento ===
+
+Table created.
+
+
+5000 rows created.
+
+
+Commit complete.
+
+
+Table analyzed.
+
+
+TABLE_NAME           NUM_ROWS     BLOCKS   PCT_FREE AVG_ROW_LEN  CHAIN_CNT
+------------------ ---------- ---------- ---------- ----------- ----------
+MIGRA                    5000         13          0           9          0
+
+1 row selected.
+
+=== 3. Ampliar una de cada cinco filas ===
+
+1000 rows updated.
+
+
+Commit complete.
+
+
+Table analyzed.
+
+
+TABLE_NAME           NUM_ROWS     BLOCKS   PCT_FREE AVG_ROW_LEN  CHAIN_CNT PCT_CHAIN_CNT
+------------------ ---------- ---------- ---------- ----------- ---------- -------------
+MIGRA                    5000         58          0          70       1000            20
+
+1 row selected.
+
+=== 4. Preparar la tabla de diagnostico ===
+
+Table created.
+
+
+Table analyzed.
+
+
+FILAS_LISTADAS
+--------------
+          1000
+
+1 row selected.
+
+=== 5. Muestra de filas detectadas y direccion de su cabeza ===
+
+        ID LONGITUD_TXT ROWID_CABEZA            ARCHIVO     BLOQUE     RANURA
+---------- ------------ -------------------- ---------- ---------- ----------
+         5          300 AAAR/4AAAAAABYOAAE           24       5646          4
+        10          300 AAAR/4AAAAAABYOAAJ           24       5646          9
+        15          300 AAAR/4AAAAAABYOAAO           24       5646         14
+        20          300 AAAR/4AAAAAABYOAAT           24       5646         19
+        25          300 AAAR/4AAAAAABYOAAY           24       5646         24
+
+5 rows selected.
+
+=== 6. Verificar filas totales y ampliadas ===
+
+FILAS_TOTALES FILAS_AMPLIADAS
+------------- ---------------
+         5000            1000
+
+1 row selected.
+

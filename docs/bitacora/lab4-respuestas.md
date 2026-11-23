@@ -1336,3 +1336,176 @@ las 400000 filas del banco de pruebas.
 - docs/bitacora/lab4/evidencia/script/20261123T232452Z_13-medir-lecturas.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T232544Z_13-medir-lecturas-corregido.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T232640Z_13-reto-matriculas.script.log
+
+### Parte M: migracion y encadenamiento de filas
+
+#### M.1. Provocar y detectar migracion
+
+Experimento realizado exclusivamente en LAB4PRUEBAS, en TBS_LAB4.
+
+Se creo MIGRA con 5000 filas pequenas y PCTFREE=0.
+Antes de ampliar los textos:
+- Bloques: 13.
+- AVG_ROW_LEN: 9.
+- CHAIN_CNT: 0.
+
+Se ampliaron 1000 textos de 1 a 300 caracteres:
+- Filas totales: 5000.
+- Bloques: 58.
+- AVG_ROW_LEN: 70.
+- CHAIN_CNT: 1000, el 20 %.
+- LIST CHAINED ROWS identifico tambien 1000 filas.
+
+#### M.2. Coste medido antes de reparar
+
+Cada grupo realizo una pasada de calentamiento y otra medida
+de 1000 busquedas por clave primaria. PK_MIGRA estaba VALID,
+con BLEVEL=1.
+
+| Grupo | Lecturas logicas | Por busqueda | table fetch continued row |
+|---|---:|---:|---:|
+| No ampliadas | 3000 | 3 | 0 |
+| Ampliadas | 4000 | 4 | 1000 |
+| Mixtas, ids 1 a 1000 | 3200 | 3.2 | 200 |
+
+Todos los grupos registraron cero lecturas fisicas.
+En este experimento, consultar una fila ampliada supuso
+una lectura logica adicional.
+
+En el grupo mixto:
+800 * 3 + 200 * 4 = 3200 lecturas logicas.
+
+#### M.3. Evidencia en el volcado
+
+La cabeza de id=5 se identifico en el archivo 24,
+bloque 5646, ranura 4.
+
+Traza conservada:
+docs/bitacora/lab4/evidencia/config/14-migracion-cabeza.trc.txt
+
+Fragmento observado en las lineas 1358 a 1360:
+tab 0, row 4, @0x1f6f
+tl: 9 fb: --H----- lb: 0x2 cc: 0
+nrid: 0x00001632.16
+
+La traza contiene tres coincidencias para la ranura 4;
+se conserva completa para mantener el contexto de los volcados.
+No se consideran todas las coincidencias como un unico estado.
+
+La extraccion inicial por SQL no encontro el fragmento.
+Una segunda consulta comprobo 12404 registros visibles tanto
+desde FREEPDB1 como desde CDB$ROOT, pero la busqueda posterior
+se interrumpio con Ctrl+C y resultado de salida 130.
+
+Se copio la traza con docker cp y se busco localmente.
+La copia tenia 12433 lineas de texto y la extraccion termino
+con resultado 0. Se conservan tambien las evidencias anteriores.
+
+#### M.4. Encadenamiento de una fila grande
+
+Se creo ANCHA con dos filas:
+- id=1: 12000 bytes de texto entre tres columnas.
+- id=2: 5 bytes de texto.
+
+Resultados:
+- Filas: 2.
+- Bloques: 5.
+- AVG_ROW_LEN: 6016.
+- CHAIN_CNT: 1.
+- LIST CHAINED ROWS identifico exclusivamente id=1.
+
+Los 12000 bytes corresponden al texto, no al tamano total
+de la fila con sus cabeceras.
+
+#### M.5. Reparacion de MIGRA
+
+Se ejecuto:
+ALTER TABLE lab4pruebas.migra MOVE PCTFREE 20;
+
+El indice PK_MIGRA quedo UNUSABLE.
+Tras ALTER INDEX lab4pruebas.pk_migra REBUILD volvio a VALID.
+
+Con ANALYZE se obtuvo:
+- Filas: 5000.
+- Bloques: 63.
+- PCTFREE: 20.
+- AVG_ROW_LEN: 69.
+- CHAIN_CNT: 0.
+
+Se comprobaron 1000 textos ampliados y 4000 cortos.
+ANCHA no fue reorganizada y conservaba CHAIN_CNT=1.
+
+La lista CHAINED_ROWS anterior se conserva como diagnostico
+historico; no se reutiliza para enlazar por ROWID con MIGRA
+despues de su movimiento.
+
+#### M.6. Verificacion del coste despues de reparar
+
+Se repitio el mismo script de medicion:
+
+| Grupo | Lecturas logicas | Por busqueda | table fetch continued row |
+|---|---:|---:|---:|
+| No ampliadas | 3000 | 3 | 0 |
+| Ampliadas | 3000 | 3 | 0 |
+| Mixtas | 3000 | 3 | 0 |
+
+Todos los grupos registraron cero lecturas fisicas.
+PK_MIGRA estaba VALID y conservaba BLEVEL=1.
+MIGRA mantenia 5000 filas, 63 bloques y CHAIN_CNT=0.
+
+La primera ejecucion de reparacion termino con resultado 1
+al no encontrar el script de medicion llamado mediante @@.
+El MOVE y el REBUILD ya habian terminado correctamente.
+Se corrigio el archivo para ejecutar la medicion por separado,
+sin repetir la reorganizacion. La medicion posterior termino
+con resultado 0.
+
+#### Evidencias de la Parte M
+- docs/bitacora/lab4/evidencia/script/20261123T232933Z_14-provocar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233022Z_14-medir-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233107Z_14-volcar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233153Z_14-localizar-traza.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233728Z_14-provocar-encadenamiento.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234115Z_14-reparar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234215Z_14-medir-migracion-reparada.script.log
+- docs/bitacora/lab4/evidencia/config/14-migracion-cabeza.trc.txt
+
+#### M.7. Limpieza final verificada
+
+El inventario previo mostro siete objetos de LAB4PRUEBAS.
+Todos sus segmentos estaban en TBS_LAB4, sin segmentos
+de otros propietarios. Solo LAB4PRUEBAS lo tenia como
+tablespace predeterminado.
+
+Se comprobo un unico datafile de 64 MiB:
+ /opt/oracle/oradata/FREE/FREEPDB1/lab4pruebas01.dbf
+
+Tras las comprobaciones de seguridad se ejecutaron:
+DROP USER lab4pruebas CASCADE;
+DROP TABLESPACE tbs_lab4 INCLUDING CONTENTS AND DATAFILES;
+
+La limpieza termino con resultado 0.
+La comprobacion del diccionario devolvio:
+- Usuarios restantes: 0.
+- Tablespaces restantes: 0.
+- Datafiles restantes en la ruta prevista: 0.
+
+Una comprobacion posterior dentro del contenedor confirmo
+que el directorio era accesible y que no existian ni el archivo
+lab4pruebas01.dbf ni un enlace con esa ruta.
+
+Los scripts, registros y la copia de la traza se conservan.
+El banco de pruebas de las Partes L y M ha sido eliminado.
+
+#### Inventario final de evidencias de la Parte M
+- docs/bitacora/lab4/evidencia/script/20261123T232933Z_14-provocar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233022Z_14-medir-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233107Z_14-volcar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233153Z_14-localizar-traza.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233728Z_14-provocar-encadenamiento.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234115Z_14-reparar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234215Z_14-medir-migracion-reparada.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234423Z_14-revisar-limpieza.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234519Z_14-limpiar-banco.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234613Z_14-verificar-archivo-eliminado.script.log
+- docs/bitacora/lab4/evidencia/config/14-migracion-cabeza.trc.txt
