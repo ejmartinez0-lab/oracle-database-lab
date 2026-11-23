@@ -1,0 +1,78 @@
+SQL Format Cleared
+=== 1. Control files y redo sin cortar las rutas ===
+
+NAME
+----------------------------------------------------------------------------------------------------
+/opt/oracle/oradata/FREE/control01.ctl
+/opt/oracle/oradata/FREE/control02.ctl
+
+2 rows selected. 
+
+
+    GROUP# MEMBER                                                                                              
+---------- ----------------------------------------------------------------------------------------------------
+         1 /opt/oracle/oradata/FREE/redo01.log                                                                 
+         2 /opt/oracle/oradata/FREE/redo02.log                                                                 
+         3 /opt/oracle/oradata/FREE/redo03.log                                                                 
+
+3 rows selected. 
+
+=== 2. Destinos de archivado configurados ===
+
+   DEST_ID STATUS    TARGET           DESTINATION                                                                                          ERROR                                                                                     
+---------- --------- ---------------- ---------------------------------------------------------------------------------------------------- ------------------------------------------------------------------------------------------
+         1 VALID     PRIMARY          /opt/oracle/product/26ai/dbhomeFree/dbs/arch                                                                                                                                                   
+
+1 row selected. 
+
+=== 3. Ultimos archived logs registrados con nombre ===
+
+   THREAD#  SEQUENCE# COMPLETADO          ARC DEL S NAME                                                                                                
+---------- ---------- ------------------- --- --- - ----------------------------------------------------------------------------------------------------
+         1          3 2026-11-23 22:31:57 YES NO  A /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_3_1237845575.dbf                                      
+         1          2 2026-11-15 11:07:44 YES NO  A /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_2_1237845575.dbf                                      
+         1          1 2026-10-25 15:57:03 YES NO  A /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_1_1237845575.dbf                                      
+
+3 rows selected. 
+
+=== 4. Texto de los errores observados en las ultimas 24 horas ===
+
+MOMENTO             MESSAGE_TEXT                                                                                                                                                                        
+------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2026-11-23 22:31:48 Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_vktm_87.trc  (incident=11255) (PDBNAME=CDB$ROOT):                                                                        
+                    ORA-00800: soft external error, arguments: [Set Priority Failed], [VKTM], [Check traces and OS configuration], [Check Oracle document and MOS notes], []                            
+
+2026-11-23 22:31:49 Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_lgwr_123.trc  (incident=11375) (PDBNAME=CDB$ROOT):                                                                       
+                    ORA-00800: soft external error, arguments: [Set Priority Failed], [LGWR], [Check traces and OS configuration], [Check Oracle document and MOS notes], []                            
+
+2026-11-23 22:38:49 Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_vktm_53.trc  (incident=12857) (PDBNAME=CDB$ROOT):                                                                        
+                    ORA-00800: soft external error, arguments: [Set Priority Failed], [VKTM], [Check traces and OS configuration], [Check Oracle document and MOS notes], []                            
+
+2026-11-23 22:38:49 Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_lgwr_91.trc  (incident=12977) (PDBNAME=CDB$ROOT):                                                                        
+                    ORA-00800: soft external error, arguments: [Set Priority Failed], [LGWR], [Check traces and OS configuration], [Check Oracle document and MOS notes], []                            
+
+2026-11-23 23:02:50 ORA-65025 signalled during: DROP PLUGGABLE DATABASE pdblab4 INCLUDING DATAFILES...                                                                                                  
+
+
+5 rows selected. 
+
+=== 5. Destinos de diagnostico ===
+
+NAME                                                                                                 VALUE                                                                                                                   
+---------------------------------------------------------------------------------------------------- ------------------------------------------------------------------------------------------------------------------------
+ADR Home                                                                                             /opt/oracle/diag/rdbms/free/FREE                                                                                        
+Diag Alert                                                                                           /opt/oracle/diag/rdbms/free/FREE/alert                                                                                  
+Diag Trace                                                                                           /opt/oracle/diag/rdbms/free/FREE/trace                                                                                  
+
+3 rows selected. 
+
+=== 6. Datafiles: asignacion actual frente a limite declarado ===
+
+    CON_ID MIB_ASIGNADOS MIB_LIMITE_ARCHIVOS
+---------- ------------- -------------------
+         1          1782           134217728
+         3          1422           134222848
+
+2 rows selected. 
+
+=== FIN DE LA AMPLIACION ===

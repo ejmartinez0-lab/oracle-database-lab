@@ -1509,3 +1509,67 @@ El banco de pruebas de las Partes L y M ha sido eliminado.
 - docs/bitacora/lab4/evidencia/script/20261123T234519Z_14-limpiar-banco.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T234613Z_14-verificar-archivo-eliminado.script.log
 - docs/bitacora/lab4/evidencia/config/14-migracion-cabeza.trc.txt
+
+### Parte N: autopsia y verificacion final
+
+La autopsia y su ampliacion se ejecutaron como C##OPS_RO
+desde CDB$ROOT, ambas con resultado 0 y sin aplicar cambios
+de configuracion.
+
+El informe propio esta en:
+docs/bitacora/lab4-autopsia.md
+
+Incluye evidencia, riesgo, accion propuesta y prioridad
+para siete hallazgos:
+- Destino de archived logs fuera del montaje persistente mostrado.
+- Un solo miembro por grupo de redo.
+- Control files concentrados en el mismo volumen.
+- Diagnosticos fuera del montaje persistente mostrado.
+- Indices sin fecha de estadisticas en cuatro esquemas.
+- Fallos al establecer prioridad de VKTM y LGWR.
+- Dos indices de Academia con factor de agrupamiento elevado
+  segun el criterio de la consulta.
+
+El informe distingue observaciones de hechos no comprobados:
+no afirma la perdida fisica de archived logs ni la existencia
+de copias de respaldo de estos archivos. Las acciones propuestas
+no se ejecutaron durante la autopsia.
+
+La primera comprobacion local del informe termino con resultado 1
+al utilizar git diff --no-index --check contra /dev/null.
+El archivo ya se habia creado. Se verificaron despues su estructura,
+sus cuatro referencias a evidencias existentes y su formato,
+con resultado 0, sin recrearlo.
+
+#### Verificacion final
+
+16-verificacion-final.sh termino con 0 FALLOS y resultado 0.
+
+Entre los criterios comprobados:
+- CDB y FREEPDB1 abiertas READ WRITE.
+- OPEN_CURSORS=300 y sin entrada DB_FILES pendiente en el SPFILE.
+- Cuenta de observacion comun y concesion de lectura del alert log.
+- Sin privilegios ANY no lectores concedidos directamente a la
+  cuenta de observacion segun el filtro del script.
+- PDB y usuarios de pruebas ausentes.
+- TBS_LAB4 y su datafile eliminados.
+- Cinco tablespaces de negocio y cinco propietarios sin autenticacion.
+- Datos: 20000 estudiantes, 40 asignaturas y 60000 matriculas.
+- Rutas comprobadas de datafiles dentro del volumen.
+- Puerto 8181 no publicado.
+- Respaldo backups/20261115T105252Z_lab3-final conforme a SHA256SUMS.
+- Evidencias no vacias para los numeros 00 a 15.
+- PFILE, volcado de la Parte K e informe disponibles.
+- config.env y backups fuera del indice de Git.
+
+El resultado valida los criterios implementados, no una auditoria
+completa de seguridad ni la correccion de los riesgos del informe.
+Quedan pendientes la revision completa de secretos y el flujo
+de entrega mediante Pull Request.
+
+#### Evidencias de la Parte N
+- docs/bitacora/lab4/evidencia/script/20261123T235015Z_15-autopsia-instancia.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T235131Z_15-ampliar-autopsia.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T235131Z_15-montajes.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T235640Z_16-verificacion-final.script.log
+- docs/bitacora/lab4/evidencia/spool/20261123T235015Z_15-autopsia-instancia.spool.log

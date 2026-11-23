@@ -1,0 +1,2 @@
+volume | /var/lib/docker/volumes/oralab-26ai-data/_data -> /opt/oracle/oradata | RW=true
+
