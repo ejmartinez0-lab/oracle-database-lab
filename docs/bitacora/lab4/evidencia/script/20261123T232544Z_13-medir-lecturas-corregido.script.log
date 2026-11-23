@@ -1,0 +1,22 @@
+
+Session altered.
+
+=== 1. Lectura logica: calentamiento y 100000 busquedas ===
+Lecturas logicas=400000; por busqueda=4; fisicas=0
+CPU=1510 ms; CPU/lectura logica=3.775 us
+=== 2. Cache vacia: 2000 busquedas repartidas por PK ===
+Lecturas fisicas=5464; tiempo=193.063 ms; tiempo/lectura=35.334 us
+=== 3. Cache vacia: recorrido completo de la tabla ===
+Filas=400000; bloques fisicos=4595; peticiones=53; peticiones multibloque=36
+Bloques/peticion=86.698; tiempo=34.666 ms
+Caudal aproximado=1035.552 MiB/s; tiempo/bloque=7.544 us
+=== 4. Modelo aproximado y limites de la medida ===
+Bloques estadisticos=4676; filas=400000; bfr estadistico=85.543
+Tiempo aleatorio estimado para 4595 bloques=162.358 ms
+Cociente coste secuencial/aleatorio por bloque=.21352
+Umbral orientativo con CF malo=.2496 %
+FLUSH BUFFERCACHE no vacia la cache de paginas de Linux.
+Las medidas incluyen CPU y trabajo adicional de la sesion.
+
+PL/SQL procedure successfully completed.
+

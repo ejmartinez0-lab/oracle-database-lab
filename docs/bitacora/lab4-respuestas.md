@@ -1197,3 +1197,142 @@ terminaron con codigo 0. No se modificaron filas ni se vaciaron caches.
 - docs/bitacora/lab4/evidencia/script/20261123T231953Z_12-comparacion-bloques.script.log
 - docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt
 - docs/bitacora/lab4/evidencia/config/20261123T231848Z_12-volcado-bloque-reto.trc.txt
+
+### Parte L: capacidad, factor de bloqueo y coste de lectura
+
+#### L.1. ACA_ESTUDIANTES: modelo frente a medida
+
+Tras actualizar estadisticas:
+- Filas: 20000.
+- AVG_ROW_LEN: 78 bytes.
+- Bloque: 8192 bytes.
+- PCTFREE: 10.
+- Bloques estadisticos: 244.
+- Bloques asignados al segmento: 256.
+
+El recuento por bloque mediante ROWID obtuvo:
+- Bloques con filas: 237.
+- Minimo: 25 filas.
+- Media: 84.39 filas.
+- Maximo: 93 filas.
+- Total comprobado: 20000 filas.
+
+Modelo de la Unidad 3:
+bfr = floor((8192 - 96) * 0.9 / 78) = 93.
+Bloques estimados = ceil(20000 / 93) = 216.
+
+Modelo aproximado para Oracle:
+bfr = floor((8192 - 122) * 0.9 / (78 + 2)) = 90.
+Bloques estimados = ceil(20000 / 90) = 223.
+
+Los modelos simplifican cabeceras, longitudes y ocupacion.
+Los bloques con filas, los estadisticos y los asignados son
+magnitudes diferentes; no se sustituyen unos por otros.
+Las filas y su distribucion no llenan todos los bloques por igual.
+
+#### L.2. Banco de pruebas separado
+
+Se creo LAB4PRUEBAS sin autenticacion y el tablespace BIGFILE
+TBS_LAB4 dentro del volumen.
+
+Datafile:
+ /opt/oracle/oradata/FREE/FREEPDB1/lab4pruebas01.dbf
+
+Configuracion: 64 MB iniciales, AUTOEXTEND en pasos de 32 MB,
+MAXSIZE de 512 MB.
+
+La tabla LECTURAS contiene 400000 filas:
+- AVG_ROW_LEN: 78 bytes.
+- Bloques estadisticos: 4676.
+- Tamano de esos bloques: 36.53 MiB.
+- PK_LECTURAS: VALID.
+- Factor filas/bloques estadisticos: 85.543 aproximadamente.
+
+El banco se conserva para la Parte M, que realizara su limpieza.
+
+#### L.3. Medicion de lecturas
+
+La primera ejecucion completo la medida logica y despues fallo
+con ORA-02000 por una instruccion escrita como FLUSH BUFFERCACHE.
+Se corrigieron las dos instrucciones a FLUSH BUFFER_CACHE.
+Se conserva la evidencia fallida.
+
+Resultados de la ejecucion corregida, terminada con codigo 0:
+
+| Escenario | Resultado |
+|---|---|
+| 100000 busquedas en caliente | 400000 lecturas logicas |
+| Lecturas por busqueda | 4 |
+| Lecturas fisicas en caliente | 0 |
+| CPU de las busquedas en caliente | 1510 ms |
+| CPU/lectura logica | 3.775 microsegundos |
+| 2000 busquedas repartidas tras vaciar cache | 5464 lecturas fisicas |
+| Tiempo de esas busquedas | 193.063 ms |
+| Tiempo por lectura fisica del intervalo | 35.334 microsegundos |
+| Recorrido completo | 400000 filas |
+| Bloques fisicos del recorrido | 4595 |
+| Peticiones de lectura | 53 |
+| Peticiones multibloque | 36 |
+| Bloques por peticion | 86.698 |
+| Tiempo del recorrido | 34.666 ms |
+| Tiempo por bloque del recorrido | 7.544 microsegundos |
+| Caudal calculado | 1035.552 MiB/s |
+
+Las peticiones totales y las multibloque son contadores distintos.
+No se afirma que todas las peticiones fueran multibloque.
+
+FLUSH BUFFER_CACHE vacia la cache de Oracle, no la cache de
+paginas de Linux. El caudal no se presenta como velocidad
+aislada del disco. Los tiempos incluyen CPU y trabajo de sesion.
+
+Los 4595 bloques fisicos de la ejecucion no se equiparan
+automaticamente con los 4676 bloques de las estadisticas.
+
+#### L.4. Modelo de coste y sus limites
+
+Usando las medidas del intervalo:
+- Coste aleatorio estimado para 4595 bloques: 162.358 ms.
+- Coste secuencial medido: 34.666 ms.
+- Cociente secuencial/aleatorio por bloque: 0.21352.
+- Umbral orientativo con agrupamiento malo: 0.2496 % de las filas.
+
+Es una aproximacion para el supuesto del modelo, no una regla
+universal del optimizador. No demuestra que cualquier indice
+deje de compensar exactamente en ese porcentaje.
+
+#### Reto: dimensionar ACA_MATRICULAS
+
+Antes de consultar sus estadisticas se planteo una hipotesis
+de fila media de 40 bytes, cabecera de 96, bloque de 8192
+y PCTFREE=10. Prediccion: 182 filas/bloque y 330 bloques
+para las 60000 filas. Los 40 bytes eran una hipotesis, no una medida.
+
+Las estadisticas reales mostraron:
+- Filas: 60000.
+- AVG_ROW_LEN: 30 bytes.
+- Bloques estadisticos: 370.
+- Bloques asignados: 384.
+- PCTFREE: 10.
+- Bloque: 8192 bytes.
+
+Recalculando el modelo con 30 bytes:
+bfr = floor((8192 - 96) * 0.9 / 30) = 242.
+Bloques estimados = ceil(60000 / 242) = 248.
+
+La estimacion sigue por debajo de los 370 bloques estadisticos.
+El modelo supone una ocupacion idealizada; no se ha aislado
+la contribucion concreta de cada causa de la diferencia.
+
+Transferir 370 bloques de 8192 bytes a 150000000 bytes/s
+requiere teoricamente 20.207 ms. Se utiliza MB decimal y
+se estima solo transferencia: no es un tiempo real de consulta.
+
+El reto termino con codigo 0 y se comprobaron de nuevo
+las 400000 filas del banco de pruebas.
+
+#### Evidencias de la Parte L
+- docs/bitacora/lab4/evidencia/script/20261123T232219Z_13-factor-bloqueo.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T232323Z_13-crear-banco.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T232452Z_13-medir-lecturas.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T232544Z_13-medir-lecturas-corregido.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T232640Z_13-reto-matriculas.script.log
