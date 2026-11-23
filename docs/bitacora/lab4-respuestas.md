@@ -716,3 +716,109 @@ lineas que construyen el destino y el nombre de la evidencia.
 
 No se ejecutaron migraciones durante este ajuste. La comprobacion
 real de estas opciones con las migraciones del Lab 5 queda pendiente.
+
+### Ampliacion de la Parte G: analisis de sentencias y PGA
+
+Se conservaron los experimentos anteriores de memoria y Buffer Cache.
+La ampliacion se realizo mediante dos scripts separados:
+08-parse.sql y 08-pga.sql.
+
+#### G.3. Literales frente a variables de enlace
+
+Primera ejecucion de 08-parse.sql, como SYS en FREEPDB1:
+
+| Medida | Literales | Variable de enlace |
+|---|---:|---:|
+| Analisis totales | 1011 | 1 |
+| Analisis duros | 1003 | 1 |
+| CPU de analisis, ms | 1190 | 0 |
+| Tiempo total, ms | 1290 | 20 |
+| Cursores presentes al consultar V$SQL | 1000 | 1 |
+| Memoria compartida, KB | 38844.6 | 38.9 |
+| Ejecuciones recogidas en V$SQL | 1000 | 1000 |
+
+La version con literales construyo textos SQL distintos al cambiar
+el estudiante_id. La version con :id reutilizo un unico texto para
+1000 ejecuciones.
+
+Los contadores son de sesion y pueden incluir trabajo interno.
+No se ha aislado la causa concreta de los tres analisis duros
+adicionales respecto a las 1000 consultas con literales.
+Los 0 ms registrados para la CPU de analisis con bind no significan
+que el trabajo carezca de coste.
+
+CURSOR_SHARING se fijo en EXACT solo para la sesion del experimento.
+No se modificaron datos ni se vaciaron caches.
+
+#### G.4. PGA automatica frente a area manual de 64 KB
+
+Se ordenaron las 60000 matriculas en los dos escenarios:
+
+| Medida | Automatica | Manual 64 KB |
+|---|---:|---:|
+| Filas ordenadas | 60000 | 60000 |
+| Sorts memory, incremento de sesion | 11 | 0 |
+| Sorts disk, incremento de sesion | 0 | 1 |
+| Tiempo observado, ms | 80 | 430 |
+| Memoria optima estimada, KB | 2604 | 1710 |
+| Memoria usada, KB | 2314 | 65 |
+| LAST_EXECUTION | OPTIMAL | 6 PASSES |
+| Espacio en TEMP, KB | 0 | 2048 |
+
+Con gestion automatica, el area de trabajo fue OPTIMAL y no uso TEMP.
+Con el area manual reducida, la ordenacion uso TEMP y mostro
+6 PASSES. En esta ejecucion tambien aumento el tiempo observado.
+
+WORKAREA_SIZE_POLICY quedo en AUTO antes de finalizar.
+Los cambios de configuracion fueron de sesion, no globales.
+
+La consulta de PGA desde CDB$ROOT mostro:
+- Objetivo agregado: 512 MB.
+- PGA asignada: 360.5 MB.
+- Maximo asignado desde el arranque: 461 MB.
+- Over allocation count: 0.
+- Cache hit percentage: 91.6 %.
+
+El histograma de la instancia mostro 6252 ejecuciones optimas,
+0 de una pasada y 2 multipasada. Son contadores acumulados:
+no equivalen al numero de pasadas de la consulta concreta.
+
+#### Reto: localizar familias con muchos literales
+
+08-reto-literales.sql agrupa V$SQL por FORCE_MATCHING_SIGNATURE
+y selecciona familias con mas de 50 SQL_ID distintos.
+Tambien distingue los textos distintos de las filas de cursores hijos.
+
+La primera consulta del reto no devolvio filas. El diagnostico
+posterior tampoco encontro las etiquetas del experimento.
+Ambas consultas terminaron con codigo 0; se conservan sus evidencias.
+No se ha demostrado la causa exacta de esa ausencia.
+
+Se repitio el experimento de parse y se ejecutaron inmediatamente
+el reto y el diagnostico, sin reiniciar ni vaciar la shared pool.
+
+Resultados de la repeticion:
+- Literales: 1003 analisis totales, 1000 duros, 1060 ms de CPU de
+  analisis y 1160 ms de tiempo total.
+- Bind: 1 analisis total, 1 duro, 0 ms registrados de CPU de analisis
+  y 30 ms de tiempo total.
+- Al finalizar el script de parse quedaban 876 cursores con literales.
+- La consulta inmediata del reto encontro 875 textos distintos,
+  con firma 1863221789280198928 y 32606.7 KB de memoria compartida.
+- El diagnostico encontro esa misma familia de literales y un unico
+  texto bind con 1000 ejecuciones.
+
+Los recuentos corresponden a consultas realizadas en momentos distintos.
+La repeticion se utilizo para comprobar la deteccion por firma;
+no se presenta como una prueba con la cache vaciada.
+
+Todos los scripts de este bloque terminaron con codigo 0.
+
+#### Archivos de evidencia de la ampliacion de G
+- docs/bitacora/lab4/evidencia/script/20261123T224438Z_08-parse.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225221Z_08-pga.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225339Z_08-reto-literales.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225423Z_08-diagnostico-firmas.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225513Z_08-diagnostico-firmas-inmediato.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225513Z_08-parse-repeticion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225513Z_08-reto-literales-inmediato.script.log
