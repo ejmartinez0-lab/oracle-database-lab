@@ -1,0 +1,11 @@
+ORACLE instance started.
+
+Total System Global Area 1603398928 bytes
+Fixed Size		    5033232 bytes
+Variable Size		  536870912 bytes
+Database Buffers	 1056964608 bytes
+Redo Buffers		    4530176 bytes
+ORA-00205: error in identifying control file, check alert log for more info
+Help: https://docs.oracle.com/error-help/db/ora-00205/
+
+

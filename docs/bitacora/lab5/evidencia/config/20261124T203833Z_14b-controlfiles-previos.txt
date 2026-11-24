@@ -1,0 +1,3 @@
+/opt/oracle/oradata/FREE/control01.ctl
+/opt/oracle/oradata/FREE/control02.ctl
+/opt/oracle/oradata/FREE/control03.ctl

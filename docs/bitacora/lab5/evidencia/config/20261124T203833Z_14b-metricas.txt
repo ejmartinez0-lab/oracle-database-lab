@@ -1,0 +1,8 @@
+Simulacro B: ausencia de una copia del control file
+Archivo afectado: /opt/oracle/oradata/FREE/control03.ctl
+Copia sana utilizada: /opt/oracle/oradata/FREE/control01.ctl
+Fallo esperado: ORA-00205; instancia STARTED/NOMOUNT
+Tiempo desde solicitud de parada hasta datos verificados: 15 segundos
+Tiempo desde inicio de reparacion hasta datos verificados: 9 segundos
+Alcance de comprobacion: 20000 estudiantes y filas 102/103 ACTIVO
+Recuperacion: copia multiplexada actual; sin RESETLOGS
