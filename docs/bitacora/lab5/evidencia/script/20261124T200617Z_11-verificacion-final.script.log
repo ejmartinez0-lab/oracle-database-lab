@@ -1,0 +1,42 @@
+=== ARCHIVADO DESPUES DE RECUPERAR EL LIMITE ===
+
+System altered.
+
+OK: ARCHIVELOG y archivados recientes en la FRA
+OK: FRA en 4 GiB en memoria y SPFILE
+OK: sin destinos en ERROR y base disponible
+
+PL/SQL procedure successfully completed.
+
+Database log mode	       Archive Mode
+Automatic archival	       Enabled
+Archive destination	       USE_DB_RECOVERY_FILE_DEST
+Oldest online log sequence     23
+Next log sequence to archive   21
+Current log sequence	       21
+
+NAME											    LIMITE_MB	USADO_MB
+------------------------------------------------------------------------------------------ ---------- ----------
+/opt/oracle/oradata/fra 									 4096	    5.21
+
+1 row selected.
+
+
+   DEST_ID STATUS    DESTINATION										ERROR
+---------- --------- ------------------------------------------------------------------------------------------ --------------------------------------------------------------------------------
+	 1 VALID     USE_DB_RECOVERY_FILE_DEST
+
+1 row selected.
+
+
+ SEQUENCE# NAME 										      ARC IS_
+---------- ------------------------------------------------------------------------------------------ --- ---
+	22 /opt/oracle/oradata/fra/FREE/archivelog/2026_11_24/o1_mf_1_22_ojcvlxs9_.arc		      YES YES
+	20 /opt/oracle/oradata/fra/FREE/archivelog/2026_11_24/o1_mf_1_20_ojcvkwc4_.arc		      YES YES
+	21 /opt/oracle/oradata/fra/FREE/archivelog/2026_11_24/o1_mf_1_21_ojcvkwkm_.arc		      YES YES
+	18 /opt/oracle/oradata/fra/FREE/archivelog/2026_11_24/o1_mf_1_18_ojcvktqy_.arc		      YES YES
+	19 /opt/oracle/oradata/fra/FREE/archivelog/2026_11_24/o1_mf_1_19_ojcvktyp_.arc		      YES YES
+
+5 rows selected.
+
+PARTE_L_VERIFICADA_OK
