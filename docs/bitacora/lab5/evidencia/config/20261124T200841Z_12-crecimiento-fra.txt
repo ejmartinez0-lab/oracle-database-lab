@@ -1,0 +1,4 @@
+FRA antes: 25099776 bytes
+FRA despues: 43723264 bytes
+Diferencia: 18623488 bytes (17.76 MiB)
+La diferencia incluye archivado y posible actividad de fondo; no equivale exclusivamente al redo de DELETE.

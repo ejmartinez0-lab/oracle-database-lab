@@ -1,0 +1,14 @@
+
+Session altered.
+
+[A] UPDATE de la fila 101 a EGRESADO, sin COMMIT todavía
+
+1 row updated.
+
+
+PL/SQL procedure successfully completed.
+
+
+Commit complete.
+
+[A] COMMIT hecho
