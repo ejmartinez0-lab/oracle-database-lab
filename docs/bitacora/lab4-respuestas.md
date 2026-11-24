@@ -1995,3 +1995,23 @@ crecimiento de filas existentes mediante UPDATE y el umbral de
 ocupacion para las inserciones ordinarias. No es una reserva exclusiva
 de ITL ni garantiza que nunca haya migracion: el crecimiento puede
 superar el espacio disponible.
+
+## Utilidad de indices requerida por el Lab 5
+
+Se incorporo scripts/ops/grafico-indice.sh, adaptado del apartado
+C.4 del Lab 5 v3. Genera un treedump y procesa una copia local;
+no crea ni reconstruye indices ni modifica datos de negocio.
+
+Prueba funcional sobre ADMIN_ACADEMIA.SYS_C008659:
+- Hojas: 37.
+- Entradas vivas: 20000.
+- Entradas borradas: 0.
+- Ocupacion viva estimada: 97.92 %.
+- Hojas sin entradas vivas: 0.
+- Resultado: 0.
+
+La ocupacion usa el modelo aproximado de 7996 bytes utiles por
+hoja de 8 KiB. No es una recomendacion automatica de reconstruccion.
+
+Evidencia:
+- docs/bitacora/lab4/evidencia/script/20261124T001742Z_17-grafico-indice.script.log
