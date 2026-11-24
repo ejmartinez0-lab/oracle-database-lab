@@ -1,0 +1,26 @@
+
+Session altered.
+
+
+PL/SQL procedure successfully completed.
+
+=== PRUEBA FUNCIONAL DE LA HERRAMIENTA ===
+
+PL/SQL procedure successfully completed.
+
+=== FILAS REALES POR BLOQUE DE PEDIDO ===
+
+    MINIMO	MEDIA	  MAXIMO BLOQUES_CON_FILAS
+---------- ---------- ---------- -----------------
+	 2     191.57	     200	      5220
+
+1 row selected.
+
+
+  NUM_ROWS     BLOCKS FILAS_POR_BLOQUE_ESTADISTICAS
+---------- ---------- -----------------------------
+   1000000	 5320			     187.97
+
+1 row selected.
+
+PARTE_B_VERIFICADA_OK
