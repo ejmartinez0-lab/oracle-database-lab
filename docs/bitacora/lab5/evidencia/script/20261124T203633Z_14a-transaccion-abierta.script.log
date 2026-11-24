@@ -1,0 +1,32 @@
+
+Session altered.
+
+
+PL/SQL procedure successfully completed.
+
+
+1 row updated.
+
+
+Commit complete.
+
+
+1 row updated.
+
+
+ESTUDIANTE_ID ESTADO
+------------- --------------------
+	  102 EGRESADO
+	  103 INACTIVO
+
+TRANSACCION_A_PREPARADA
+BEGIN DBMS_SESSION.SLEEP(180); END;
+
+*
+ERROR at line 1:
+ORA-03113: end-of-file on communication channel
+Process ID: 1416
+Session ID: 37 Serial number: 658
+Help: https://docs.oracle.com/error-help/db/ora-03113/
+
+

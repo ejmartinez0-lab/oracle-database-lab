@@ -1,0 +1,8 @@
+Simulacro A: caida de instancia
+Inicio: inmediatamente antes de solicitar SHUTDOWN ABORT
+Fin: comprobacion correcta de las filas tras el arranque
+Tiempo observado hasta recuperacion verificada: 10 segundos
+RPO observado en el cambio confirmado de prueba: 0
+Fila 102 tras recuperar: EGRESADO
+Fila 103 tras recuperar: ACTIVO
+Estado despues de limpieza: ambas ACTIVO
