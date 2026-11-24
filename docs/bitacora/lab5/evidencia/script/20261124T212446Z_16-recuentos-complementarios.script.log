@@ -1,0 +1,31 @@
+ADMIN_CLINICA.CLI_CITAS|FILAS=0
+ADMIN_CLINICA.CLI_MEDICOS|FILAS=0
+ADMIN_CLINICA.CLI_PACIENTES|FILAS=0
+ADMIN_FINTECH.FIN_CUENTAS|FILAS=0
+ADMIN_FINTECH.FIN_TRANSACCIONES|FILAS=0
+ADMIN_LOGISTICA.LOG_ALMACENES|FILAS=0
+ADMIN_LOGISTICA.LOG_ENVIOS|FILAS=0
+ADMIN_LOGISTICA.LOG_EVENTOS_TRACKING|FILAS=0
+ADMIN_RETAIL.RET_PRODUCTOS|FILAS=0
+ADMIN_RETAIL.RET_VENTAS_CABECERA|FILAS=0
+ADMIN_RETAIL.RET_VENTAS_DETALLE|FILAS=0
+=== RETENCION CONFIGURADA Y AJUSTADA DE UNDO EN FREEPDB1 ===
+
+NAME
+--------------------------------------------------------------------------------
+VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+undo_management
+AUTO
+
+undo_tablespace
+UNDOTBS1
+
+undo_retention
+900
+
+
+CONSULTA_MAS_LARGA_S RETENCION_AJUSTADA_MIN_S RETENCION_AJUSTADA_MAX_S
+-------------------- ------------------------ ------------------------
+		   0			  900			   900
+RECUENTOS_COMPLEMENTARIOS_OK
