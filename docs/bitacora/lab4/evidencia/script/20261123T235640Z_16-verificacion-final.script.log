@@ -1,0 +1,72 @@
+=== 1. Estado de Oracle ===
+OK: consulta de verificacion terminada sin error
+OK: cdb
+  esperado=READWRITE; recibido=['READWRITE']
+OK: pdb_abierta
+  esperado=1; recibido=['1']
+OK: open_cursors
+  esperado=300; recibido=['300']
+OK: dbfiles_pendiente
+  esperado=0; recibido=['0']
+OK: ops_comun
+  esperado=1; recibido=['1']
+OK: ops_alert
+  esperado=1; recibido=['1']
+OK: ops_any_nolectura
+  esperado=0; recibido=['0']
+OK: pdb_prueba
+  esperado=0; recibido=['0']
+OK: usuarios_prueba
+  esperado=0; recibido=['0']
+OK: tbs_prueba
+  esperado=0; recibido=['0']
+OK: tbs_negocio
+  esperado=5; recibido=['5']
+OK: admin_esquema
+  esperado=5; recibido=['5']
+OK: datafiles_fuera
+  esperado=0; recibido=['0']
+OK: estudiantes
+  esperado=20000; recibido=['20000']
+OK: asignaturas
+  esperado=40; recibido=['40']
+OK: matriculas
+  esperado=60000; recibido=['60000']
+
+=== 2. Contenedor y archivo eliminado ===
+OK: puerto 8181 no publicado
+OK: banco eliminado y rutas reales de .dbf dentro del volumen
+
+=== 3. Integridad del respaldo Lab 3; puede tardar ===
+OK: respaldo lab3-final coincide con SHA256SUMS
+  backups/20261115T105252Z_lab3-final
+
+=== 4. Evidencias y entregables ===
+OK: evidencia 00
+OK: evidencia 01
+OK: evidencia 02
+OK: evidencia 03
+OK: evidencia 04
+OK: evidencia 05
+OK: evidencia 06
+OK: evidencia 07
+OK: evidencia 08
+OK: evidencia 09
+OK: evidencia 10
+OK: evidencia 11
+OK: evidencia 12
+OK: evidencia 13
+OK: evidencia 14
+OK: evidencia 15
+OK: volcado de bloque Parte K
+OK: archivo no vacio: docs/bitacora/lab4/evidencia/config/initFREE-lab4.ora
+OK: archivo no vacio: docs/bitacora/lab4/evidencia/config/14-migracion-cabeza.trc.txt
+OK: archivo no vacio: docs/bitacora/lab4-autopsia.md
+OK: archivo no vacio: docs/bitacora/lab4-respuestas.md
+
+=== 5. Exclusiones basicas de Git ===
+OK: inventario de Git accesible
+OK: config.env y backups fuera del indice de Git
+
+RESULTADO: 0 FALLOS.
+Criterios comprobados: OK. Pendientes la revision completa de secretos y el PR.

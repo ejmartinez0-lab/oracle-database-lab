@@ -1,0 +1,62 @@
+
+Session altered.
+
+=== 1. Comprobar bloque de 8 KiB y ausencia de objetos ===
+
+PL/SQL procedure successfully completed.
+
+=== 2. Crear una fila grande y una corta ===
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+
+        ID BYTES_TEXTO
+---------- -----------
+         1       12000
+         2           5
+
+2 rows selected.
+
+=== 3. Obtener CHAIN_CNT ===
+
+Table analyzed.
+
+
+TABLE_NAME             NUM_ROWS     BLOCKS AVG_ROW_LEN  CHAIN_CNT
+-------------------- ---------- ---------- ----------- ----------
+ANCHA                         2          5        6016          1
+
+1 row selected.
+
+=== 4. Identificar la fila encadenada sin tocar la lista de MIGRA ===
+
+Table created.
+
+
+Table analyzed.
+
+
+        ID ROWID_CABEZA
+---------- ------------------
+         1 AAAR/7AAAAAABZuAAA
+
+1 row selected.
+
+=== 5. Conservar el estado de MIGRA antes de su reparacion ===
+
+TABLE_NAME             NUM_ROWS     BLOCKS  CHAIN_CNT
+-------------------- ---------- ---------- ----------
+ANCHA                         2          5          1
+MIGRA                      5000         58       1000
+
+2 rows selected.
+

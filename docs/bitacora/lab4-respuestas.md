@@ -1,3 +1,65 @@
+## Indice de comprobaciones del enunciado v3
+
+Este indice sigue la numeracion de las paginas 158-159 del enunciado v3.
+Los encabezados originales de la primera version se conservan como bitacora
+historica; su numero no siempre coincide con la pregunta de la version v3.
+Para localizar la respuesta vigente se utiliza la tabla siguiente.
+
+| Pregunta v3 | Tema | Respuesta |
+|---|---|---|
+| 1 | Consistencia de la copia | [Ir al apartado](#v3-comprobacion-1) |
+| 2 | Manifiesto, SHA256SUMS y comprobacion previa a restaurar | [Ir al apartado](#v3-comprobacion-2) |
+| 3 | RPO y RTO de la copia | [Ir al apartado](#v3-comprobacion-3) |
+| 4 | Ubicacion inicial y DB_CREATE_FILE_DEST | [Ir al apartado](#v3-comprobacion-4) |
+| 5 | RENAME DATAFILE frente a mover el archivo | [Ir al apartado](#v3-comprobacion-5) |
+| 6 | Migraciones y revocacion de credenciales | [Ir al apartado](#v3-comprobacion-6) |
+| 7 | Prueba de persistencia | [Ir al apartado](#v3-comprobacion-7) |
+| 8 | Datos de instancia y de base | [Ir al apartado](#v3-comprobacion-8) |
+| 9 | NOMOUNT, MOUNT y OPEN | [Ir al apartado](#v3-comprobacion-9) |
+| 10 | V$PARAMETER y V$SPPARAMETER: DB_FILES | [Ir al apartado](#v3-comprobacion-10) |
+| 11 | PROCESSES y metadata | [Ir al apartado](#v3-comprobacion-11) |
+| 12 | Modelo de gestion de memoria | [Ir al apartado](#v3-comprobacion-12) |
+| 13 | Experimento de cache | [Ir al apartado](#v3-comprobacion-13) |
+| 14 | Literales frente a variables de enlace | [Ir al apartado](#v3-comprobacion-14) |
+| 15 | SPID, PID y espacios de nombres | [Ir al apartado](#v3-comprobacion-15) |
+| 16 | Visibilidad de datafiles desde raiz y PDB | [Ir al apartado](#v3-comprobacion-16) |
+| 17 | Usuario comun y CONTAINER_DATA | [Ir al apartado](#v3-comprobacion-17) |
+| 18 | ORA-00942 y ORA-41900 | [Ir al apartado](#v3-comprobacion-18) |
+| 19 | Privilegio de esquema: ventajas y alcance | [Ir al apartado](#v3-comprobacion-19) |
+| 20 | COMMON_USER_PREFIX y creacion de usuarios | [Ir al apartado](#v3-comprobacion-20) |
+| 21 | Archivos de la base y relacionados | [Ir al apartado](#v3-comprobacion-21) |
+| 22 | Tamano del datafile en Linux y Oracle | [Ir al apartado](#v3-comprobacion-22) |
+| 23 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-23) |
+| 24 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-24) |
+| 25 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-25) |
+| 26 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-26) |
+| 27 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-27) |
+| 28 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-28) |
+| 29 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-29) |
+| 30 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-30) |
+| 31 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-31) |
+| 32 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-32) |
+| 33 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-33) |
+| 34 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-34) |
+| 35 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-35) |
+| 36 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-36) |
+| 37 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-37) |
+| 38 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-38) |
+
+Las referencias de evidencia de cada Parte identifican los archivos
+que respaldan las respuestas; los valores medidos se mantienen en sus
+apartados originales.
+
+### Precisiones de las comprobaciones v3 19 y 22
+
+V3-19: READ ANY TABLE ON SCHEMA cubre las tablas presentes y futuras
+de un esquema sin mantener concesiones tabla a tabla. Ese mismo
+alcance futuro obliga a revisar que las nuevas tablas puedan exponerse
+al destinatario; no debe confundirse con lectura de toda la PDB.
+
+V3-22: el ejemplo de 100 MiB corresponde a 104857600 bytes.
+Linux muestra 104865792: la diferencia de 8192 bytes es el bloque
+adicional de cabecera del archivo, no una fila ni espacio del segmento.
 
 ## Parte B. Respaldo del estado del Lab 3
 
@@ -18,6 +80,7 @@ pero readlink -f demuestra que sus rutas reales están en
 Por tanto, están cubiertos por la copia del volumen, aunque todavía
 no se encuentran en la carpeta estándar FREE/FREEPDB1.
 
+<a id="v3-comprobacion-1"></a>
 ### 1. Consistencia de la copia
 
 La copia se tomó después de SHUTDOWN IMMEDIATE y de detener el
@@ -28,6 +91,7 @@ Copiar los archivos con la base abierta no garantiza que todos
 correspondan a un estado consistente; no sería equivalente a este
 procedimiento. Mi base ya estaba en ARCHIVELOG y no cambié ese modo.
 
+<a id="v3-comprobacion-2"></a>
 ### 2. Manifiesto y SHA-256
 
 El manifiesto identifica la copia mediante fecha, etiqueta, contenedor,
@@ -36,6 +100,7 @@ SHA256SUMS permite comprobar si los archivos han cambiado o se han
 corrompido. El script de restauración verifica esas sumas antes de
 modificar el entorno.
 
+<a id="v3-comprobacion-3"></a>
 ### 3. RPO y RTO en este laboratorio
 
 Al restaurar esta copia perdería los cambios realizados después del
@@ -53,6 +118,7 @@ inconsistente.
 
 ## Parte C. Diagnostico y correcciones
 
+<a id="v3-comprobacion-4"></a>
 ### 4. Ubicacion inicial de los datafiles
 
 Evidencia: script/*_01-diagnostico.script.log.
@@ -72,6 +138,7 @@ usar Oracle Managed Files al crear archivos sin indicar su nombre.
 Para las migraciones del laboratorio se emplean rutas absolutas dentro
 del volumen.
 
+<a id="v3-comprobacion-5"></a>
 ### 5. Procedimiento de reubicacion
 
 Evidencias:
@@ -88,6 +155,7 @@ Los cinco tablespaces quedaron ONLINE, con archivos de 100 MB bajo
 La segunda ejecucion respondio "Nada que reubicar", demostrando
 idempotencia.
 
+<a id="v3-comprobacion-6"></a>
 ### 6. Migraciones y credenciales expuestas
 
 Evidencias:
@@ -110,6 +178,7 @@ Invalidarla impide utilizar la credencial expuesta.
 El ejecutor de migraciones utiliza autenticacion del sistema operativo
 dentro del contenedor: no pasa la contrasena de SYS como argumento.
 
+<a id="v3-comprobacion-7"></a>
 ### 7. Prueba de persistencia y definicion del contenedor
 
 Evidencia: script/*_03-prueba-persistencia.script.log.
@@ -167,6 +236,7 @@ El cambio de nombre registrado en Oracle no mueve fisicamente el archivo.
 
 ## Parte D. Instancia, base de datos y servicios
 
+<a id="v3-comprobacion-8"></a>
 ### 8. Tres datos de instancia y tres de base de datos
 
 Evidencias:
@@ -242,6 +312,7 @@ CREATED indica cuando se creo la base, no cuando se inicio la instancia.
 
 ## Parte E. Arranque por etapas y alert log
 
+<a id="v3-comprobacion-9"></a>
 ### 9. NOMOUNT, MOUNT y OPEN
 
 Evidencia:
@@ -337,6 +408,7 @@ Evidencias:
 - config/initFREE-lab4.ora.
 - config/initFREE-lab4-memoria.ora.
 
+<a id="v3-comprobacion-10"></a>
 ### 12. V$PARAMETER frente a V$SPPARAMETER
 
 V$PARAMETER muestra el valor efectivo de los parametros en la sesion.
@@ -367,6 +439,7 @@ es BOTH, siempre que el parametro admita esa modificacion.
 SCOPE=SPFILE modifica solo la configuracion persistente; permite
 preparar un cambio estatico para el siguiente arranque.
 
+<a id="v3-comprobacion-11"></a>
 ### 14. PROCESSES y limites de la metadata
 
 La consulta inicial muestra PROCESSES con ISSYS_MODIFIABLE=IMMEDIATE,
@@ -445,6 +518,7 @@ que impide el arranque.
 
 ## Parte G. Memoria y Buffer Cache
 
+<a id="v3-comprobacion-12"></a>
 ### 16. Modelo de gestion de memoria
 
 Evidencia: spool/*_08-memoria.spool.log.
@@ -477,6 +551,7 @@ El asesor mostro el mismo factor de tiempo estimado y las mismas
 lecturas fisicas para todos los tamanos considerados. Esta captura,
 con poca carga representativa, no basta para decidir reducir la SGA.
 
+<a id="v3-comprobacion-13"></a>
 ### 17. Experimento de cache
 
 Evidencia: script/*_08-experimento-cache.script.log.
@@ -538,6 +613,7 @@ pertenecen a la PGA; shared pool, log buffer y buffer cache son de la SGA.
 
 ## Parte H. Procesos Oracle y Linux
 
+<a id="v3-comprobacion-15"></a>
 ### 19. Correspondencia entre SPID y PID
 
 Evidencias:
@@ -662,3 +738,1280 @@ el merge del PR y la publicacion de lab4-final.
 
 - docs/bitacora/lab4/evidencia/script/20261115T113146Z_10-verificacion-final.script.log
 - docs/bitacora/lab4/evidencia/script/20261115T113312Z_10-control-secretos.script.log
+
+## Ampliacion del Lab 4 a la version v3 — Issue #9
+
+### Punto de partida y copia previa
+
+La ampliacion parte del cierre anterior del Lab 4, fusionado mediante
+el PR #8 y etiquetado como lab4-final, en el commit aefda12.
+
+Antes de introducir cambios se ejecuto de nuevo el verificador
+scripts/lab4/10-verificacion-final.sh. Todas las comprobaciones
+terminaron en OK, con codigo de salida 0.
+
+Se creo una copia en frio del estado actual:
+backups/20261123T223543Z_lab4-pre-ampliacion.
+
+Evidencia:
+docs/bitacora/lab4/evidencia/script/20261123T223543Z_00-backup-pre-ampliacion.script.log
+
+Resultados observados:
+- Base FREE en ARCHIVELOG antes de la copia.
+- Cierre limpio mediante SHUTDOWN IMMEDIATE y parada del contenedor.
+- Todos los archivos inventariados estan dentro del volumen al resolver sus rutas reales.
+- SPFILE y password file apuntan mediante enlaces a rutas dentro del volumen.
+- Archivos externos al volumen: 0.
+- Comprobacion SHA-256: todos los archivos en OK.
+- Tamano comprimido mostrado: 578 MB.
+- Tras el arranque, CDB y FREEPDB1 en READ WRITE.
+- Codigo de salida del backup: 0.
+- Codigo de salida de escritura de la evidencia: 0.
+
+Se ha comprobado la integridad de la copia, pero no se ha realizado
+una restauracion de prueba. No se dispone todavia de un RTO de
+restauracion medido para esta copia.
+
+La copia permanece fuera de Git. Se conserva tambien la copia
+anterior del Lab 3 y no se han modificado las etiquetas publicadas.
+
+### Compatibilidad del ejecutor de migraciones con el Lab 5
+
+Se adapto scripts/deployment/env/08-aplicar-migraciones.sh para
+aceptar dos variables opcionales:
+
+- MIG_EVID: carpeta de destino de las evidencias.
+- MIG_PARTE: numero de parte utilizado en el nombre del log.
+
+Si no se indican, se mantienen los valores anteriores:
+docs/bitacora/lab4/evidencia/spool y parte 04.
+
+La comprobacion bash -n termino con codigo 0.
+La revision del diff confirmo que solo se modificaron las dos
+lineas que construyen el destino y el nombre de la evidencia.
+
+No se ejecutaron migraciones durante este ajuste. La comprobacion
+real de estas opciones con las migraciones del Lab 5 queda pendiente.
+
+### Ampliacion de la Parte G: analisis de sentencias y PGA
+
+Se conservaron los experimentos anteriores de memoria y Buffer Cache.
+La ampliacion se realizo mediante dos scripts separados:
+08-parse.sql y 08-pga.sql.
+
+<a id="v3-comprobacion-14"></a>
+#### G.3. Literales frente a variables de enlace
+
+Primera ejecucion de 08-parse.sql, como SYS en FREEPDB1:
+
+| Medida | Literales | Variable de enlace |
+|---|---:|---:|
+| Analisis totales | 1011 | 1 |
+| Analisis duros | 1003 | 1 |
+| CPU de analisis, ms | 1190 | 0 |
+| Tiempo total, ms | 1290 | 20 |
+| Cursores presentes al consultar V$SQL | 1000 | 1 |
+| Memoria compartida, KB | 38844.6 | 38.9 |
+| Ejecuciones recogidas en V$SQL | 1000 | 1000 |
+
+La version con literales construyo textos SQL distintos al cambiar
+el estudiante_id. La version con :id reutilizo un unico texto para
+1000 ejecuciones.
+
+Los contadores son de sesion y pueden incluir trabajo interno.
+No se ha aislado la causa concreta de los tres analisis duros
+adicionales respecto a las 1000 consultas con literales.
+Los 0 ms registrados para la CPU de analisis con bind no significan
+que el trabajo carezca de coste.
+
+CURSOR_SHARING se fijo en EXACT solo para la sesion del experimento.
+No se modificaron datos ni se vaciaron caches.
+
+#### G.4. PGA automatica frente a area manual de 64 KB
+
+Se ordenaron las 60000 matriculas en los dos escenarios:
+
+| Medida | Automatica | Manual 64 KB |
+|---|---:|---:|
+| Filas ordenadas | 60000 | 60000 |
+| Sorts memory, incremento de sesion | 11 | 0 |
+| Sorts disk, incremento de sesion | 0 | 1 |
+| Tiempo observado, ms | 80 | 430 |
+| Memoria optima estimada, KB | 2604 | 1710 |
+| Memoria usada, KB | 2314 | 65 |
+| LAST_EXECUTION | OPTIMAL | 6 PASSES |
+| Espacio en TEMP, KB | 0 | 2048 |
+
+Con gestion automatica, el area de trabajo fue OPTIMAL y no uso TEMP.
+Con el area manual reducida, la ordenacion uso TEMP y mostro
+6 PASSES. En esta ejecucion tambien aumento el tiempo observado.
+
+WORKAREA_SIZE_POLICY quedo en AUTO antes de finalizar.
+Los cambios de configuracion fueron de sesion, no globales.
+
+La consulta de PGA desde CDB$ROOT mostro:
+- Objetivo agregado: 512 MB.
+- PGA asignada: 360.5 MB.
+- Maximo asignado desde el arranque: 461 MB.
+- Over allocation count: 0.
+- Cache hit percentage: 91.6 %.
+
+El histograma de la instancia mostro 6252 ejecuciones optimas,
+0 de una pasada y 2 multipasada. Son contadores acumulados:
+no equivalen al numero de pasadas de la consulta concreta.
+
+#### Reto: localizar familias con muchos literales
+
+08-reto-literales.sql agrupa V$SQL por FORCE_MATCHING_SIGNATURE
+y selecciona familias con mas de 50 SQL_ID distintos.
+Tambien distingue los textos distintos de las filas de cursores hijos.
+
+La primera consulta del reto no devolvio filas. El diagnostico
+posterior tampoco encontro las etiquetas del experimento.
+Ambas consultas terminaron con codigo 0; se conservan sus evidencias.
+No se ha demostrado la causa exacta de esa ausencia.
+
+Se repitio el experimento de parse y se ejecutaron inmediatamente
+el reto y el diagnostico, sin reiniciar ni vaciar la shared pool.
+
+Resultados de la repeticion:
+- Literales: 1003 analisis totales, 1000 duros, 1060 ms de CPU de
+  analisis y 1160 ms de tiempo total.
+- Bind: 1 analisis total, 1 duro, 0 ms registrados de CPU de analisis
+  y 30 ms de tiempo total.
+- Al finalizar el script de parse quedaban 876 cursores con literales.
+- La consulta inmediata del reto encontro 875 textos distintos,
+  con firma 1863221789280198928 y 32606.7 KB de memoria compartida.
+- El diagnostico encontro esa misma familia de literales y un unico
+  texto bind con 1000 ejecuciones.
+
+Los recuentos corresponden a consultas realizadas en momentos distintos.
+La repeticion se utilizo para comprobar la deteccion por firma;
+no se presenta como una prueba con la cache vaciada.
+
+Todos los scripts de este bloque terminaron con codigo 0.
+
+#### Archivos de evidencia de la ampliacion de G
+- docs/bitacora/lab4/evidencia/script/20261123T224438Z_08-parse.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225221Z_08-pga.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225339Z_08-reto-literales.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225423Z_08-diagnostico-firmas.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225513Z_08-diagnostico-firmas-inmediato.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225513Z_08-parse-repeticion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225513Z_08-reto-literales-inmediato.script.log
+
+### Parte I ampliada: contenedores, usuarios y diccionario
+
+<a id="v3-comprobacion-16"></a>
+#### I.1. Mapa de contenedores
+
+Como SYS en CDB$ROOT se observaron:
+- CDB$ROOT, CON_ID 1, READ WRITE.
+- PDB$SEED, CON_ID 2, READ ONLY.
+- FREEPDB1, CON_ID 3, READ WRITE.
+- Datafiles por contenedor: 4 en la raiz, 3 en la semilla y 9 en FREEPDB1.
+- Tres grupos de redo con CON_ID 0.
+- DBA_TABLESPACES: 5 tablespaces de la raiz.
+- CDB_TABLESPACES: 15, repartidos entre raiz (5) y FREEPDB1 (10).
+- COMMON_USER_PREFIX: C##.
+
+Desde FREEPDB1, V$DATAFILE mostro solo sus 9 archivos.
+DBA_TABLESPACES y CDB_TABLESPACES devolvieron 10 tablespaces,
+todos de CON_ID 3. El contexto de la sesion cambia el alcance observado.
+
+El redo aparecio con CON_ID 0, no asociado a una PDB concreta.
+El script del mapa termino con codigo 0.
+
+<a id="v3-comprobacion-19"></a>
+<a id="v3-comprobacion-18"></a>
+#### I.2. Usuario local y privilegio de esquema
+
+LAB4ANALISTA se creo en FREEPDB1 con solo CREATE SESSION.
+No tenia tablas propias ni acceso a las de Academia.
+
+Recibio ORA-00942 al consultar DBA_TABLES, V$SESSION y
+ADMIN_ACADEMIA.ACA_ESTUDIANTES. Son objetos existentes, pero no
+accesibles para esa cuenta. El cambio a CDB$ROOT fue rechazado
+con ORA-01031.
+
+Tras conceder READ ANY TABLE ON SCHEMA admin_academia:
+- Vio las tres tablas de Academia.
+- Pudo contar 20000 estudiantes.
+- Clinica siguio inaccesible, con ORA-00942.
+- El UPDATE fue rechazado con ORA-41900 por falta de ese privilegio.
+
+Se ejecuto ROLLBACK por precaucion y se elimino el usuario.
+Recuento final del usuario: 0. Fila 101: ACTIVO.
+El experimento termino con codigo 0.
+
+El privilegio de lectura de esquema permite acceder a las tablas
+presentes y futuras de Academia, pero no concede escritura ni acceso
+a otros esquemas. Un permiso global de lectura seria mas amplio.
+
+<a id="v3-comprobacion-17"></a>
+#### I.2. Usuario comun y CONTAINER_DATA
+
+C##LAB4AUDITOR se creo con CREATE SESSION, SET CONTAINER y
+SELECT_CATALOG_ROLE concedidos con CONTAINER=ALL.
+
+Desde CDB$ROOT vio solo los 5 tablespaces de la raiz.
+En V$SESSION vio 86 sesiones de CON_ID 0 y 3 de CON_ID 1.
+Los recuentos corresponden al momento de la prueba.
+
+Pudo cambiar a FREEPDB1 y consultar desde dentro sus 10 tablespaces.
+Poder cambiar de contenedor no le dio visibilidad agregada desde la raiz.
+
+CDB_CONTAINER_DATA mostro C##OPS_RO con DEFAULT_ATTR=Y y
+ALL_CONTAINERS=Y, pero ninguna entrada para C##LAB4AUDITOR.
+
+Para configurar en el auditor la misma visibilidad agregada se usaria,
+desde la raiz:
+ALTER USER c##lab4auditor SET CONTAINER_DATA=ALL CONTAINER=CURRENT;
+
+Esta sentencia se documenta como respuesta; no se ejecuto.
+El auditor se elimino al finalizar. Los recuentos finales del usuario
+comun y del usuario local fueron 0. Codigo del experimento: 0.
+
+#### I.3. Diccionario con la cuenta de observabilidad
+
+La consulta se ejecuto como C##OPS_RO en CDB$ROOT, con codigo 0.
+
+Recuentos de vistas:
+- USER: 656.
+- ALL: 590.
+- DBA: 1309.
+- CDB: 1307.
+- V$: 921.
+- GV$: 880.
+
+DBA_TABLESPACES devolvio 5 y CDB_TABLESPACES 15:
+5 de CDB$ROOT y 10 de FREEPDB1.
+
+V$FIXED_TABLE mostro 1591 estructuras TABLE y 1803 VIEW.
+La definicion de GV$LOG incluyo X$KCCLE y X$KCCRT.
+
+<a id="v3-comprobacion-20"></a>
+#### I.4. Usuarios comunes/locales y ciclo de vida de una PDB
+
+Se comprobaron estos rechazos:
+- Crear LAB4LOCAL en la raiz: ORA-65096, por faltar el prefijo C##.
+- Crear C##LAB4COMUN dentro de FREEPDB1: ORA-65094.
+
+LAB4LOCAL se creo correctamente en FREEPDB1 sin autenticacion:
+COMMON=NO y AUTHENTICATION_TYPE=NONE. Despues se elimino.
+
+PDBLAB4 se creo desde PDB$SEED, con archivos bajo:
+ /opt/oracle/oradata/FREE/PDBLAB4/
+
+Se observaron estos estados y resultados:
+- Tras crearla: CON_ID 4, MOUNTED.
+- Tras abrirla: READ WRITE.
+- Datafiles SYSTEM, SYSAUX y UNDO en la carpeta prevista.
+- Servicio pdblab4.
+- C##OPS_RO presente como usuario comun en CON_ID 4.
+- Intento de borrado abierta: ORA-65025, capturado como esperado.
+- Cierre y DROP INCLUDING DATAFILES completados.
+- PDB de prueba restante: 0.
+- Usuarios de prueba restantes: 0.
+- Carpeta vacia retirada.
+
+No se capturo el codigo final del bloque de terminal por una
+instruccion incompleta al terminar el pegado. No se atribuye
+retrospectivamente un codigo de salida a ese bloque.
+
+La comprobacion posterior confirmo CDB y FREEPDB1 en READ WRITE,
+contenedor healthy y ausencia de la ruta PDBLAB4.
+No se repitio el experimento ni se modifico FREEPDB1 para restaurarlo.
+
+#### Evidencias de la Parte I ampliada
+- docs/bitacora/lab4/evidencia/script/20261123T225715Z_10-mapa-contenedores.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225822Z_10-diccionario.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T225922Z_10-usuario-local.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230037Z_10-usuario-comun.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230137Z_10-previo-ciclo-pdb.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230235Z_10-ciclo-vida-pdb.script.log
+
+### Parte J: inventario de archivos y acceso al alert log
+
+#### J.1. Permiso puntual de observabilidad
+
+Se concedio SELECT sobre SYS.V_$DIAG_ALERT_EXT a C##OPS_RO
+con CONTAINER=ALL. DBA_TAB_PRIVS mostro SELECT y COMMON=YES.
+
+La prueba real mediante ro.sh se identifico como C##OPS_RO
+en CDB$ROOT y devolvio los ultimos ocho mensajes del alert log.
+La concesion y la prueba terminaron con codigo 0.
+No se concedio DBA ni ningun permiso de escritura.
+
+El alert log mostro un aviso de escrituras de redo mas lentas de
+lo esperado. Se registra como hallazgo de rendimiento pendiente
+de investigar; no se ha demostrado su causa.
+
+<a id="v3-comprobacion-21"></a>
+#### J.2. Inventario desde Oracle
+
+El inventario se ejecuto como C##OPS_RO en CDB$ROOT.
+
+| Tipo | Archivos | MB mostrados por Oracle |
+|---|---:|---:|
+| Datafiles | 16 | 3984 |
+| Tempfiles | 3 | 60 |
+| Control files | 2 | 35.8 |
+| Miembros de redo | 3 | 600 |
+
+Hay tres grupos de redo de 200 MB, cada uno con un solo miembro.
+Los dos control files estan en la misma carpeta y en el mismo
+volumen de Docker. El Lab 5 trabajara su multiplexacion y la del redo.
+
+Configuracion observada:
+- DB_BLOCK_SIZE: 8192 bytes.
+- DB_CREATE_FILE_DEST: sin configurar.
+- ARCHIVELOG activo y base READ WRITE.
+- DB_RECOVERY_FILE_DEST: sin configurar.
+- DB_RECOVERY_FILE_DEST_SIZE: 0.
+- V$RECOVERY_FILE_DEST: sin filas.
+- Password file con formato 12.
+- SYS es la unica cuenta mostrada en V$PWFILE_USERS.
+- TEMP aparece en CDB_TABLESPACES para raiz y FREEPDB1.
+
+La primera ejecucion se detuvo con ORA-00904 porque el script
+utilizaba FILENAME en V$PASSWORDFILE_INFO. Se corrigio a FILE_NAME.
+Se conserva la evidencia fallida y el inventario corregido termino
+con codigo 0. No fue necesario ampliar permisos para resolverlo.
+
+<a id="v3-comprobacion-22"></a>
+#### J.3. Contraste desde Linux
+
+Docker mostro un unico montaje de volumen en /opt/oracle/oradata.
+
+Las rutas de SPFILE y password file se resolvieron a:
+- /opt/oracle/oradata/dbconfig/FREE/dbs/spfileFREE.ora: 3584 bytes.
+- /opt/oracle/oradata/dbconfig/FREE/dbs/orapwFREE: 2048 bytes.
+
+La resolucion de las rutas demuestra que estan dentro del volumen,
+aunque el listado de cada archivo no lo muestre como enlace individual.
+
+academia01.dbf mide 104865792 bytes en Linux:
+100 MiB de datos mas 8192 bytes.
+Cada miembro de redo mide 209715712 bytes, equivalentes a 200 MiB.
+Se conservan los tamanos reales sin forzar que todos los tipos de
+archivo tengan el mismo sobrecoste de cabecera.
+
+El ADR resuelve a /opt/oracle/diag/rdbms/free/FREE, fuera del
+montaje persistente mostrado. Ocupaba 25 MB segun du y contenia
+282 trazas .trc. El alert log media 138977 bytes.
+
+Hallazgo: el ADR queda en la capa del contenedor, por lo que su
+historia no queda protegida por el volumen de datos. Se propone
+persistencia especifica o envio centralizado de logs. No se
+cambio su ubicacion durante este apartado.
+
+El inventario de Linux termino con codigo 0.
+
+#### Comprobacion adicional del archivado
+
+V$ARCHIVE_DEST mostro el destino 1 VALID, sin error, terminado
+en /dbs/arch. La primera comprobacion busco una carpeta arch
+y no la encontro. Eso no demostraba un fallo de archivado.
+
+La comprobacion posterior mostro:
+- LOG_ARCHIVE_DEST y LOG_ARCHIVE_DEST_1 sin valor explicito.
+- LOG_ARCHIVE_FORMAT: %t_%s_%r.dbf.
+- Tres archivados registrados, secuencias 1, 2 y 3 del thread 1.
+- STATUS=A y DELETED=NO.
+- Los tres archivos existian fisicamente.
+
+Los nombres eran arch1_1_1237845575.dbf,
+arch1_2_1237845575.dbf y arch1_3_1237845575.dbf.
+arch es un prefijo de archivo, no una carpeta.
+
+Las rutas reales de los tres estan bajo:
+ /opt/oracle/oradata/dbconfig/FREE/dbs/
+
+Por tanto, estos archivados estan dentro del volumen, aunque
+no se almacenen en una FRA. No se borraron ni se forzo un cambio
+de log. La comprobacion termino con codigo 0.
+
+#### Esperas de redo observadas
+
+La fotografia acumulada desde el arranque mostro:
+- log file parallel write: 1508 esperas, media 5.45 ms.
+- log file sync: 124 esperas, media 22.48 ms.
+
+Estas medias no son una medida aislada del intervalo del aviso
+del alert log ni demuestran su causa. No se aplicaron ajustes
+de rendimiento basados solo en esta fotografia.
+
+#### Evidencias de la Parte J
+- docs/bitacora/lab4/evidencia/script/20261123T230604Z_11-ampliar-ops-ro.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230604Z_11-probar-alert-log.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230712Z_11-archivos.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230759Z_11-archivos-corregido.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T230913Z_11-archivos-so.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231007Z_11-comprobar-archivados.script.log
+
+### Parte K: del tablespace al bloque y a la fila
+
+#### K.1. Jerarquia de almacenamiento
+
+ACA_ESTUDIANTES pertenece a TBS_ACADEMIA:
+- BIGFILE=YES.
+- Bloques de 8192 bytes.
+- Gestion local de extensiones.
+- ALLOCATION_TYPE=SYSTEM y SEGMENT_SPACE_MANAGEMENT=AUTO.
+- PCTFREE=10 e INITRANS=1.
+
+El segmento tenia 17 extensiones y 256 bloques asignados, 2048 KB.
+Las primeras 16 extensiones eran de 8 bloques, 64 KB cada una.
+La extension 16 tenia 128 bloques, 1024 KB.
+
+El bloque 780 pertenece a la extension 0, que abarca del 776 al 783.
+El bloque 1175 pertenece a la extension 16, que comienza en 1152.
+
+#### K.2. Direccion fisica de la fila 101
+
+Resultados obtenidos:
+- ROWID: AAAR2mAAAAAAAMMAAH.
+- DATA_OBJECT_ID: 73126.
+- Archivo absoluto: 16.
+- Bloque BIGFILE: 780.
+- Ranura: 7.
+- Estado: ACTIVO.
+
+DBA_DATA_FILES relaciono el archivo 16 con:
+ /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf
+
+RELATIVE_FNO mostro 1024; no se utilizo como numero absoluto
+del archivo. Este se obtuvo con ROWID_TO_ABSOLUTE_FNO.
+El bloque se obtuvo indicando BIGFILE en ROWID_BLOCK_NUMBER.
+
+DBA_OBJECTS confirmo que DATA_OBJECT_ID=73126 corresponde a
+ADMIN_ACADEMIA.ACA_ESTUDIANTES.
+
+#### K.3. Ocupacion del segmento
+
+DBMS_SPACE.SPACE_USAGE devolvio:
+- FULL: 236 bloques.
+- FS1: 0.
+- FS2: 0.
+- FS3: 1.
+- FS4: 7.
+- Sin formatear: 0.
+
+La suma de las categorias observadas es 244 bloques.
+Se distingue de los 256 bloques asignados al segmento.
+Estas medidas no representan exactamente el mismo concepto.
+
+#### K.4. Volcado del bloque 780
+
+La traza completa se guardo como texto en evidencia/config.
+El volcado mostro:
+- Block header dump: 0x30c = 780.
+- seg/obj: 0x11da6 = 73126.
+- itc=2: dos entradas ITL.
+- typ=1 - DATA.
+- ntab=1 y nrow=88.
+- tsiz=0x1f98 = 8088 bytes.
+- hsiz y fsbo: 0xc2 = 194.
+- fseo: 0x41b = 1051.
+- avsp y tosp: 0x359 = 857.
+
+Comprobacion: 1051 - 194 = 857 bytes.
+En este bloque el hueco entre fsbo y fseo coincide con avsp y tosp.
+
+El directorio pri[7] apunta a 0x1d68, donde aparece la fila 101:
+tl=80, fb=--H-FL--, lb=0x1 y cc=7.
+
+Los valores de sus siete columnas ocupan:
+3 + 9 + 10 + 12 + 19 + 6 + 11 = 70 bytes.
+
+La longitud del registro se reconstruye como:
+70 bytes de valores + 7 de longitudes + 3 de cabecera = 80 bytes.
+La entrada de 2 bytes en el directorio queda fuera de esos 80.
+
+AVG_ROW_LEN era 78: es una media estadistica, no la longitud
+exacta de esta fila ni el total con su entrada de directorio.
+
+La primera entrada ITL mostro --U-, Lck=88 y la fila lb=0x1.
+Es coherente con la informacion de una transaccion confirmada
+pendiente de limpieza completa del bloque. No se interpreta
+Lck=88 como prueba de 88 bloqueos activos actuales.
+
+#### Reto: comparar con el estudiante 19001
+
+Se genero una traza independiente sin modificar la fila.
+La direccion obtenida fue archivo 16, bloque 1175, ranura 22.
+
+| Medida | Fila 101 | Fila 19001 |
+|---|---:|---:|
+| Bloque | 780 | 1175 |
+| Ranura | 7 | 22 |
+| nrow | 88 | 84 |
+| tl de la fila | 80 | 84 |
+| fsbo | 194 | 186 |
+| fseo | 1051 | 993 |
+| avsp | 857 | 807 |
+
+El bloque 1175 mostro 0x497 y el mismo seg/obj=0x11da6.
+Su directorio y su fila seleccionada se localizaron en la ranura 22.
+
+Para la fila 19001, los valores ocupan:
+4 + 9 + 12 + 11 + 21 + 6 + 11 = 74 bytes.
+Con longitudes y cabecera: 74 + 7 + 3 = 84 bytes.
+
+En ese bloque: 993 - 186 = 807 bytes, igual que avsp y tosp.
+
+Ambos bloques tienen itc=2, la primera ITL con --U- y la segunda
+sin transaccion registrada. La primera muestra Lck=88 en el
+bloque 780 y Lck=84 en el 1175. Ambos conservan informacion
+coherente con limpieza diferida.
+
+La diferencia de tamanos de las filas demuestra que no todas
+ocupan lo mismo. No se atribuye toda la diferencia de ocupacion
+entre bloques solo a las dos filas seleccionadas.
+
+La localizacion, ambos volcados y la extraccion/comparacion
+terminaron con codigo 0. No se modificaron filas ni se vaciaron caches.
+
+#### Evidencias de la Parte K
+- docs/bitacora/lab4/evidencia/script/20261123T231208Z_12-localizar-fila.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231323Z_12-bloque.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231426Z_12-extracto-bloque.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231848Z_12-reto-bloque.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T231953Z_12-comparacion-bloques.script.log
+- docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt
+- docs/bitacora/lab4/evidencia/config/20261123T231848Z_12-volcado-bloque-reto.trc.txt
+
+### Parte L: capacidad, factor de bloqueo y coste de lectura
+
+#### L.1. ACA_ESTUDIANTES: modelo frente a medida
+
+Tras actualizar estadisticas:
+- Filas: 20000.
+- AVG_ROW_LEN: 78 bytes.
+- Bloque: 8192 bytes.
+- PCTFREE: 10.
+- Bloques estadisticos: 244.
+- Bloques asignados al segmento: 256.
+
+El recuento por bloque mediante ROWID obtuvo:
+- Bloques con filas: 237.
+- Minimo: 25 filas.
+- Media: 84.39 filas.
+- Maximo: 93 filas.
+- Total comprobado: 20000 filas.
+
+Modelo de la Unidad 3:
+bfr = floor((8192 - 96) * 0.9 / 78) = 93.
+Bloques estimados = ceil(20000 / 93) = 216.
+
+Modelo aproximado para Oracle:
+bfr = floor((8192 - 122) * 0.9 / (78 + 2)) = 90.
+Bloques estimados = ceil(20000 / 90) = 223.
+
+Los modelos simplifican cabeceras, longitudes y ocupacion.
+Los bloques con filas, los estadisticos y los asignados son
+magnitudes diferentes; no se sustituyen unos por otros.
+Las filas y su distribucion no llenan todos los bloques por igual.
+
+#### L.2. Banco de pruebas separado
+
+Se creo LAB4PRUEBAS sin autenticacion y el tablespace BIGFILE
+TBS_LAB4 dentro del volumen.
+
+Datafile:
+ /opt/oracle/oradata/FREE/FREEPDB1/lab4pruebas01.dbf
+
+Configuracion: 64 MB iniciales, AUTOEXTEND en pasos de 32 MB,
+MAXSIZE de 512 MB.
+
+La tabla LECTURAS contiene 400000 filas:
+- AVG_ROW_LEN: 78 bytes.
+- Bloques estadisticos: 4676.
+- Tamano de esos bloques: 36.53 MiB.
+- PK_LECTURAS: VALID.
+- Factor filas/bloques estadisticos: 85.543 aproximadamente.
+
+El banco se conserva para la Parte M, que realizara su limpieza.
+
+#### L.3. Medicion de lecturas
+
+La primera ejecucion completo la medida logica y despues fallo
+con ORA-02000 por una instruccion escrita como FLUSH BUFFERCACHE.
+Se corrigieron las dos instrucciones a FLUSH BUFFER_CACHE.
+Se conserva la evidencia fallida.
+
+Resultados de la ejecucion corregida, terminada con codigo 0:
+
+| Escenario | Resultado |
+|---|---|
+| 100000 busquedas en caliente | 400000 lecturas logicas |
+| Lecturas por busqueda | 4 |
+| Lecturas fisicas en caliente | 0 |
+| CPU de las busquedas en caliente | 1510 ms |
+| CPU/lectura logica | 3.775 microsegundos |
+| 2000 busquedas repartidas tras vaciar cache | 5464 lecturas fisicas |
+| Tiempo de esas busquedas | 193.063 ms |
+| Tiempo por lectura fisica del intervalo | 35.334 microsegundos |
+| Recorrido completo | 400000 filas |
+| Bloques fisicos del recorrido | 4595 |
+| Peticiones de lectura | 53 |
+| Peticiones multibloque | 36 |
+| Bloques por peticion | 86.698 |
+| Tiempo del recorrido | 34.666 ms |
+| Tiempo por bloque del recorrido | 7.544 microsegundos |
+| Caudal calculado | 1035.552 MiB/s |
+
+Las peticiones totales y las multibloque son contadores distintos.
+No se afirma que todas las peticiones fueran multibloque.
+
+FLUSH BUFFER_CACHE vacia la cache de Oracle, no la cache de
+paginas de Linux. El caudal no se presenta como velocidad
+aislada del disco. Los tiempos incluyen CPU y trabajo de sesion.
+
+Los 4595 bloques fisicos de la ejecucion no se equiparan
+automaticamente con los 4676 bloques de las estadisticas.
+
+#### L.4. Modelo de coste y sus limites
+
+Usando las medidas del intervalo:
+- Coste aleatorio estimado para 4595 bloques: 162.358 ms.
+- Coste secuencial medido: 34.666 ms.
+- Cociente secuencial/aleatorio por bloque: 0.21352.
+- Umbral orientativo con agrupamiento malo: 0.2496 % de las filas.
+
+Es una aproximacion para el supuesto del modelo, no una regla
+universal del optimizador. No demuestra que cualquier indice
+deje de compensar exactamente en ese porcentaje.
+
+#### Reto: dimensionar ACA_MATRICULAS
+
+Antes de consultar sus estadisticas se planteo una hipotesis
+de fila media de 40 bytes, cabecera de 96, bloque de 8192
+y PCTFREE=10. Prediccion: 182 filas/bloque y 330 bloques
+para las 60000 filas. Los 40 bytes eran una hipotesis, no una medida.
+
+Las estadisticas reales mostraron:
+- Filas: 60000.
+- AVG_ROW_LEN: 30 bytes.
+- Bloques estadisticos: 370.
+- Bloques asignados: 384.
+- PCTFREE: 10.
+- Bloque: 8192 bytes.
+
+Recalculando el modelo con 30 bytes:
+bfr = floor((8192 - 96) * 0.9 / 30) = 242.
+Bloques estimados = ceil(60000 / 242) = 248.
+
+La estimacion sigue por debajo de los 370 bloques estadisticos.
+El modelo supone una ocupacion idealizada; no se ha aislado
+la contribucion concreta de cada causa de la diferencia.
+
+Transferir 370 bloques de 8192 bytes a 150000000 bytes/s
+requiere teoricamente 20.207 ms. Se utiliza MB decimal y
+se estima solo transferencia: no es un tiempo real de consulta.
+
+El reto termino con codigo 0 y se comprobaron de nuevo
+las 400000 filas del banco de pruebas.
+
+#### Evidencias de la Parte L
+- docs/bitacora/lab4/evidencia/script/20261123T232219Z_13-factor-bloqueo.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T232323Z_13-crear-banco.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T232452Z_13-medir-lecturas.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T232544Z_13-medir-lecturas-corregido.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T232640Z_13-reto-matriculas.script.log
+
+### Parte M: migracion y encadenamiento de filas
+
+#### M.1. Provocar y detectar migracion
+
+Experimento realizado exclusivamente en LAB4PRUEBAS, en TBS_LAB4.
+
+Se creo MIGRA con 5000 filas pequenas y PCTFREE=0.
+Antes de ampliar los textos:
+- Bloques: 13.
+- AVG_ROW_LEN: 9.
+- CHAIN_CNT: 0.
+
+Se ampliaron 1000 textos de 1 a 300 caracteres:
+- Filas totales: 5000.
+- Bloques: 58.
+- AVG_ROW_LEN: 70.
+- CHAIN_CNT: 1000, el 20 %.
+- LIST CHAINED ROWS identifico tambien 1000 filas.
+
+#### M.2. Coste medido antes de reparar
+
+Cada grupo realizo una pasada de calentamiento y otra medida
+de 1000 busquedas por clave primaria. PK_MIGRA estaba VALID,
+con BLEVEL=1.
+
+| Grupo | Lecturas logicas | Por busqueda | table fetch continued row |
+|---|---:|---:|---:|
+| No ampliadas | 3000 | 3 | 0 |
+| Ampliadas | 4000 | 4 | 1000 |
+| Mixtas, ids 1 a 1000 | 3200 | 3.2 | 200 |
+
+Todos los grupos registraron cero lecturas fisicas.
+En este experimento, consultar una fila ampliada supuso
+una lectura logica adicional.
+
+En el grupo mixto:
+800 * 3 + 200 * 4 = 3200 lecturas logicas.
+
+#### M.3. Evidencia en el volcado
+
+La cabeza de id=5 se identifico en el archivo 24,
+bloque 5646, ranura 4.
+
+Traza conservada:
+docs/bitacora/lab4/evidencia/config/14-migracion-cabeza.trc.txt
+
+Fragmento observado en las lineas 1358 a 1360:
+tab 0, row 4, @0x1f6f
+tl: 9 fb: --H----- lb: 0x2 cc: 0
+nrid: 0x00001632.16
+
+La traza contiene tres coincidencias para la ranura 4;
+se conserva completa para mantener el contexto de los volcados.
+No se consideran todas las coincidencias como un unico estado.
+
+La extraccion inicial por SQL no encontro el fragmento.
+Una segunda consulta comprobo 12404 registros visibles tanto
+desde FREEPDB1 como desde CDB$ROOT, pero la busqueda posterior
+se interrumpio con Ctrl+C y resultado de salida 130.
+
+Se copio la traza con docker cp y se busco localmente.
+La copia tenia 12433 lineas de texto y la extraccion termino
+con resultado 0. Se conservan tambien las evidencias anteriores.
+
+#### M.4. Encadenamiento de una fila grande
+
+Se creo ANCHA con dos filas:
+- id=1: 12000 bytes de texto entre tres columnas.
+- id=2: 5 bytes de texto.
+
+Resultados:
+- Filas: 2.
+- Bloques: 5.
+- AVG_ROW_LEN: 6016.
+- CHAIN_CNT: 1.
+- LIST CHAINED ROWS identifico exclusivamente id=1.
+
+Los 12000 bytes corresponden al texto, no al tamano total
+de la fila con sus cabeceras.
+
+#### M.5. Reparacion de MIGRA
+
+Se ejecuto:
+ALTER TABLE lab4pruebas.migra MOVE PCTFREE 20;
+
+El indice PK_MIGRA quedo UNUSABLE.
+Tras ALTER INDEX lab4pruebas.pk_migra REBUILD volvio a VALID.
+
+Con ANALYZE se obtuvo:
+- Filas: 5000.
+- Bloques: 63.
+- PCTFREE: 20.
+- AVG_ROW_LEN: 69.
+- CHAIN_CNT: 0.
+
+Se comprobaron 1000 textos ampliados y 4000 cortos.
+ANCHA no fue reorganizada y conservaba CHAIN_CNT=1.
+
+La lista CHAINED_ROWS anterior se conserva como diagnostico
+historico; no se reutiliza para enlazar por ROWID con MIGRA
+despues de su movimiento.
+
+#### M.6. Verificacion del coste despues de reparar
+
+Se repitio el mismo script de medicion:
+
+| Grupo | Lecturas logicas | Por busqueda | table fetch continued row |
+|---|---:|---:|---:|
+| No ampliadas | 3000 | 3 | 0 |
+| Ampliadas | 3000 | 3 | 0 |
+| Mixtas | 3000 | 3 | 0 |
+
+Todos los grupos registraron cero lecturas fisicas.
+PK_MIGRA estaba VALID y conservaba BLEVEL=1.
+MIGRA mantenia 5000 filas, 63 bloques y CHAIN_CNT=0.
+
+La primera ejecucion de reparacion termino con resultado 1
+al no encontrar el script de medicion llamado mediante @@.
+El MOVE y el REBUILD ya habian terminado correctamente.
+Se corrigio el archivo para ejecutar la medicion por separado,
+sin repetir la reorganizacion. La medicion posterior termino
+con resultado 0.
+
+#### Evidencias de la Parte M
+- docs/bitacora/lab4/evidencia/script/20261123T232933Z_14-provocar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233022Z_14-medir-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233107Z_14-volcar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233153Z_14-localizar-traza.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233728Z_14-provocar-encadenamiento.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234115Z_14-reparar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234215Z_14-medir-migracion-reparada.script.log
+- docs/bitacora/lab4/evidencia/config/14-migracion-cabeza.trc.txt
+
+#### M.7. Limpieza final verificada
+
+El inventario previo mostro siete objetos de LAB4PRUEBAS.
+Todos sus segmentos estaban en TBS_LAB4, sin segmentos
+de otros propietarios. Solo LAB4PRUEBAS lo tenia como
+tablespace predeterminado.
+
+Se comprobo un unico datafile de 64 MiB:
+ /opt/oracle/oradata/FREE/FREEPDB1/lab4pruebas01.dbf
+
+Tras las comprobaciones de seguridad se ejecutaron:
+DROP USER lab4pruebas CASCADE;
+DROP TABLESPACE tbs_lab4 INCLUDING CONTENTS AND DATAFILES;
+
+La limpieza termino con resultado 0.
+La comprobacion del diccionario devolvio:
+- Usuarios restantes: 0.
+- Tablespaces restantes: 0.
+- Datafiles restantes en la ruta prevista: 0.
+
+Una comprobacion posterior dentro del contenedor confirmo
+que el directorio era accesible y que no existian ni el archivo
+lab4pruebas01.dbf ni un enlace con esa ruta.
+
+Los scripts, registros y la copia de la traza se conservan.
+El banco de pruebas de las Partes L y M ha sido eliminado.
+
+#### Inventario final de evidencias de la Parte M
+- docs/bitacora/lab4/evidencia/script/20261123T232933Z_14-provocar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233022Z_14-medir-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233107Z_14-volcar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233153Z_14-localizar-traza.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T233728Z_14-provocar-encadenamiento.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234115Z_14-reparar-migracion.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234215Z_14-medir-migracion-reparada.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234423Z_14-revisar-limpieza.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234519Z_14-limpiar-banco.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T234613Z_14-verificar-archivo-eliminado.script.log
+- docs/bitacora/lab4/evidencia/config/14-migracion-cabeza.trc.txt
+
+### Parte N: autopsia y verificacion final
+
+La autopsia y su ampliacion se ejecutaron como C##OPS_RO
+desde CDB$ROOT, ambas con resultado 0 y sin aplicar cambios
+de configuracion.
+
+El informe propio esta en:
+docs/bitacora/lab4-autopsia.md
+
+Incluye evidencia, riesgo, accion propuesta y prioridad
+para siete hallazgos:
+- Archivado persistente, con respaldo y retencion por verificar.
+- Un solo miembro por grupo de redo.
+- Control files concentrados en el mismo volumen.
+- Diagnosticos fuera del montaje persistente mostrado.
+- Indices sin fecha de estadisticas en cuatro esquemas.
+- Fallos al establecer prioridad de VKTM y LGWR.
+- Dos indices de Academia con factor de agrupamiento elevado
+  segun el criterio de la consulta.
+
+El informe distingue observaciones de hechos no comprobados.
+La revision final corrigio la interpretacion inicial del archivado:
+los tres archived logs comprobados y el SPFILE existen y sus rutas
+reales estan dentro del volumen, como ya documentaba la Parte J.
+Los directorios de trazas y alertas si quedan fuera del montaje.
+No se ha demostrado la cobertura de respaldo de los archived logs.
+Las acciones propuestas no se ejecutaron durante la autopsia.
+
+La primera comprobacion local del informe termino con resultado 1
+al utilizar git diff --no-index --check contra /dev/null.
+El archivo ya se habia creado. Se verificaron despues su estructura,
+sus cuatro referencias a evidencias existentes y su formato,
+con resultado 0, sin recrearlo.
+
+#### Verificacion final
+
+16-verificacion-final.sh termino con 0 FALLOS y resultado 0.
+
+Entre los criterios comprobados:
+- CDB y FREEPDB1 abiertas READ WRITE.
+- OPEN_CURSORS=300 y sin entrada DB_FILES pendiente en el SPFILE.
+- Cuenta de observacion comun y concesion de lectura del alert log.
+- Sin privilegios ANY no lectores concedidos directamente a la
+  cuenta de observacion segun el filtro del script.
+- PDB y usuarios de pruebas ausentes.
+- TBS_LAB4 y su datafile eliminados.
+- Cinco tablespaces de negocio y cinco propietarios sin autenticacion.
+- Datos: 20000 estudiantes, 40 asignaturas y 60000 matriculas.
+- Rutas comprobadas de datafiles dentro del volumen.
+- Puerto 8181 no publicado.
+- Respaldo backups/20261115T105252Z_lab3-final conforme a SHA256SUMS.
+- Evidencias no vacias para los numeros 00 a 15.
+- PFILE, volcado de la Parte K e informe disponibles.
+- config.env y backups fuera del indice de Git.
+
+El resultado valida los criterios implementados, no una auditoria
+completa de seguridad ni la correccion de los riesgos del informe.
+Quedan pendientes la revision completa de secretos y el flujo
+de entrega mediante Pull Request.
+
+#### Evidencias de la Parte N
+- docs/bitacora/lab4/evidencia/script/20261123T235015Z_15-autopsia-instancia.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T235131Z_15-ampliar-autopsia.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T235131Z_15-montajes.script.log
+- docs/bitacora/lab4/evidencia/script/20261123T235640Z_16-verificacion-final.script.log
+- docs/bitacora/lab4/evidencia/spool/20261123T235015Z_15-autopsia-instancia.spool.log
+- docs/bitacora/lab4/evidencia/script/20261124T000039Z_17-rutas-reales-autopsia.script.log
+
+## Preguntas tipo examen P20-P46
+
+Las justificaciones usan la evidencia de este laboratorio cuando la hay.
+P13-P19 y P26 se responden en la seccion complementaria.
+
+### Pregunta tipo examen P20
+Respuesta: B (50000 bloques). Bytes utiles por bloque:
+(8192 - 96) * 0.9 = 7286.4. Filas por bloque: floor(7286.4 / 180) = 40.
+Bloques: 2000000 / 40 = 50000.
+
+### Pregunta tipo examen P21
+Respuesta: B. db file scattered read son lecturas multibloque a la
+buffer cache, tipicas de un recorrido completo. En la Parte L el
+recorrido de 4595 bloques uso 53 peticiones, 36 de ellas multibloque.
+
+### Pregunta tipo examen P22
+Respuesta: A y C. LIST CHAINED ROWS identifica las filas; MOVE ONLINE
+con PCTFREE mayor las reescribe. En la Parte M, MOVE PCTFREE 20 llevo
+CHAIN_CNT de 1000 a 0. DBMS_STATS no calcula CHAIN_CNT.
+
+### Pregunta tipo examen P23
+Respuesta: B. Una fila de 12000 bytes no cabe en un bloque de 8 KiB y se
+encadena. En la Parte M, ANCHA mostro CHAIN_CNT=1; MOVE no lo cura.
+
+### Pregunta tipo examen P24
+Respuesta: B. Cuenta comun de solo lectura con SELECT_CATALOG_ROLE,
+CONTAINER_DATA y el permiso puntual sobre V$DIAG_ALERT_EXT. Es el
+modelo de C##OPS_RO en esta practica: minimo privilegio, sin SYSDBA.
+
+### Pregunta tipo examen P25
+Respuesta: B. PDB$SEED es la plantilla de solo lectura; en la autopsia
+aparece READ ONLY.
+
+### Pregunta tipo examen P27
+Respuesta: B. Hay que cerrar la PDB antes de borrarla: ORA-65025 si esta
+abierta, como quedo registrado en el alert log tras el intento sobre
+PDBLAB4.
+
+### Pregunta tipo examen P28
+Respuesta: A y C. V$DATAFILE y V$LOG leen del control file y estan
+disponibles en MOUNT. DBA_* y CDB_* necesitan el diccionario abierto.
+
+### Pregunta tipo examen P29
+Respuesta: A. KCC identifica estructuras que se leen del control file.
+
+### Pregunta tipo examen P30
+Respuesta: B. Las vistas CDB_* existen en la raiz y en cada PDB; desde
+una PDB solo devuelven sus propias filas.
+
+### Pregunta tipo examen P31
+Respuesta: B. Los tempfiles no se respaldan y se recrean.
+
+### Pregunta tipo examen P32
+Respuesta: B. La instancia sigue con los valores en memoria y puede
+recrearse el archivo con CREATE SPFILE FROM MEMORY.
+
+### Pregunta tipo examen P33
+Respuesta: B. V$PWFILE_USERS lista los usuarios del password file y sus
+privilegios administrativos.
+
+### Pregunta tipo examen P34
+Respuesta: A y B. La ITL y el directorio de filas forman parte de la
+cabecera del bloque; la Parte K los mostro en el volcado.
+
+### Pregunta tipo examen P35
+Respuesta: B. En AUTOALLOCATE los primeros segmentos usan extensiones de
+64 KB (8 bloques) y despues pasan a 1 MB.
+
+### Pregunta tipo examen P36
+Respuesta: B. SEGMENT_SPACE_MANAGEMENT AUTO indica ASSM, con mapas de
+bits.
+
+### Pregunta tipo examen P37
+Respuesta: B. Sin mas clausulas, en 23ai el tablespace es BIGFILE y
+gestionado localmente; TBS_LAB4 se creo asi.
+
+### Pregunta tipo examen P38
+Respuesta: A. Cuatro lecturas logicas con cero fisicas indican bloques ya
+en la buffer cache; en la Parte L, 4 por busqueda y 0 fisicas.
+
+### Pregunta tipo examen P39
+Respuesta: A y B. Mas PCTFREE o filas mas grandes reducen las filas por
+bloque.
+
+### Pregunta tipo examen P40
+Respuesta: B, en el sentido del enunciado. FLUSH BUFFER_CACHE vacia
+la cache de Oracle a nivel de instancia y puede provocar mas lecturas
+fisicas y picos de latencia al recalentarla. No toda lectura tiene que
+llegar al dispositivo: la cache de Linux puede atenderla. Solo se uso
+en el laboratorio.
+
+### Pregunta tipo examen P41
+Respuesta: B. La migrada cabia en un bloque y se mudo al crecer; la
+encadenada no cabe en ninguno. En la Parte M: MIGRA frente a ANCHA.
+
+### Pregunta tipo examen P42
+Respuesta: A. Tras MOVE el indice queda UNUSABLE; se arregla con ALTER
+INDEX REBUILD o usando MOVE ONLINE. PK_MIGRA paso a UNUSABLE y despues
+a VALID.
+
+### Pregunta tipo examen P43
+Respuesta: A. V$DIAG_ALERT_EXT permite leer el alert log con SQL.
+
+### Pregunta tipo examen P44
+Respuesta: A y B. Ampliar el tablespace o su maximo y revisar que
+segmentos crecen. Borrar redo, pasar a NOARCHIVELOG o reiniciar no
+resuelve falta de espacio.
+
+### Pregunta tipo examen P45
+Respuesta: A y B. Las PDB comparten SGA, procesos de background y online
+redo logs de la CDB. El undo no es siempre compartido: en 12.2 y
+posteriores puede ser local.
+
+### Pregunta tipo examen P46
+Respuesta: B. Un usuario local con solo CREATE SESSION recibe
+ORA-01031 al intentar cambiar de contenedor.
+
+## Preguntas tipo examen P13-P19 y P26
+
+### Pregunta tipo examen P13
+Respuesta: B (solo la fila de CONID 3). V$DATAFILE se filtra por el
+contenedor actual. En la evidencia 10, SYS en CDB$ROOT veia 16 datafiles
+de los tres contenedores y dentro de FREEPDB1 veia 9, todos de CONID 3.
+
+### Pregunta tipo examen P14
+Respuesta: B. El atributo CONTAINER_DATA se concede con ALTER USER ...
+SET CONTAINER_DATA=ALL CONTAINER=CURRENT. SELECT_CATALOG_ROLE no basta:
+la evidencia 10 mostro que sin el, un comun solo ve CONID 0 y 1.
+C##OPS_RO lo tiene.
+
+### Pregunta tipo examen P15
+Respuesta: A y D. El privilegio de esquema cubre las tablas presentes y
+futuras de HR y ninguna de otros esquemas (ORA-00942 sobre ADMIN_CLINICA
+en la evidencia 10). No permite escribir: el UPDATE dio ORA-41900.
+
+### Pregunta tipo examen P16
+Respuesta: B y D. Los control files y los online redo logs forman la
+base. El password file, el SPFILE y el alert log son archivos relacionados.
+
+### Pregunta tipo examen P17
+Respuesta: C. En NOARCHIVELOG, sin copias independientes de control file
+ni de redo, solo se restaura la ultima copia completa y se pierde todo lo
+posterior. No hay RECOVER sin perdida ni FRA que lo contenga.
+
+### Pregunta tipo examen P26
+Respuesta: C (ORA-65094). Se asume que el nombre del enunciado es
+c##rep y que COMMON_USER_PREFIX vale C##: un nombre con el prefijo comun
+no puede crearse como usuario local en una PDB. La extraccion del PDF
+perdio el caracter #. Coincide con el caso 3b del script de ciclo de vida
+de PDB.
+
+## Preguntas de comprobacion 23-38
+
+<a id="v3-comprobacion-23"></a>
+### 23. Puntos unicos de fallo en control files y redo
+Evidencia de la autopsia: dos control files, control01.ctl y
+control02.ctl, ambos en /opt/oracle/oradata/FREE; tres grupos de redo
+de 200 MiB con un unico miembro cada uno, tambien en esa carpeta.
+Tener dos copias en el mismo volumen no demuestra independencia ante la
+perdida del almacenamiento, y un solo miembro por grupo no multiplexa
+el redo. Tres grupos no son tres copias del mismo redo.
+
+<a id="v3-comprobacion-24"></a>
+### 24. ADR fuera del volumen
+Diag Trace y Diag Alert resuelven a /opt/oracle/diag/rdbms/free/FREE,
+fuera de /opt/oracle/oradata (comprobado con readlink -e). Recrear el
+contenedor no pierde datos, pero si el alert log y las trazas: justo la
+evidencia de un postmortem, por ejemplo los incidentes ORA-00800. Se
+corrige con diagnostic_dest persistente o enviando los logs fuera.
+
+<a id="v3-comprobacion-25"></a>
+### 25. ROWID del estudiante 101
+Mi ROWID es AAAR2mAAAAAAAMMAAH.
+DBMS_ROWID confirmo:
+- ROWID_OBJECT: 73126.
+- ROWID_TO_ABSOLUTE_FNO: archivo 16.
+- ROWID_BLOCK_NUMBER con 'BIGFILE': bloque 780.
+- ROWID_ROW_NUMBER: ranura 7, contando desde cero.
+
+DBA_OBJECTS relaciono DATA_OBJECT_ID=73126 con
+ADMIN_ACADEMIA.ACA_ESTUDIANTES. DBA_DATA_FILES relaciono el archivo 16
+con /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf.
+RELATIVE_FNO=1024 no se uso como numero absoluto de archivo.
+En BIGFILE no se interpreta el campo de archivo relativo como en
+SMALLFILE: se obtiene el archivo absoluto mediante
+ROWID_TO_ABSOLUTE_FNO y se decodifica el bloque indicando BIGFILE.
+
+Evidencia: K.2 y
+docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt.
+
+<a id="v3-comprobacion-26"></a>
+### 26. nrow, fsbo, fseo y avsp
+En mi volcado del bloque 780:
+- nrow=88: entradas del directorio de filas del bloque.
+- fsbo=0xc2=194: comienzo del hueco libre.
+- fseo=0x41b=1051: final del hueco libre.
+- avsp=0x359=857: espacio disponible.
+- tosp=0x359=857: espacio libre total en este estado.
+
+Comprobacion hexadecimal: 0x41b - 0xc2 = 0x359.
+Comprobacion decimal: 1051 - 194 = 857 bytes.
+En este bloque las cantidades coinciden; no se generaliza la igualdad
+a todos los posibles estados de fragmentacion de un bloque.
+
+Evidencia: K.4 y
+docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt.
+
+<a id="v3-comprobacion-27"></a>
+### 27. ITL y limpieza diferida de bloques
+El enunciado ilustra Lck=90; mi bloque mostro Lck=88 y Flag --U-.
+La fila 101 tenia lb=0x1, asociado a la primera entrada ITL.
+
+Es informacion de una transaccion confirmada pendiente de completar
+su limpieza en el bloque, no prueba de 88 bloqueos activos actuales.
+Lck refleja las marcas que permanecen asociadas a esa entrada ITL.
+El COMMIT no necesita recorrer y limpiar todos los bloques modificados;
+un acceso posterior puede comprobar el estado de la transaccion y
+completar esa limpieza, incluso durante una lectura.
+
+Evidencia: K.4 y la traza del bloque 780.
+
+<a id="v3-comprobacion-28"></a>
+### 28. Tamano real de la fila 101
+El ejemplo del enunciado ocupa 78 bytes, pero mi fila ocupa 80.
+No se debe confundir su longitud exacta con AVG_ROW_LEN=78.
+
+Los datos de las siete columnas ocupan:
+3 + 9 + 10 + 12 + 19 + 6 + 11 = 70 bytes.
+
+Se suman 7 bytes de longitud, uno por columna en esta fila, y
+3 de cabecera (fb, lb, cc):
+70 + 7 + 3 = 80 bytes, coincidiendo con tl=80 del volcado.
+
+La entrada del directorio ocupa otros 2 bytes, fuera de tl:
+82 bytes en total al incluir esa entrada.
+La ranura 7 apunta a 0x1d68; fb=--H-FL-- y cc=7.
+
+Evidencia: K.4 y
+docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt.
+
+<a id="v3-comprobacion-29"></a>
+### 29. bfr y bloques de ACA_ESTUDIANTES
+Con 20000 filas, R=78, bloque de 8192 y PCTFREE=10:
+Unidad 3: bfr = floor((8192-96)*0.9/78) = 93; bloques = ceil(20000/93)
+= 216. Version Oracle: floor((8192-122)*0.9/(78+2)) = 90; bloques =
+ceil(20000/90) = 223. La tabla tiene 244 bloques en estadisticas y 256
+asignados. El recuento por bloque dio 237 bloques con filas, media
+84.39 filas. El modelo supone ocupacion ideal; no se ha aislado cuanto
+aporta cada causa de la diferencia.
+
+<a id="v3-comprobacion-30"></a>
+### 30. Coste de lectura logica, fisica y secuencial
+Con las medidas de la Parte L:
+- Logica: 3.775 microsegundos de CPU por lectura (4 por busqueda).
+- Fisica aleatoria: 35.334 microsegundos (193.063 ms / 5464 lecturas).
+- Secuencial: 7.544 microsegundos por bloque (34.666 ms / 4595).
+Los tiempos de pared incluyen CPU y trabajo de la sesion.
+
+<a id="v3-comprobacion-31"></a>
+### 31. Umbral con HDD
+Con Bw=150 MB/s (decimal) y latencia de 5 ms:
+csec = 8192 / 150000000 s = 54.6 microsegundos por bloque.
+cociente = csec / caleat = 54.6 / 5000 = 0.0109.
+Umbral = cociente / bfr = 0.0109 / 85.543 = 0.000128, es decir
+0.0128 % de las filas (unas 51 de 400000). Con las cifras del
+contenedor el umbral fue 0.2496 %: otro hardware, otra decision.
+
+<a id="v3-comprobacion-32"></a>
+### 32. Lecturas fisicas en microsegundos
+FLUSH BUFFER_CACHE vacia la cache de Oracle, no la de paginas de
+Linux; muchas lecturas fisicas salen de RAM del sistema operativo.
+No invalida el metodo, pero las cifras no son transferibles a un
+almacenamiento real: hay que repetir la medida alli.
+
+<a id="v3-comprobacion-33"></a>
+### 33. Migracion frente a encadenamiento
+Migracion: un UPDATE agranda una fila que ya no cabe y se mueve;
+la cabeza queda con un nrid. Encadenamiento: la fila no cabe en ningun
+bloque. Se detectan con ANALYZE (CHAIN_CNT), LIST CHAINED ROWS y
+table fetch continued row. La migracion se cura con MOVE (ONLINE
+preferible) y PCTFREE adecuado; el encadenamiento exige bloque mayor
+o redisenar la tabla. MIGRA y ANCHA lo mostraron en la Parte M.
+
+<a id="v3-comprobacion-34"></a>
+### 34. Las 3.2 lecturas por busqueda
+Una busqueda normal costo 3 lecturas (indice de dos niveles mas tabla)
+y una migrada 4. En los ids 1 a 1000, 200 estaban migradas:
+800*3 + 200*4 = 3200 lecturas, o 3.2 por busqueda.
+
+<a id="v3-comprobacion-35"></a>
+### 35. Por que MOVE deja el indice UNUSABLE
+MOVE reescribe las filas y cambia sus ROWID; el indice conserva
+direcciones antiguas. PK_MIGRA quedo UNUSABLE y volvio a VALID tras
+REBUILD. En produccion se usa MOVE ONLINE con el PCTFREE adecuado,
+que mantiene los indices validos, y despues se recogen estadisticas.
+
+<a id="v3-comprobacion-36"></a>
+### 36. Tres hallazgos de la autopsia
+- H2, un miembro por grupo de redo: riesgo de perder cambios
+  recientes; accion, multiplexar; prioridad alta en produccion.
+- H3, control files en el mismo volumen: riesgo de punto unico de
+  fallo; accion, copias en dominios independientes; prioridad alta.
+- H6, ORA-00800 en VKTM y LGWR: riesgo no cuantificado; accion,
+  revisar trazas y limites del entorno; prioridad media.
+
+<a id="v3-comprobacion-37"></a>
+### 37. Por que C##OPS_RO y no SYSTEM
+Es una cuenta comun de solo lectura con SELECT_CATALOG_ROLE,
+CONTAINER_DATA y un permiso puntual sobre V$DIAG_ALERT_EXT: minimo
+privilegio para observar. SYSTEM tiene mucho mas alcance. C##OPS_RO no
+administra la base ni recibe privilegios ANY de escritura segun la
+verificacion final.
+
+<a id="v3-comprobacion-38"></a>
+### 38. Vias de exposicion de contrasenas corregidas
+Primera: contrasenas literales en la migracion V000, ya en el
+historial de Git; se invalidaron con cuentas de solo esquema (V003).
+Segunda: la contrasena de SYS en la linea de comandos del script de
+migraciones, visible con ps y en los eventos del demonio; se sustituyo
+por autenticacion del sistema operativo.
+
+### Pregunta tipo examen P18
+Respuesta: B. ROWID_BLOCK_NUMBER sin segundo argumento asume SMALLFILE.
+Para interpretar el bloque de un ROWID de un tablespace BIGFILE hay
+que indicar DBMS_ROWID.ROWID_BLOCK_NUMBER(rowid, 'BIGFILE').
+La Parte K comparo el resultado con la direccion del volcado.
+
+### Pregunta tipo examen P19
+Respuesta: A y B. PCTFREE 10 fija la reserva de espacio para el
+crecimiento de filas existentes mediante UPDATE y el umbral de
+ocupacion para las inserciones ordinarias. No es una reserva exclusiva
+de ITL ni garantiza que nunca haya migracion: el crecimiento puede
+superar el espacio disponible.
+
+## Utilidad de indices requerida por el Lab 5
+
+Se incorporo scripts/ops/grafico-indice.sh, adaptado del apartado
+C.4 del Lab 5 v3. Genera un treedump y procesa una copia local;
+no crea ni reconstruye indices ni modifica datos de negocio.
+
+Prueba funcional sobre ADMIN_ACADEMIA.SYS_C008659:
+- Hojas: 37.
+- Entradas vivas: 20000.
+- Entradas borradas: 0.
+- Ocupacion viva estimada: 97.92 %.
+- Hojas sin entradas vivas: 0.
+- Resultado: 0.
+
+La ocupacion usa el modelo aproximado de 7996 bytes utiles por
+hoja de 8 KiB. No es una recomendacion automatica de reconstruccion.
+
+Evidencia:
+- docs/bitacora/lab4/evidencia/script/20261124T001742Z_17-grafico-indice.script.log

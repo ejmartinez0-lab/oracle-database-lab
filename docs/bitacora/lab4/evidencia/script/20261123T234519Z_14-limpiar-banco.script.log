@@ -1,0 +1,27 @@
+
+Session altered.
+
+=== 1. Comprobaciones antes del borrado ===
+
+PL/SQL procedure successfully completed.
+
+=== 2. Eliminar el esquema de pruebas ===
+
+User dropped.
+
+=== 3. Confirmar que el tablespace ha quedado sin segmentos ===
+
+PL/SQL procedure successfully completed.
+
+=== 4. Eliminar el tablespace y su archivo fisico ===
+
+Tablespace dropped.
+
+=== 5. Verificar ausencia en el diccionario ===
+
+USUARIOS_RESTANTES TABLESPACES_RESTANTES DATAFILES_RESTANTES
+------------------ --------------------- -------------------
+		 0		       0		   0
+
+1 row selected.
+

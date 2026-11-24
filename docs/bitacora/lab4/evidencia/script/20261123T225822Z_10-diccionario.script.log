@@ -1,0 +1,62 @@
+SQL Format Cleared
+=== 1. Usuario y contenedor actuales ===
+
+USUARIO            CONTENEDOR        
+------------------ ------------------
+C##OPS_RO          CDB$ROOT          
+
+1 row selected. 
+
+=== 2. Familias de vistas del diccionario ===
+
+FAMILIA                                 VISTAS
+----------------------------------- ----------
+USER: objetos propios                      656
+ALL: objetos accesibles                    590
+DBA: contenedor actual                    1309
+CDB: datos de contenedores                1307
+V$: vistas dinamicas                       921
+GV$: vistas globales                       880
+
+6 rows selected. 
+
+=== 3. DBA frente a CDB como cuenta de observabilidad ===
+
+FAMILIA                             TABLESPACES
+----------------------------------- -----------
+DBA_TABLESPACES                               5
+CDB_TABLESPACES                              15
+
+2 rows selected. 
+
+
+CONTENEDOR         TABLESPACES
+------------------ -----------
+CDB$ROOT                     5
+FREEPDB1                    10
+
+2 rows selected. 
+
+=== 4. Estructuras fijas por tipo ===
+
+TYPE           CANTIDAD
+------------ ----------
+TABLE              1591
+VIEW               1803
+
+2 rows selected. 
+
+=== 5. Definicion interna de GV$LOG ===
+
+VIEW_DEFINITION
+------------------------------------------------------------------------------------------------------------------------------------------------------
+select le.inst_id, le.lenum, le.lethr, le.leseq, le.lesiz*le.lebsz, le.lebsz, ledup, decode(bitand(le.leflg,1),0,'NO','YES'),
+decode(bitand(le.leflg,24), 8, 'CURRENT',                            16,'CLEARING',                            24,'CLEARING_CURRENT',       
+decode(sign(leseq),0,'UNUSED',        decode(sign((to_number(rt.rtckp_scn)-to_number(le.lenxs))*        bitand(rt.rtsta,2)*(64-bitand(rtsta, 64))),   
+-1,'ACTIVE','INACTIVE'))), to_number(le.lelos), to_date(le.lelot,'MM/DD/RR HH24:MI:SS','NLS_CALENDAR=Gregorian'), to_number(le.lenxs),
+to_date(le.lenxt,'MM/DD/RR HH24:MI:SS','NLS_CALENDAR=Gregorian'), le.con_id  from x$kccle le, x$kccrt rt where le.ledup!=0 and le.lethr=rt.rtnum and 
+le.inst_id = rt.inst_id
+
+
+1 row selected. 
+

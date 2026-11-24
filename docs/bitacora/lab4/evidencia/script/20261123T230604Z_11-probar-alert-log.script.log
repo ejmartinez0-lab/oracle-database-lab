@@ -1,0 +1,25 @@
+SQL Format Cleared
+
+USUARIO            CONTENEDOR        
+------------------ ------------------
+C##OPS_RO          CDB$ROOT          
+
+1 row selected. 
+
+=== Ultimos ocho mensajes visibles del alert log ===
+
+CUANDO              MENSAJE                                                                                                                           
+------------------- ----------------------------------------------------------------------------------------------------------------------------------
+2026-11-23 23:04:08 The system is observing online redo log writes that are taking longer than expected to complete. This can lead to system          
+                    performance instability.                                                                                                          
+
+2026-11-23 23:04:08 --ATTENTION--                                                                                                                     
+2026-11-23 23:03:14 Completed: DROP PLUGGABLE DATABASE pdblab4 INCLUDING DATAFILES                                                                    
+2026-11-23 23:03:14 Deleted file /opt/oracle/oradata/FREE/PDBLAB4/system01.dbf                                                                        
+2026-11-23 23:03:14 Deleted file /opt/oracle/oradata/FREE/PDBLAB4/sysaux01.dbf                                                                        
+2026-11-23 23:03:14 Deleted file /opt/oracle/oradata/FREE/PDBLAB4/undotbs01.dbf                                                                       
+2026-11-23 23:03:14 Deleted file /opt/oracle/oradata/FREE/PDBLAB4/temp01.dbf                                                                          
+2026-11-23 23:03:14 Stopped service pdblab4                                                                                                           
+
+8 rows selected. 
+

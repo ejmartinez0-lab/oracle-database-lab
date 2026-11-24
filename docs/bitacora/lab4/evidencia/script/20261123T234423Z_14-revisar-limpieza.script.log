@@ -1,0 +1,66 @@
+
+Session altered.
+
+=== 1. Confirmar contenedor ===
+
+CONTENEDOR
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FREEPDB1
+
+1 row selected.
+
+=== 2. Objetos del esquema que se eliminaria ===
+
+OBJECT_NAME                    OBJECT_TYPE          STATUS
+------------------------------ -------------------- -------
+PK_LECTURAS                    INDEX                VALID
+PK_MIGRA                       INDEX                VALID
+ANCHA                          TABLE                VALID
+CHAINED_ROWS                   TABLE                VALID
+CHAINED_ROWS_ANCHA             TABLE                VALID
+LECTURAS                       TABLE                VALID
+MIGRA                          TABLE                VALID
+
+7 rows selected.
+
+=== 3. Todos los segmentos de LAB4PRUEBAS o de TBS_LAB4 ===
+
+OWNER                  SEGMENT_NAME                   SEGMENT_TYPE       TABLESPACE_NAME             MIB
+---------------------- ------------------------------ ------------------ -------------------- ----------
+LAB4PRUEBAS            ANCHA                          TABLE              TBS_LAB4                   .063
+LAB4PRUEBAS            CHAINED_ROWS                   TABLE              TBS_LAB4                   .125
+LAB4PRUEBAS            CHAINED_ROWS_ANCHA             TABLE              TBS_LAB4                   .063
+LAB4PRUEBAS            LECTURAS                       TABLE              TBS_LAB4                     37
+LAB4PRUEBAS            MIGRA                          TABLE              TBS_LAB4                     .5
+LAB4PRUEBAS            PK_LECTURAS                    INDEX              TBS_LAB4                      7
+LAB4PRUEBAS            PK_MIGRA                       INDEX              TBS_LAB4                   .125
+
+7 rows selected.
+
+=== 4. Usuarios con TBS_LAB4 como tablespace predeterminado ===
+
+USERNAME               AUTHENTI DEFAULT_TABLESPACE
+---------------------- -------- --------------------
+LAB4PRUEBAS            NONE     TBS_LAB4
+
+1 row selected.
+
+=== 5. Datafiles asociados al tablespace ===
+
+   FILE_ID FILE_NAME                                                                                                             MIB
+---------- -------------------------------------------------------------------------------------------------------------- ----------
+        24 /opt/oracle/oradata/FREE/FREEPDB1/lab4pruebas01.dbf                                                                    64
+
+1 row selected.
+
+=== 6. Ultima comprobacion de los resultados del experimento ===
+
+TABLE_NAME                                                                                                                         NUM_ROWS     BLOCKS  CHAIN_CNT
+-------------------------------------------------------------------------------------------------------------------------------- ---------- ---------- ----------
+ANCHA                                                                                                                                     2          5          1
+LECTURAS                                                                                                                             400000       4676          0
+MIGRA                                                                                                                                  5000         63          0
+
+3 rows selected.
+
+=== FIN DEL INVENTARIO: NO SE HA BORRADO NADA ===

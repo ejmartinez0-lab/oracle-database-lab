@@ -1,0 +1,30 @@
+=== 1. Configuracion y ultimos archivados registrados ===
+
+NAME			       VALUE
+------------------------------ -----------------------------------------------------------------------------------------------------------------------------
+log_archive_dest	       (sin configurar)
+log_archive_dest_1	       (sin configurar)
+log_archive_format	       %t_%s_%r.dbf
+
+3 rows selected.
+
+
+   THREAD#  SEQUENCE# S DEL COMPLETADO		ARCHIVO
+---------- ---------- - --- ------------------- -----------------------------------------------------------------------------------------------------------------------------
+	 1	    3 A NO  2026-11-23 22:31:57 /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_3_1237845575.dbf
+	 1	    2 A NO  2026-11-15 11:07:44 /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_2_1237845575.dbf
+	 1	    1 A NO  2026-10-25 15:57:03 /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_1_1237845575.dbf
+
+3 rows selected.
+
+
+=== 2. Existencia y ruta real de esos archivos ===
+57534464 bytes | /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_3_1237845575.dbf
+Ruta real: /opt/oracle/oradata/dbconfig/FREE/dbs/arch1_3_1237845575.dbf
+DENTRO del volumen de datos
+208786432 bytes | /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_2_1237845575.dbf
+Ruta real: /opt/oracle/oradata/dbconfig/FREE/dbs/arch1_2_1237845575.dbf
+DENTRO del volumen de datos
+68800512 bytes | /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_1_1237845575.dbf
+Ruta real: /opt/oracle/oradata/dbconfig/FREE/dbs/arch1_1_1237845575.dbf
+DENTRO del volumen de datos

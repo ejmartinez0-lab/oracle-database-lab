@@ -1,0 +1,15 @@
+
+Session altered.
+
+=== 1. Lectura logica: calentamiento y 100000 busquedas ===
+Lecturas logicas=400000; por busqueda=4; fisicas=0
+CPU=1450 ms; CPU/lectura logica=3.625 us
+=== 2. Cache vacia: 2000 busquedas repartidas por PK ===
+DECLARE
+*
+ERROR at line 1:
+ORA-02000: missing SHARED_POOL/BUFFER_POOL/FLASH_CACHE/SQL_MONITOR/QUERY_HISTORY/BUFFER_CACHE/GLOBAL CONTEXT/PASSWORDFILE_METADATA_CACHE keyword
+ORA-06512: at line 63
+Help: https://docs.oracle.com/error-help/db/ora-02000/
+
+

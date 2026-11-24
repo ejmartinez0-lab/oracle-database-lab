@@ -1,0 +1,57 @@
+
+Session altered.
+
+=== 1. Estado anterior ===
+
+TABLE_NAME             NUM_ROWS     BLOCKS   PCT_FREE  CHAIN_CNT
+-------------------- ---------- ---------- ---------- ----------
+ANCHA                         2          5         10          1
+MIGRA                      5000         58          0       1000
+
+2 rows selected.
+
+=== 2. Reescribir MIGRA dejando reserva para crecimiento ===
+
+Table altered.
+
+=== 3. Estado del indice inmediatamente despues del MOVE ===
+
+INDEX_NAME           STATUS
+-------------------- ------------
+PK_MIGRA             UNUSABLE
+
+1 row selected.
+
+=== 4. Reconstruir la clave primaria ===
+
+Index altered.
+
+
+INDEX_NAME           STATUS
+-------------------- ------------
+PK_MIGRA             VALID
+
+1 row selected.
+
+=== 5. Actualizar el diagnostico de la tabla reorganizada ===
+
+Table analyzed.
+
+
+TABLE_NAME             NUM_ROWS     BLOCKS   PCT_FREE AVG_ROW_LEN  CHAIN_CNT
+-------------------- ---------- ---------- ---------- ----------- ----------
+ANCHA                         2          5         10        6016          1
+MIGRA                      5000         63         20          69          0
+
+2 rows selected.
+
+=== 6. Verificar que se conservan las filas y sus textos ===
+
+FILAS_TOTALES  AMPLIADAS     CORTAS
+------------- ---------- ----------
+         5000       1000       4000
+
+1 row selected.
+
+=== 7. Repetir las mismas busquedas tras la reparacion ===
+O/S Message: No such file or directory

@@ -1,0 +1,11 @@
+
+Session altered.
+
+=== Familias con mas de 50 textos SQL distintos ===
+
+FIRMA                  TEXTOS_DISTINTOS CURSORES_HIJOS EJECUCIONES KB_SHARED_POOL EJEMPLO
+---------------------- ---------------- -------------- ----------- -------------- -------------------------------------------------------------------------------------
+1863221789280198928                 875            875         875        32606.7 SELECT /* lab4_literal */ COUNT(*) FROM admin_academia.aca_estudiantes WHERE estudian
+
+1 row selected.
+

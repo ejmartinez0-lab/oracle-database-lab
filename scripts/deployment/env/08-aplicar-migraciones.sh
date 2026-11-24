@@ -8,7 +8,7 @@ if (( $# < 1 )); then
   exit 2
 fi
 
-DEST="$EVID_LAB4/spool"
+DEST="${MIG_EVID:-$EVID_LAB4/spool}"
 mkdir -p "$DEST"
 
 for MIG in "$@"; do
@@ -18,7 +18,7 @@ for MIG in "$@"; do
     exit 2
   }
 
-  LOG="$DEST/$(ts)_04-${MIG}.spool.log"
+  LOG="$DEST/$(ts)_${MIG_PARTE:-04}-${MIG}.spool.log"
   echo "Aplicando $MIG"
 
   if ! docker exec -i "$CONTNAME" sqlplus -s -L "/ as sysdba" \

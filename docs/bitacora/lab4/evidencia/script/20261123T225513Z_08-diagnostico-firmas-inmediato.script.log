@@ -1,0 +1,24 @@
+
+Session altered.
+
+=== 1. Cursores del experimento agrupados por firma, incluido cero ===
+
+ETIQUETA     FIRMA                  TEXTOS_DISTINTOS CURSORES_HIJOS EJECUCIONES
+------------ ---------------------- ---------------- -------------- -----------
+BIND         9880515270543925696                   1              1        1000
+LITERALES    1863221789280198928                 875            875         875
+
+2 rows selected.
+
+=== 2. Muestra de cinco cursores con literales ===
+
+SQL_ID        CHILD_NUMBER FIRMA                  EJEMPLO
+------------- ------------ ---------------------- -----------------------------------------------------------------------------------------------
+00c7rrny582zc            0 1863221789280198928    SELECT /* lab4_literal */ COUNT(*) FROM admin_academia.aca_estudiantes WHERE estudiante_id = 61
+00yt8pg1pm6m5            0 1863221789280198928    SELECT /* lab4_literal */ COUNT(*) FROM admin_academia.aca_estudiantes WHERE estudiante_id = 38
+00znt1gknppjv            0 1863221789280198928    SELECT /* lab4_literal */ COUNT(*) FROM admin_academia.aca_estudiantes WHERE estudiante_id = 48
+02b2bakuxdz8f            0 1863221789280198928    SELECT /* lab4_literal */ COUNT(*) FROM admin_academia.aca_estudiantes WHERE estudiante_id = 93
+043ky6b4u0vhv            0 1863221789280198928    SELECT /* lab4_literal */ COUNT(*) FROM admin_academia.aca_estudiantes WHERE estudiante_id = 61
+
+5 rows selected.
+

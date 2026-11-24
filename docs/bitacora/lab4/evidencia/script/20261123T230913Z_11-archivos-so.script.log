@@ -1,0 +1,51 @@
+=== 1. Montajes del contenedor ===
+tipo=volume destino=/opt/oracle/oradata origen=/var/lib/docker/volumes/oralab-26ai-data/_data
+
+
+=== 2. Archivos de datos, control y redo: bytes reales ===
+104865792 bytes | /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf
+104865792 bytes | /opt/oracle/oradata/FREE/FREEPDB1/clinica01.dbf
+104865792 bytes | /opt/oracle/oradata/FREE/FREEPDB1/fintech01.dbf
+104865792 bytes | /opt/oracle/oradata/FREE/FREEPDB1/logistica01.dbf
+104865792 bytes | /opt/oracle/oradata/FREE/FREEPDB1/retail01.dbf
+471867392 bytes | /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf
+314580992 bytes | /opt/oracle/oradata/FREE/FREEPDB1/system01.dbf
+20979712 bytes | /opt/oracle/oradata/FREE/FREEPDB1/temp01.dbf
+104865792 bytes | /opt/oracle/oradata/FREE/FREEPDB1/undotbs01.dbf
+75505664 bytes | /opt/oracle/oradata/FREE/FREEPDB1/users01.dbf
+18792448 bytes | /opt/oracle/oradata/FREE/control01.ctl
+18792448 bytes | /opt/oracle/oradata/FREE/control02.ctl
+419438592 bytes | /opt/oracle/oradata/FREE/pdbseed/sysaux01.dbf
+304095232 bytes | /opt/oracle/oradata/FREE/pdbseed/system01.dbf
+20979712 bytes | /opt/oracle/oradata/FREE/pdbseed/temp01.dbf
+104865792 bytes | /opt/oracle/oradata/FREE/pdbseed/undotbs01.dbf
+209715712 bytes | /opt/oracle/oradata/FREE/redo01.log
+209715712 bytes | /opt/oracle/oradata/FREE/redo02.log
+209715712 bytes | /opt/oracle/oradata/FREE/redo03.log
+702554112 bytes | /opt/oracle/oradata/FREE/sysaux01.dbf
+1121984512 bytes | /opt/oracle/oradata/FREE/system01.dbf
+20979712 bytes | /opt/oracle/oradata/FREE/temp01.dbf
+26222592 bytes | /opt/oracle/oradata/FREE/undotbs01.dbf
+7348224 bytes | /opt/oracle/oradata/FREE/users01.dbf
+
+=== 3. SPFILE y password file: enlaces y destinos ===
+-rw-r----- 1 oracle oinstall 3584 Nov 23 22:38 /opt/oracle/product/26ai/dbhomeFree/dbs/spfileFREE.ora
+Ruta real: /opt/oracle/oradata/dbconfig/FREE/dbs/spfileFREE.ora
+3584 bytes | /opt/oracle/oradata/dbconfig/FREE/dbs/spfileFREE.ora
+-rw-r----- 1 oracle oinstall 2048 Nov 15 10:55 /opt/oracle/product/26ai/dbhomeFree/dbs/orapwFREE
+Ruta real: /opt/oracle/oradata/dbconfig/FREE/dbs/orapwFREE
+2048 bytes | /opt/oracle/oradata/dbconfig/FREE/dbs/orapwFREE
+
+=== 4. Destino de archivado: ruta real y ocupacion ===
+El directorio de archivado no existe en esta ruta.
+
+=== 5. ADR, alert log y trazas ===
+Ruta real del ADR: /opt/oracle/diag/rdbms/free/FREE
+138977 bytes | /opt/oracle/diag/rdbms/free/FREE/trace/alert_FREE.log
+25M	/opt/oracle/diag/rdbms/free/FREE
+Numero de trazas .trc: 282
+
+=== 6. Espacio disponible dentro del contenedor ===
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sde       1007G   20G  936G   3% /opt/oracle/oradata
+overlay        1007G   20G  936G   3% /

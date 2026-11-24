@@ -1,0 +1,60 @@
+
+Session altered.
+
+=== 1. No reutilizar objetos existentes ===
+
+PL/SQL procedure successfully completed.
+
+=== 2. Tablespace de pruebas dentro del volumen ===
+
+Tablespace created.
+
+
+User created.
+
+=== 3. Crear 400000 filas de prueba y su clave primaria ===
+
+Table created.
+
+
+Table altered.
+
+
+PL/SQL procedure successfully completed.
+
+=== 4. Verificar filas, estadisticas y objetos ===
+
+FILAS_REALES
+------------
+      400000
+
+1 row selected.
+
+
+  NUM_ROWS AVG_ROW_LEN     BLOCKS MB_BLOQUES
+---------- ----------- ---------- ----------
+    400000          78       4676      36.53
+
+1 row selected.
+
+
+USERNAME           AUTHENTICATION_TYPE  DEFAULT_TABLESPACE
+------------------ -------------------- ------------------------------
+LAB4PRUEBAS        NONE                 TBS_LAB4
+
+1 row selected.
+
+
+FILE_NAME                                                                             MB_ACTUALES AUT MB_MAXIMOS
+------------------------------------------------------------------------------------- ----------- --- ----------
+/opt/oracle/oradata/FREE/FREEPDB1/lab4pruebas01.dbf                                            64 YES        512
+
+1 row selected.
+
+
+INDEX_NAME                                                                                                                       STATUS
+-------------------------------------------------------------------------------------------------------------------------------- --------
+PK_LECTURAS                                                                                                                      VALID
+
+1 row selected.
+

@@ -1,0 +1,266 @@
+=== 1. Identidad, instancia y base de datos ===
+
+USUARIO              CONTENEDOR
+-------------------- ----------------
+C##OPS_RO            CDB$ROOT
+
+1 row selected.
+
+
+INSTANCIA      HOST_NAME          VERSION_FULL      STATUS       DATABASE_STATUS   ARRANQUE
+-------------- ------------------ ----------------- ------------ ----------------- -------------------
+FREE           d1d9aadc0fa5       23.26.3.0.0       OPEN         ACTIVE            2026-11-23 22:38:48
+
+1 row selected.
+
+
+      DBID NAME                                 CDB OPEN_MODE            LOG_MODE     FORCE_LOGGING                           FLASHBACK_ON       DATABASE_ROLE
+---------- ------------------------------------ --- -------------------- ------------ --------------------------------------- ------------------ ----------------
+1509902213 FREE                                 YES READ WRITE           ARCHIVELOG   YES                                     NO                 PRIMARY
+
+1 row selected.
+
+
+    CON_ID NAME                                 OPEN_MODE
+---------- ------------------------------------ ----------
+         1 CDB$ROOT                             READ WRITE
+         2 PDB$SEED                             READ ONLY
+         3 FREEPDB1                             READ WRITE
+
+3 rows selected.
+
+=== 2. Memoria ===
+
+NAME                                 VALUE
+------------------------------------ ----------------------------------------------------------------------------------------------------
+memory_target                        0
+pga_aggregate_limit                  2147483648
+pga_aggregate_target                 536870912
+sga_max_size                         1610612736
+sga_target                           1610612736
+
+5 rows selected.
+
+
+NAME                                        MIB
+------------------------------------ ----------
+Buffer Cache Size                          1024
+Large Pool Size                              16
+Maximum SGA Size                        1529.12
+Redo Buffers                               4.32
+Shared Pool Size                            464
+
+5 rows selected.
+
+=== 3. Procesos ===
+
+TIPO                   PROCESOS
+-------------------- ----------
+No background                 7
+Background                   86
+
+2 rows selected.
+
+
+PNAME SPID
+----- ------------------------
+CKPT  93
+DBW0  89
+LGWR  91
+LREG  109
+PMON  41
+SMON  95
+
+6 rows selected.
+
+=== 4. Archivos y destinos ===
+
+TIPO                   ARCHIVOS        MIB
+-------------------- ---------- ----------
+Datafiles                    16       3994
+Tempfiles                     3         60
+Control files                 2      35.81
+
+3 rows selected.
+
+
+    GROUP# MIB_POR_MIEMBRO    MEMBERS STATUS
+---------- --------------- ---------- ----------------
+         1             200          1 CURRENT
+         2             200          1 INACTIVE
+         3             200          1 INACTIVE
+
+3 rows selected.
+
+
+NAME
+------------------------------------
+/opt/oracle/oradata/FREE/control01.c
+tl
+
+/opt/oracle/oradata/FREE/control02.c
+tl
+
+
+2 rows selected.
+
+
+    GROUP#
+----------
+MEMBER
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         1
+/opt/oracle/oradata/FREE/redo01.log
+
+         2
+/opt/oracle/oradata/FREE/redo02.log
+
+         3
+/opt/oracle/oradata/FREE/redo03.log
+
+
+3 rows selected.
+
+
+NAME                                 VALUE
+------------------------------------ ----------------------------------------------------------------------------------------------------
+db_block_size                        8192
+db_recovery_file_dest
+db_recovery_file_dest_size           0
+diagnostic_dest                      /opt/oracle
+spfile                               /opt/oracle/product/26ai/dbhomeFree/dbs/spfileFREE.ora
+
+5 rows selected.
+
+=== 5. Almacenamiento por contenedor ===
+
+    CON_ID TABLESPACE_NAME        MIB_USADOS MIB_CAPACIDAD_METRICA  PCT_USADO
+---------- ---------------------- ---------- --------------------- ----------
+         1 SYSAUX                     638.94             959065.59        .07
+         1 SYSTEM                    1056.56             959455.59        .11
+         1 TEMP                            0              32767.98          0
+         1 UNDOTBS1                    23.13              33554432          0
+         1 USERS                        6.06             958392.59          0
+         3 SYSAUX                     426.31             958835.59        .04
+         3 SYSTEM                     297.94             958685.59        .03
+         3 TBS_ACADEMIA                23.25                  1024       2.27
+         3 TBS_CLINICA                  6.06                  1024        .59
+         3 TBS_FINTECH                  6.06                  1024        .59
+         3 TBS_LOGISTICA                6.06                  1024        .59
+         3 TBS_RETAIL                   6.06                  1024        .59
+         3 TEMP                            0              32767.98          0
+         3 UNDOTBS1                    25.13              33554432          0
+         3 USERS                        8.69             958457.59          0
+
+15 rows selected.
+
+
+    CON_ID TIPO                  SEGMENTOS        MIB
+---------- -------------------- ---------- ----------
+         1 CLUSTER                       9      73.31
+         1 INDEX                      2005     257.25
+         1 INDEX PARTITION             569      44.38
+         1 LOB PARTITION                74        132
+         1 LOBINDEX                    682      42.69
+         1 LOBSEGMENT                  682     287.25
+         1 NESTED TABLE                  6        .38
+         1 ROLLBACK                      1        .44
+         1 TABLE                      1839     699.25
+         1 TABLE PARTITION             576      87.63
+         1 TABLE SUBPARTITION           32          2
+         1 TYPE2 UNDO                   10      22.13
+         3 CLUSTER                       9         67
+         3 INDEX                       843     161.25
+         3 INDEX PARTITION             106      11.94
+         3 LOB PARTITION                26      39.44
+         3 LOBINDEX                    379      23.69
+         3 LOBSEGMENT                  379     195.25
+         3 NESTED TABLE                  3        .19
+         3 ROLLBACK                      1        .44
+         3 TABLE                       636     150.81
+         3 TABLE PARTITION              91         25
+         3 TYPE2 UNDO                   10      22.13
+
+23 rows selected.
+
+=== 6. Indices de los esquemas de negocio ===
+
+    CON_ID OWNER                     INDICES     UNICOS ALTURA_MAX SIN_FECHA_ESTADISTICAS CF_MAYOR_MEDIA_TABLA NO_VALIDOS
+---------- ---------------------- ---------- ---------- ---------- ---------------------- -------------------- ----------
+         3 ADMIN_ACADEMIA                  9          7          2                      0                    2          0
+         3 ADMIN_CLINICA                   8          6                                 8                    0          0
+         3 ADMIN_FINTECH                   6          3                                 6                    0          0
+         3 ADMIN_LOGISTICA                 6          5                                 6                    0          0
+         3 ADMIN_RETAIL                    7          4                                 7                    0          0
+
+5 rows selected.
+
+=== 7. Usuarios y concesiones directas del rol DBA ===
+
+    CON_ID COM   USUARIOS NO_MANTENIDOS_POR_ORACLE
+---------- --- ---------- ------------------------
+         1 YES         37                        1
+         3 NO           9                        9
+         3 YES         35                        1
+
+3 rows selected.
+
+
+0 rows selected.
+
+=== 8. Servicios activos ===
+
+    CON_ID NAME
+---------- ------------------------------------
+NETWORK_NAME
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         1 SYS$BACKGROUND
+
+
+         1 SYS$USERS
+
+
+         1 free
+free
+
+         1 freeXDB
+freeXDB
+
+         3 freepdb1
+freepdb1
+
+
+5 rows selected.
+
+=== 9. Parametros seleccionados para revision ===
+
+NAME                                 VALUE                                                                                                ISDEFAULT ISMODIFIED
+------------------------------------ ---------------------------------------------------------------------------------------------------- --------- ----------
+common_user_prefix                   C##                                                                                                  TRUE      FALSE
+db_create_file_dest                                                                                                                       TRUE      FALSE
+db_files                             200                                                                                                  TRUE      FALSE
+local_listener                                                                                                                            FALSE     FALSE
+open_cursors                         300                                                                                                  FALSE     FALSE
+processes                            200                                                                                                  FALSE     FALSE
+remote_login_passwordfile            EXCLUSIVE                                                                                            FALSE     FALSE
+sessions                             322                                                                                                  TRUE      FALSE
+
+8 rows selected.
+
+=== 10. Alert log del contenedor actual: ultimas 24 horas ===
+
+CONTENEDOR       MOMENTO_CONSULTA
+---------------- -----------------------------------
+CDB$ROOT         23-NOV-26 11.50.23.073571000 PM GMT
+
+1 row selected.
+
+
+CODIGO        REGISTROS ULTIMA_APARICION
+------------ ---------- -------------------
+ORA-00800             4 2026-11-23 22:38:49
+ORA-65025             1 2026-11-23 23:02:50
+
+2 rows selected.
+
+=== FIN DE LA AUTOPSIA ===

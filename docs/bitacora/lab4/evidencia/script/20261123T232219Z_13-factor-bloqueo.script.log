@@ -1,0 +1,46 @@
+
+Session altered.
+
+=== 1. Actualizar estadisticas y consultar tamanos ===
+
+PL/SQL procedure successfully completed.
+
+
+     FILAS BYTES_MEDIOS BLOQUES_ESTADISTICAS BLOQUES_ASIGNADOS   PCT_FREE BLOCK_SIZE
+---------- ------------ -------------------- ----------------- ---------- ----------
+     20000           78                  244               256         10       8192
+
+1 row selected.
+
+=== 2. Filas reales por bloque con datos ===
+
+BLOQUES_CON_FILAS  MIN_FILAS MEDIA_FILAS  MAX_FILAS FILAS_CONTADAS
+----------------- ---------- ----------- ---------- --------------
+              237         25       84.39         93          20000
+
+1 row selected.
+
+=== 3. Comparar estimaciones con estadisticas ===
+Tamano de bloque B=8192
+Filas r=20000; AVG_ROW_LEN=78; PCTFREE=10
+Modelo Unidad 3: bfr=93; bloques estimados=216
+Modelo Oracle aproximado: bfr=90; bloques estimados=223
+Bloques segun estadisticas=244
+
+PL/SQL procedure successfully completed.
+
+=== 4. Nombres del futuro banco de pruebas: solo consultar ===
+
+USUARIO_PRUEBAS_EXISTENTE
+-------------------------
+                        0
+
+1 row selected.
+
+
+TABLESPACE_PRUEBAS_EXISTENTE
+----------------------------
+                           0
+
+1 row selected.
+

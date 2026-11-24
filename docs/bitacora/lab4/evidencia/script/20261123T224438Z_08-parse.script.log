@@ -1,0 +1,18 @@
+=== 1. Contexto de la prueba ===
+
+CONTENEDOR
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+USUARIO
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FREEPDB1
+SYS
+
+=== 2. Mil consultas con literales frente a mil con bind ===
+LITERALES    analisis totales=1011 duros=1003 CPU analisis=1190 ms tiempo total=1290 ms
+BIND :id     analisis totales=1 duros=1 CPU analisis=0 ms tiempo total=20 ms
+=== 3. Cursores que permanecen en la shared pool ===
+
+ETIQUETA             CURSORES EJECUCIONES KB_SHARED_POOL
+------------------ ---------- ----------- --------------
+BIND :id                    1        1000           38.9
+LITERALES                1000        1000        38844.6

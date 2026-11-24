@@ -1,0 +1,16 @@
+=== 1. Ocupacion del segmento mediante ASSM ===
+FULL: 236
+FS1, 0-25% libre: 0
+FS2, 25-50% libre: 0
+FS3, 50-75% libre: 1
+FS4, 75-100% libre: 7
+Sin formatear: 0
+=== 2. Obtener archivo, bloque y ranura actuales ===
+
+
+
+ARCHIVO_LAB4=16
+BLOQUE_LAB4=1175
+RANURA_LAB4=22
+=== 3. Generar volcado del bloque ===
+TRAZA_LAB4=/opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_3226_lab4reto.trc

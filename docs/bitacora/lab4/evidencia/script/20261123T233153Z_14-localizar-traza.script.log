@@ -1,0 +1,47 @@
+
+Session altered.
+
+=== 1. Lineas visibles desde FREEPDB1, sin filtrar ADR_HOME ===
+
+LINEAS_VISIBLES
+---------------
+          12404
+
+1 row selected.
+
+
+Session altered.
+
+=== 2. Lineas visibles desde CDB$ROOT ===
+
+LINEAS_VISIBLES
+---------------
+          12404
+
+1 row selected.
+
+=== 3. Primeras lineas para comprobar el contenido ===
+
+LINE_NUMBER PAYLOAD
+----------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+          1 Trace file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_4035_lab4_migra_cabeza.trc
+          2 Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+            Version 23.26.3.0.0
+
+          4 Build label:    RDBMS_23.26.3.0.0DBRU_LINUX.X64_260704
+          5 ORACLE_HOME:    /opt/oracle/product/26ai/dbhomeFree
+          6 System name:	Linux
+          7 Node name:	d1d9aadc0fa5
+          8 Release:	6.18.58.1-microsoft-standard-WSL2
+          9 Version:	#1 SMP PREEMPT_DYNAMIC Tue Oct 27 00:24:11 UTC 2026
+         10 Machine:	x86_64
+         11 CLID:	P
+         12 Instance name: FREE
+         13 Instance number: 1
+         14 Database name: FREE
+         15 Database unique name: FREE
+         16 Database id: 1509902213
+
+15 rows selected.
+
+=== 4. Buscar la ranura 4 con tolerancia a espacios ===

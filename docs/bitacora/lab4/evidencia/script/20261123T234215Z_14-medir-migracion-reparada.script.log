@@ -1,0 +1,32 @@
+
+Session altered.
+
+=== 1. Estado previo del indice ===
+
+INDEX_NAME															 STATUS       BLEVEL
+-------------------------------------------------------------------------------------------------------------------------------- -------- ----------
+PK_MIGRA															 VALID		   1
+
+1 row selected.
+
+=== 2. Comparar 1000 busquedas por grupo ===
+No ampliadas: ids 1, 6, ..., 4996
+Lecturas logicas=3000; por busqueda=3
+table fetch continued row=0; lecturas fisicas=0
+Ampliadas: ids 5, 10, ..., 5000
+Lecturas logicas=3000; por busqueda=3
+table fetch continued row=0; lecturas fisicas=0
+Mixtas: ids 1 a 1000
+Lecturas logicas=3000; por busqueda=3
+table fetch continued row=0; lecturas fisicas=0
+
+PL/SQL procedure successfully completed.
+
+=== 3. Confirmar que se conserva el diagnostico ===
+
+  NUM_ROWS     BLOCKS  CHAIN_CNT
+---------- ---------- ----------
+      5000	   63	       0
+
+1 row selected.
+

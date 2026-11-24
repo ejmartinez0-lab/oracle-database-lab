@@ -1,0 +1,32 @@
+=== 1. Ordenacion con PGA automatica y con area manual de 64 KB ===
+lab4_pga_auto    filas ordenadas=60000 sorts memory=11 sorts disk=0 tiempo=80 ms
+lab4_pga_64k     filas ordenadas=60000 sorts memory=0 sorts disk=1 tiempo=430 ms
+=== 2. Areas de trabajo de las consultas medidas ===
+
+ETIQUETA           OPERATION_TYPE     POLICY    KB_OPTIMO  KB_USADOS ULTIMA          KB_EN_TEMP
+------------------ ------------------ -------- ---------- ---------- --------------- ----------
+Manual 64 KB       WINDOW (SORT)      MANUAL         1710         65 6 PASSES              2048
+PGA automatica     WINDOW (SORT)      AUTO           2604       2314 OPTIMAL                  0
+=== 3. Politica de sesion al finalizar ===
+
+NAME
+--------------------------------------------------------------------------------
+VALUE
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+workarea_size_policy
+AUTO
+
+=== 4. PGA de toda la instancia desde la raiz ===
+
+NAME                                          VALOR UNIDAD
+---------------------------------------- ---------- ------------
+aggregate PGA target parameter                  512 MB
+total PGA allocated                           360.5 MB
+maximum PGA allocated                           461 MB
+over allocation count                             0
+cache hit percentage                           91.6 percent
+=== 5. Histograma acumulado de areas de trabajo ===
+
+   OPTIMAS UNA_PASADA VARIAS_PASADAS
+---------- ---------- --------------
+      6252          0              2

@@ -1,0 +1,112 @@
+
+Session altered.
+
+=== 1. Contexto y contenedores desde la raiz ===
+
+USUARIO          CONTENEDOR
+---------------- ------------------
+CON_ID
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SYS              CDB$ROOT
+1
+
+
+1 row selected.
+
+
+    CON_ID NAME               OPEN_MODE    RES
+---------- ------------------ ------------ ---
+         1 CDB$ROOT           READ WRITE   NO
+         2 PDB$SEED           READ ONLY    NO
+         3 FREEPDB1           READ WRITE   NO
+
+3 rows selected.
+
+=== 2. Datafiles y redo vistos desde la raiz ===
+
+    CON_ID  DATAFILES
+---------- ----------
+         1          4
+         2          3
+         3          9
+
+3 rows selected.
+
+
+    CON_ID GRUPOS_REDO
+---------- -----------
+         0           3
+
+1 row selected.
+
+=== 3. DBA frente a CDB desde la raiz ===
+
+FAMILIA                   TABLESPACES
+------------------------- -----------
+DBA_TABLESPACES                     5
+CDB_TABLESPACES                    15
+
+2 rows selected.
+
+
+    CON_ID TABLESPACES
+---------- -----------
+         1           5
+         3          10
+
+2 rows selected.
+
+=== 4. Prefijo de usuarios comunes ===
+
+NAME               VALUE
+------------------ --------------------
+common_user_prefix C##
+
+1 row selected.
+
+=== 5. Cuenta de observabilidad en los contenedores visibles ===
+
+    CON_ID USERNAME           COMMON ACCOUNT_STATUS
+---------- ------------------ ------ --------------------
+         1 C##OPS_RO          YES    OPEN
+         3 C##OPS_RO          YES    OPEN
+
+2 rows selected.
+
+
+Session altered.
+
+=== 6. Mismas consultas desde FREEPDB1 ===
+
+USUARIO          CONTENEDOR
+---------------- ------------------
+CON_ID
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SYS              FREEPDB1
+3
+
+
+1 row selected.
+
+
+    CON_ID  DATAFILES
+---------- ----------
+         3          9
+
+1 row selected.
+
+
+FAMILIA                   TABLESPACES
+------------------------- -----------
+DBA_TABLESPACES                    10
+CDB_TABLESPACES                    10
+
+2 rows selected.
+
+
+    CON_ID TABLESPACES
+---------- -----------
+         3          10
+
+1 row selected.
+

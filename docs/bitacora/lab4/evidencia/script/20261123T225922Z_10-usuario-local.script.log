@@ -1,0 +1,118 @@
+
+Session altered.
+
+=== 1. Comprobar que el nombre de prueba esta libre ===
+
+PL/SQL procedure successfully completed.
+
+
+User created.
+
+
+Grant succeeded.
+
+=== 2. Usuario local con solo CREATE SESSION ===
+
+USUARIO            CONTENEDOR
+------------------ ------------------
+LAB4ANALISTA       FREEPDB1
+
+1 row selected.
+
+
+PRUEBA                                   CANTIDAD
+-------------------------------------- ----------
+USER_TABLES: tablas propias                     0
+ALL_TABLES: tablas de Academia                  0
+
+2 rows selected.
+
+=== 3. Errores esperados: catalogo, datos ajenos y cambio de contenedor ===
+SELECT COUNT(*) FROM dba_tables
+                     *
+ERROR at line 1:
+ORA-00942: table or view "SYS"."DBA_TABLES" does not exist
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+
+
+SELECT COUNT(*) FROM v$session
+                     *
+ERROR at line 1:
+ORA-00942: table or view "SYS"."V_$SESSION" does not exist
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+
+
+SELECT COUNT(*) FROM admin_academia.aca_estudiantes
+                                    *
+ERROR at line 1:
+ORA-00942: table or view "ADMIN_ACADEMIA"."ACA_ESTUDIANTES" does not exist
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+
+
+ERROR:
+ORA-01031: insufficient privileges
+Help: https://docs.oracle.com/error-help/db/ora-01031/
+
+
+
+Session altered.
+
+=== 4. Conceder lectura limitada al esquema Academia ===
+
+Grant succeeded.
+
+
+OWNER                TABLE_NAME
+-------------------- -------------------------
+ADMIN_ACADEMIA       ACA_ASIGNATURAS
+ADMIN_ACADEMIA       ACA_ESTUDIANTES
+ADMIN_ACADEMIA       ACA_MATRICULAS
+
+3 rows selected.
+
+
+ESTUDIANTES
+-----------
+      20000
+
+1 row selected.
+
+=== 5. Otro esquema sigue cerrado y leer no permite escribir ===
+SELECT COUNT(*) FROM admin_clinica.cli_pacientes
+                                   *
+ERROR at line 1:
+ORA-00942: table or view "ADMIN_CLINICA"."CLI_PACIENTES" does not exist
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+
+
+UPDATE admin_academia.aca_estudiantes
+                      *
+ERROR at line 1:
+ORA-41900: missing UPDATE privilege on "ADMIN_ACADEMIA"."ACA_ESTUDIANTES"
+Help: https://docs.oracle.com/error-help/db/ora-41900/
+
+
+
+Rollback complete.
+
+
+Session altered.
+
+=== 6. Eliminar el usuario temporal ===
+
+User dropped.
+
+
+USUARIOS_PRUEBA_RESTANTES
+-------------------------
+                        0
+
+1 row selected.
+
+
+ESTADO_FILA_101
+--------------------
+ACTIVO
+
+1 row selected.
+

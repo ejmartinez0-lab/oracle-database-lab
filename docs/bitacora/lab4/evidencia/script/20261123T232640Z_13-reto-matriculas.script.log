@@ -1,0 +1,40 @@
+
+Session altered.
+
+=== 1. Prediccion previa con hipotesis de fila media de 40 bytes ===
+
+FILAS_POR_BLOQUE BLOQUES_ESTIMADOS
+---------------- -----------------
+	     182	       330
+
+1 row selected.
+
+=== 2. Estadisticas reales de la tabla ===
+
+PL/SQL procedure successfully completed.
+
+
+  NUM_ROWS AVG_ROW_LEN BLOQUES_ESTADISTICAS BLOQUES_ASIGNADOS	PCT_FREE BLOCK_SIZE
+---------- ----------- -------------------- ----------------- ---------- ----------
+     60000	    30			370		  384	      10       8192
+
+1 row selected.
+
+=== 3. Recalcular el modelo con AVG_ROW_LEN real ===
+Fila media real=30 bytes
+bfr calculado=242; bloques estimados=248
+Bloques estadisticos=370
+Lectura teorica de bloques estadisticos a 150 MB/s=20.207 ms
+Se usa MB decimal: 150000000 bytes/s.
+Es una estimacion de transferencia, no un tiempo medido.
+
+PL/SQL procedure successfully completed.
+
+=== 4. Comprobar disponibilidad del banco para la Parte M ===
+
+FILAS_BANCO
+-----------
+     400000
+
+1 row selected.
+
