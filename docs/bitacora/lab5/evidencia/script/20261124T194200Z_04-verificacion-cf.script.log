@@ -1,0 +1,10 @@
+
+Session altered.
+
+OK: IX_PED_FECHA CF calculado=5220 diccionario=5220
+OK: IX_PED_CLIENTE CF calculado=999041 diccionario=999041
+OK: PEDIDO conserva un millon de filas y siete indices en TIENDASUR
+
+PL/SQL procedure successfully completed.
+
+PARTE_E_VERIFICADA_OK
