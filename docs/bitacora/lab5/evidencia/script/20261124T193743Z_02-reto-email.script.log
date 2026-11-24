@@ -1,0 +1,49 @@
+
+Session altered.
+
+=== RETO: ALTURA PREVISTA PARA UX_CLI_EMAIL ===
+Modelo: 30 bytes por entrada de hoja, PCTFREE 10 y fo maximo de IX_PED_CLIENTE.
+
+Index analyzed.
+
+Factor maximo de ramificacion: 543
+Capacidad teorica por hoja: 266
+Hojas previstas al 90%: 418
+Altura prevista UX_CLI_EMAIL: 2
+
+PL/SQL procedure successfully completed.
+
+=== CONTRASTE CON LA ESTRUCTURA REAL ===
+
+Index analyzed.
+
+
+NAME																     HEIGHT    LF_ROWS	  LF_BLKS ENTRADAS_POR_HOJA BYTES_POR_ENTRADA
+-------------------------------------------------------------------------------------------------------------------------------- ---------- ---------- ---------- ----------------- -----------------
+  PCT_USED
+----------
+UX_CLI_EMAIL																  3	100000	      501	      199.6		35.89
+	90
+
+
+1 row selected.
+
+
+PL/SQL procedure successfully completed.
+
+=== COMPARACION CON PK_CLIENTE ===
+
+INDEX_NAME															     ALTURA LEAF_BLOCKS   NUM_ROWS
+-------------------------------------------------------------------------------------------------------------------------------- ---------- ----------- ----------
+PK_CLIENTE																  2	    187     100000
+UX_CLI_EMAIL																  3	    501     100000
+
+2 rows selected.
+
+=== MEDICION VISIBLE DE LA BUSQUEDA POR PK ===
+parte_C_pk		       filas=	   1  lecturas l??gicas=      4  f??sicas=    0       .2 ms
+			       plan: TABLE ACCESS BY INDEX ROWID PEDIDO > INDEX UNIQUE SCAN PK_PEDIDO
+
+PL/SQL procedure successfully completed.
+
+PARTE_C_RETO_OK
