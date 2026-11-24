@@ -1745,26 +1745,70 @@ evidencia de un postmortem, por ejemplo los incidentes ORA-00800. Se
 corrige con diagnostic_dest persistente o enviando los logs fuera.
 
 ### 25. ROWID del estudiante 101
-Un ROWID extendido se compone de objeto de datos, archivo relativo,
-bloque y fila. Con DBMS_ROWID se comprueba cada parte, usando el
-segundo argumento BIGFILE para el bloque. Los valores concretos de tu
-base estan documentados en K.2 de este archivo.
+Mi ROWID es AAAR2mAAAAAAAMMAAH.
+DBMS_ROWID confirmo:
+- ROWID_OBJECT: 73126.
+- ROWID_TO_ABSOLUTE_FNO: archivo 16.
+- ROWID_BLOCK_NUMBER con 'BIGFILE': bloque 780.
+- ROWID_ROW_NUMBER: ranura 7, contando desde cero.
+
+DBA_OBJECTS relaciono DATA_OBJECT_ID=73126 con
+ADMIN_ACADEMIA.ACA_ESTUDIANTES. DBA_DATA_FILES relaciono el archivo 16
+con /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf.
+RELATIVE_FNO=1024 no se uso como numero absoluto de archivo.
+En BIGFILE no se interpreta el campo de archivo relativo como en
+SMALLFILE: se obtiene el archivo absoluto mediante
+ROWID_TO_ABSOLUTE_FNO y se decodifica el bloque indicando BIGFILE.
+
+Evidencia: K.2 y
+docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt.
 
 ### 26. nrow, fsbo, fseo y avsp
-nrow es el numero de entradas del directorio de filas; fsbo y fseo
-delimitan el espacio libre; avsp es el espacio disponible y cumple
-avsp = fseo - fsbo. La comprobacion con tus cifras esta en K.4.
+En mi volcado del bloque 780:
+- nrow=88: entradas del directorio de filas del bloque.
+- fsbo=0xc2=194: comienzo del hueco libre.
+- fseo=0x41b=1051: final del hueco libre.
+- avsp=0x359=857: espacio disponible.
+- tosp=0x359=857: espacio libre total en este estado.
 
-### 27. ITL con Lck y Flag --U-, limpieza diferida
-La ITL de la cabecera registra las transacciones interesadas en el
-bloque. Flag --U- indica transaccion confirmada con limpieza pendiente
-y Lck cuenta filas afectadas, no bloqueos activos. La limpieza diferida
-deja el bloque pendiente de completarse en un acceso posterior. K.4
-muestra tus valores y la interpretacion.
+Comprobacion hexadecimal: 0x41b - 0xc2 = 0x359.
+Comprobacion decimal: 1051 - 194 = 857 bytes.
+En este bloque las cantidades coinciden; no se generaliza la igualdad
+a todos los posibles estados de fragmentacion de un bloque.
 
-### 28. Los bytes de la fila 101
-Longitud de fila = cabecera de fila + bytes de longitud de cada columna
-+ datos de las columnas. El desglose con tus bytes esta en K.4.
+Evidencia: K.4 y
+docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt.
+
+### 27. ITL y limpieza diferida de bloques
+El enunciado ilustra Lck=90; mi bloque mostro Lck=88 y Flag --U-.
+La fila 101 tenia lb=0x1, asociado a la primera entrada ITL.
+
+Es informacion de una transaccion confirmada pendiente de completar
+su limpieza en el bloque, no prueba de 88 bloqueos activos actuales.
+Lck refleja las marcas que permanecen asociadas a esa entrada ITL.
+El COMMIT no necesita recorrer y limpiar todos los bloques modificados;
+un acceso posterior puede comprobar el estado de la transaccion y
+completar esa limpieza, incluso durante una lectura.
+
+Evidencia: K.4 y la traza del bloque 780.
+
+### 28. Tamano real de la fila 101
+El ejemplo del enunciado ocupa 78 bytes, pero mi fila ocupa 80.
+No se debe confundir su longitud exacta con AVG_ROW_LEN=78.
+
+Los datos de las siete columnas ocupan:
+3 + 9 + 10 + 12 + 19 + 6 + 11 = 70 bytes.
+
+Se suman 7 bytes de longitud, uno por columna en esta fila, y
+3 de cabecera (fb, lb, cc):
+70 + 7 + 3 = 80 bytes, coincidiendo con tl=80 del volcado.
+
+La entrada del directorio ocupa otros 2 bytes, fuera de tl:
+82 bytes en total al incluir esa entrada.
+La ranura 7 apunta a 0x1d68; fb=--H-FL-- y cc=7.
+
+Evidencia: K.4 y
+docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt.
 
 ### 29. bfr y bloques de ACA_ESTUDIANTES
 Con 20000 filas, R=78, bloque de 8192 y PCTFREE=10:
