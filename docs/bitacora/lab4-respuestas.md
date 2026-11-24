@@ -1577,3 +1577,118 @@ de entrega mediante Pull Request.
 - docs/bitacora/lab4/evidencia/script/20261123T235640Z_16-verificacion-final.script.log
 - docs/bitacora/lab4/evidencia/spool/20261123T235015Z_15-autopsia-instancia.spool.log
 - docs/bitacora/lab4/evidencia/script/20261124T000039Z_17-rutas-reales-autopsia.script.log
+
+## Preguntas tipo examen P20-P46
+
+Las justificaciones usan la evidencia de este laboratorio cuando la hay.
+P13-P19 y P26 se redactan aparte.
+
+### Pregunta tipo examen P20
+Respuesta: B (50000 bloques). Bytes utiles por bloque:
+(8192 - 96) * 0.9 = 7286.4. Filas por bloque: floor(7286.4 / 180) = 40.
+Bloques: 2000000 / 40 = 50000.
+
+### Pregunta tipo examen P21
+Respuesta: B. db file scattered read son lecturas multibloque a la
+buffer cache, tipicas de un recorrido completo. En la Parte L el
+recorrido de 4595 bloques uso 53 peticiones, 36 de ellas multibloque.
+
+### Pregunta tipo examen P22
+Respuesta: A y C. LIST CHAINED ROWS identifica las filas; MOVE ONLINE
+con PCTFREE mayor las reescribe. En la Parte M, MOVE PCTFREE 20 llevo
+CHAIN_CNT de 1000 a 0. DBMS_STATS no calcula CHAIN_CNT.
+
+### Pregunta tipo examen P23
+Respuesta: B. Una fila de 12000 bytes no cabe en un bloque de 8 KiB y se
+encadena. En la Parte M, ANCHA mostro CHAIN_CNT=1; MOVE no lo cura.
+
+### Pregunta tipo examen P24
+Respuesta: B. Cuenta comun de solo lectura con SELECT_CATALOG_ROLE,
+CONTAINER_DATA y el permiso puntual sobre V$DIAG_ALERT_EXT. Es el
+modelo de C##OPS_RO en esta practica: minimo privilegio, sin SYSDBA.
+
+### Pregunta tipo examen P25
+Respuesta: B. PDB$SEED es la plantilla de solo lectura; en la autopsia
+aparece READ ONLY.
+
+### Pregunta tipo examen P27
+Respuesta: B. Hay que cerrar la PDB antes de borrarla: ORA-65025 si esta
+abierta, como quedo registrado en el alert log tras el intento sobre
+PDBLAB4.
+
+### Pregunta tipo examen P28
+Respuesta: A y C. V$DATAFILE y V$LOG leen del control file y estan
+disponibles en MOUNT. DBA_* y CDB_* necesitan el diccionario abierto.
+
+### Pregunta tipo examen P29
+Respuesta: A. KCC identifica estructuras que se leen del control file.
+
+### Pregunta tipo examen P30
+Respuesta: B. Las vistas CDB_* existen en la raiz y en cada PDB; desde
+una PDB solo devuelven sus propias filas.
+
+### Pregunta tipo examen P31
+Respuesta: B. Los tempfiles no se respaldan y se recrean.
+
+### Pregunta tipo examen P32
+Respuesta: B. La instancia sigue con los valores en memoria y puede
+recrearse el archivo con CREATE SPFILE FROM MEMORY.
+
+### Pregunta tipo examen P33
+Respuesta: B. V$PWFILE_USERS lista los usuarios del password file y sus
+privilegios administrativos.
+
+### Pregunta tipo examen P34
+Respuesta: A y B. La ITL y el directorio de filas forman parte de la
+cabecera del bloque; la Parte K los mostro en el volcado.
+
+### Pregunta tipo examen P35
+Respuesta: B. En AUTOALLOCATE los primeros segmentos usan extensiones de
+64 KB (8 bloques) y despues pasan a 1 MB.
+
+### Pregunta tipo examen P36
+Respuesta: B. SEGMENT_SPACE_MANAGEMENT AUTO indica ASSM, con mapas de
+bits.
+
+### Pregunta tipo examen P37
+Respuesta: B. Sin mas clausulas, en 23ai el tablespace es BIGFILE y
+gestionado localmente; TBS_LAB4 se creo asi.
+
+### Pregunta tipo examen P38
+Respuesta: A. Cuatro lecturas logicas con cero fisicas indican bloques ya
+en la buffer cache; en la Parte L, 4 por busqueda y 0 fisicas.
+
+### Pregunta tipo examen P39
+Respuesta: A y B. Mas PCTFREE o filas mas grandes reducen las filas por
+bloque.
+
+### Pregunta tipo examen P40
+Respuesta: B. FLUSH BUFFER_CACHE afecta a todas las sesiones: pasan a
+leer de disco hasta recalentar la cache, con picos de latencia. Solo se
+uso en el laboratorio.
+
+### Pregunta tipo examen P41
+Respuesta: B. La migrada cabia en un bloque y se mudo al crecer; la
+encadenada no cabe en ninguno. En la Parte M: MIGRA frente a ANCHA.
+
+### Pregunta tipo examen P42
+Respuesta: A. Tras MOVE el indice queda UNUSABLE; se arregla con ALTER
+INDEX REBUILD o usando MOVE ONLINE. PK_MIGRA paso a UNUSABLE y despues
+a VALID.
+
+### Pregunta tipo examen P43
+Respuesta: A. V$DIAG_ALERT_EXT permite leer el alert log con SQL.
+
+### Pregunta tipo examen P44
+Respuesta: A y B. Ampliar el tablespace o su maximo y revisar que
+segmentos crecen. Borrar redo, pasar a NOARCHIVELOG o reiniciar no
+resuelve falta de espacio.
+
+### Pregunta tipo examen P45
+Respuesta: A y B. Las PDB comparten SGA, procesos de background y online
+redo logs de la CDB. El undo no es siempre compartido: en 12.2 y
+posteriores puede ser local.
+
+### Pregunta tipo examen P46
+Respuesta: B. Un usuario local con solo CREATE SESSION recibe
+ORA-01031 al intentar cambiar de contenedor.
