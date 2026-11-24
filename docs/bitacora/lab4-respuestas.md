@@ -1581,7 +1581,7 @@ de entrega mediante Pull Request.
 ## Preguntas tipo examen P20-P46
 
 Las justificaciones usan la evidencia de este laboratorio cuando la hay.
-P13-P19 y P26 se redactan aparte.
+P13-P19 y P26 se responden en la seccion complementaria.
 
 ### Pregunta tipo examen P20
 Respuesta: B (50000 bloques). Bytes utiles por bloque:
@@ -1692,3 +1692,160 @@ posteriores puede ser local.
 ### Pregunta tipo examen P46
 Respuesta: B. Un usuario local con solo CREATE SESSION recibe
 ORA-01031 al intentar cambiar de contenedor.
+
+## Preguntas tipo examen P13-P19 y P26
+
+### Pregunta tipo examen P13
+Respuesta: B (solo la fila de CONID 3). V$DATAFILE se filtra por el
+contenedor actual. En la evidencia 10, SYS en CDB$ROOT veia 16 datafiles
+de los tres contenedores y dentro de FREEPDB1 veia 9, todos de CONID 3.
+
+### Pregunta tipo examen P14
+Respuesta: B. El atributo CONTAINER_DATA se concede con ALTER USER ...
+SET CONTAINER_DATA=ALL CONTAINER=CURRENT. SELECT_CATALOG_ROLE no basta:
+la evidencia 10 mostro que sin el, un comun solo ve CONID 0 y 1.
+C##OPS_RO lo tiene.
+
+### Pregunta tipo examen P15
+Respuesta: A y D. El privilegio de esquema cubre las tablas presentes y
+futuras de HR y ninguna de otros esquemas (ORA-00942 sobre ADMIN_CLINICA
+en la evidencia 10). No permite escribir: el UPDATE dio ORA-41900.
+
+### Pregunta tipo examen P16
+Respuesta: B y D. Los control files y los online redo logs forman la
+base. El password file, el SPFILE y el alert log son archivos relacionados.
+
+### Pregunta tipo examen P17
+Respuesta: C. En NOARCHIVELOG, sin copias independientes de control file
+ni de redo, solo se restaura la ultima copia completa y se pierde todo lo
+posterior. No hay RECOVER sin perdida ni FRA que lo contenga.
+
+### Pregunta tipo examen P26
+Respuesta: C (ORA-65094). Se asume que el nombre del enunciado es
+c##rep y que COMMON_USER_PREFIX vale C##: un nombre con el prefijo comun
+no puede crearse como usuario local en una PDB. La extraccion del PDF
+perdio el caracter #. Coincide con el caso 3b del script de ciclo de vida
+de PDB.
+
+## Preguntas de comprobacion 23-38
+
+### 23. Puntos unicos de fallo en control files y redo
+Evidencia de la autopsia: dos control files, control01.ctl y
+control02.ctl, ambos en /opt/oracle/oradata/FREE; tres grupos de redo
+de 200 MiB con un unico miembro cada uno, tambien en esa carpeta.
+Tener dos copias en el mismo volumen no demuestra independencia ante la
+perdida del almacenamiento, y un solo miembro por grupo no multiplexa
+el redo. Tres grupos no son tres copias del mismo redo.
+
+### 24. ADR fuera del volumen
+Diag Trace y Diag Alert resuelven a /opt/oracle/diag/rdbms/free/FREE,
+fuera de /opt/oracle/oradata (comprobado con readlink -e). Recrear el
+contenedor no pierde datos, pero si el alert log y las trazas: justo la
+evidencia de un postmortem, por ejemplo los incidentes ORA-00800. Se
+corrige con diagnostic_dest persistente o enviando los logs fuera.
+
+### 25. ROWID del estudiante 101
+Un ROWID extendido se compone de objeto de datos, archivo relativo,
+bloque y fila. Con DBMS_ROWID se comprueba cada parte, usando el
+segundo argumento BIGFILE para el bloque. Los valores concretos de tu
+base estan documentados en K.2 de este archivo.
+
+### 26. nrow, fsbo, fseo y avsp
+nrow es el numero de entradas del directorio de filas; fsbo y fseo
+delimitan el espacio libre; avsp es el espacio disponible y cumple
+avsp = fseo - fsbo. La comprobacion con tus cifras esta en K.4.
+
+### 27. ITL con Lck y Flag --U-, limpieza diferida
+La ITL de la cabecera registra las transacciones interesadas en el
+bloque. Flag --U- indica transaccion confirmada con limpieza pendiente
+y Lck cuenta filas afectadas, no bloqueos activos. La limpieza diferida
+deja el bloque pendiente de completarse en un acceso posterior. K.4
+muestra tus valores y la interpretacion.
+
+### 28. Los bytes de la fila 101
+Longitud de fila = cabecera de fila + bytes de longitud de cada columna
++ datos de las columnas. El desglose con tus bytes esta en K.4.
+
+### 29. bfr y bloques de ACA_ESTUDIANTES
+Con 20000 filas, R=78, bloque de 8192 y PCTFREE=10:
+Unidad 3: bfr = floor((8192-96)*0.9/78) = 93; bloques = ceil(20000/93)
+= 216. Version Oracle: floor((8192-122)*0.9/(78+2)) = 90; bloques =
+ceil(20000/90) = 223. La tabla tiene 244 bloques en estadisticas y 256
+asignados. El recuento por bloque dio 237 bloques con filas, media
+84.39 filas. El modelo supone ocupacion ideal; no se ha aislado cuanto
+aporta cada causa de la diferencia.
+
+### 30. Coste de lectura logica, fisica y secuencial
+Con las medidas de la Parte L:
+- Logica: 3.775 microsegundos de CPU por lectura (4 por busqueda).
+- Fisica aleatoria: 35.334 microsegundos (193.063 ms / 5464 lecturas).
+- Secuencial: 7.544 microsegundos por bloque (34.666 ms / 4595).
+Los tiempos de pared incluyen CPU y trabajo de la sesion.
+
+### 31. Umbral con HDD
+Con Bw=150 MB/s (decimal) y latencia de 5 ms:
+csec = 8192 / 150000000 s = 54.6 microsegundos por bloque.
+cociente = csec / caleat = 54.6 / 5000 = 0.0109.
+Umbral = cociente / bfr = 0.0109 / 85.543 = 0.000128, es decir
+0.0128 % de las filas (unas 51 de 400000). Con las cifras del
+contenedor el umbral fue 0.2496 %: otro hardware, otra decision.
+
+### 32. Lecturas fisicas en microsegundos
+FLUSH BUFFER_CACHE vacia la cache de Oracle, no la de paginas de
+Linux; muchas lecturas fisicas salen de RAM del sistema operativo.
+No invalida el metodo, pero las cifras no son transferibles a un
+almacenamiento real: hay que repetir la medida alli.
+
+### 33. Migracion frente a encadenamiento
+Migracion: un UPDATE agranda una fila que ya no cabe y se mueve;
+la cabeza queda con un nrid. Encadenamiento: la fila no cabe en ningun
+bloque. Se detectan con ANALYZE (CHAIN_CNT), LIST CHAINED ROWS y
+table fetch continued row. La migracion se cura con MOVE (ONLINE
+preferible) y PCTFREE adecuado; el encadenamiento exige bloque mayor
+o redisenar la tabla. MIGRA y ANCHA lo mostraron en la Parte M.
+
+### 34. Las 3.2 lecturas por busqueda
+Una busqueda normal costo 3 lecturas (indice de dos niveles mas tabla)
+y una migrada 4. En los ids 1 a 1000, 200 estaban migradas:
+800*3 + 200*4 = 3200 lecturas, o 3.2 por busqueda.
+
+### 35. Por que MOVE deja el indice UNUSABLE
+MOVE reescribe las filas y cambia sus ROWID; el indice conserva
+direcciones antiguas. PK_MIGRA quedo UNUSABLE y volvio a VALID tras
+REBUILD. En produccion se usa MOVE ONLINE con el PCTFREE adecuado,
+que mantiene los indices validos, y despues se recogen estadisticas.
+
+### 36. Tres hallazgos de la autopsia
+- H2, un miembro por grupo de redo: riesgo de perder cambios
+  recientes; accion, multiplexar; prioridad alta en produccion.
+- H3, control files en el mismo volumen: riesgo de punto unico de
+  fallo; accion, copias en dominios independientes; prioridad alta.
+- H6, ORA-00800 en VKTM y LGWR: riesgo no cuantificado; accion,
+  revisar trazas y limites del entorno; prioridad media.
+
+### 37. Por que C##OPS_RO y no SYSTEM
+Es una cuenta comun de solo lectura con SELECT_CATALOG_ROLE,
+CONTAINER_DATA y un permiso puntual sobre V$DIAG_ALERT_EXT: minimo
+privilegio para observar. SYSTEM tiene mucho mas alcance. C##OPS_RO no
+administra la base ni recibe privilegios ANY de escritura segun la
+verificacion final.
+
+### 38. Vias de exposicion de contrasenas corregidas
+Primera: contrasenas literales en la migracion V000, ya en el
+historial de Git; se invalidaron con cuentas de solo esquema (V003).
+Segunda: la contrasena de SYS en la linea de comandos del script de
+migraciones, visible con ps y en los eventos del demonio; se sustituyo
+por autenticacion del sistema operativo.
+
+### Pregunta tipo examen P18
+Respuesta: B. ROWID_BLOCK_NUMBER sin segundo argumento asume SMALLFILE.
+Para interpretar el bloque de un ROWID de un tablespace BIGFILE hay
+que indicar DBMS_ROWID.ROWID_BLOCK_NUMBER(rowid, 'BIGFILE').
+La Parte K comparo el resultado con la direccion del volcado.
+
+### Pregunta tipo examen P19
+Respuesta: A y B. PCTFREE 10 fija la reserva de espacio para el
+crecimiento de filas existentes mediante UPDATE y el umbral de
+ocupacion para las inserciones ordinarias. No es una reserva exclusiva
+de ITL ni garantiza que nunca haya migracion: el crecimiento puede
+superar el espacio disponible.
