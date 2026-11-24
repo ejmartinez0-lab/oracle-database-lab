@@ -1,3 +1,65 @@
+## Indice de comprobaciones del enunciado v3
+
+Este indice sigue la numeracion de las paginas 158-159 del enunciado v3.
+Los encabezados originales de la primera version se conservan como bitacora
+historica; su numero no siempre coincide con la pregunta de la version v3.
+Para localizar la respuesta vigente se utiliza la tabla siguiente.
+
+| Pregunta v3 | Tema | Respuesta |
+|---|---|---|
+| 1 | Consistencia de la copia | [Ir al apartado](#v3-comprobacion-1) |
+| 2 | Manifiesto, SHA256SUMS y comprobacion previa a restaurar | [Ir al apartado](#v3-comprobacion-2) |
+| 3 | RPO y RTO de la copia | [Ir al apartado](#v3-comprobacion-3) |
+| 4 | Ubicacion inicial y DB_CREATE_FILE_DEST | [Ir al apartado](#v3-comprobacion-4) |
+| 5 | RENAME DATAFILE frente a mover el archivo | [Ir al apartado](#v3-comprobacion-5) |
+| 6 | Migraciones y revocacion de credenciales | [Ir al apartado](#v3-comprobacion-6) |
+| 7 | Prueba de persistencia | [Ir al apartado](#v3-comprobacion-7) |
+| 8 | Datos de instancia y de base | [Ir al apartado](#v3-comprobacion-8) |
+| 9 | NOMOUNT, MOUNT y OPEN | [Ir al apartado](#v3-comprobacion-9) |
+| 10 | V$PARAMETER y V$SPPARAMETER: DB_FILES | [Ir al apartado](#v3-comprobacion-10) |
+| 11 | PROCESSES y metadata | [Ir al apartado](#v3-comprobacion-11) |
+| 12 | Modelo de gestion de memoria | [Ir al apartado](#v3-comprobacion-12) |
+| 13 | Experimento de cache | [Ir al apartado](#v3-comprobacion-13) |
+| 14 | Literales frente a variables de enlace | [Ir al apartado](#v3-comprobacion-14) |
+| 15 | SPID, PID y espacios de nombres | [Ir al apartado](#v3-comprobacion-15) |
+| 16 | Visibilidad de datafiles desde raiz y PDB | [Ir al apartado](#v3-comprobacion-16) |
+| 17 | Usuario comun y CONTAINER_DATA | [Ir al apartado](#v3-comprobacion-17) |
+| 18 | ORA-00942 y ORA-41900 | [Ir al apartado](#v3-comprobacion-18) |
+| 19 | Privilegio de esquema: ventajas y alcance | [Ir al apartado](#v3-comprobacion-19) |
+| 20 | COMMON_USER_PREFIX y creacion de usuarios | [Ir al apartado](#v3-comprobacion-20) |
+| 21 | Archivos de la base y relacionados | [Ir al apartado](#v3-comprobacion-21) |
+| 22 | Tamano del datafile en Linux y Oracle | [Ir al apartado](#v3-comprobacion-22) |
+| 23 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-23) |
+| 24 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-24) |
+| 25 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-25) |
+| 26 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-26) |
+| 27 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-27) |
+| 28 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-28) |
+| 29 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-29) |
+| 30 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-30) |
+| 31 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-31) |
+| 32 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-32) |
+| 33 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-33) |
+| 34 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-34) |
+| 35 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-35) |
+| 36 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-36) |
+| 37 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-37) |
+| 38 | Respuesta con numeracion v3 | [Ir al apartado](#v3-comprobacion-38) |
+
+Las referencias de evidencia de cada Parte identifican los archivos
+que respaldan las respuestas; los valores medidos se mantienen en sus
+apartados originales.
+
+### Precisiones de las comprobaciones v3 19 y 22
+
+V3-19: READ ANY TABLE ON SCHEMA cubre las tablas presentes y futuras
+de un esquema sin mantener concesiones tabla a tabla. Ese mismo
+alcance futuro obliga a revisar que las nuevas tablas puedan exponerse
+al destinatario; no debe confundirse con lectura de toda la PDB.
+
+V3-22: el ejemplo de 100 MiB corresponde a 104857600 bytes.
+Linux muestra 104865792: la diferencia de 8192 bytes es el bloque
+adicional de cabecera del archivo, no una fila ni espacio del segmento.
 
 ## Parte B. Respaldo del estado del Lab 3
 
@@ -18,6 +80,7 @@ pero readlink -f demuestra que sus rutas reales están en
 Por tanto, están cubiertos por la copia del volumen, aunque todavía
 no se encuentran en la carpeta estándar FREE/FREEPDB1.
 
+<a id="v3-comprobacion-1"></a>
 ### 1. Consistencia de la copia
 
 La copia se tomó después de SHUTDOWN IMMEDIATE y de detener el
@@ -28,6 +91,7 @@ Copiar los archivos con la base abierta no garantiza que todos
 correspondan a un estado consistente; no sería equivalente a este
 procedimiento. Mi base ya estaba en ARCHIVELOG y no cambié ese modo.
 
+<a id="v3-comprobacion-2"></a>
 ### 2. Manifiesto y SHA-256
 
 El manifiesto identifica la copia mediante fecha, etiqueta, contenedor,
@@ -36,6 +100,7 @@ SHA256SUMS permite comprobar si los archivos han cambiado o se han
 corrompido. El script de restauración verifica esas sumas antes de
 modificar el entorno.
 
+<a id="v3-comprobacion-3"></a>
 ### 3. RPO y RTO en este laboratorio
 
 Al restaurar esta copia perdería los cambios realizados después del
@@ -53,6 +118,7 @@ inconsistente.
 
 ## Parte C. Diagnostico y correcciones
 
+<a id="v3-comprobacion-4"></a>
 ### 4. Ubicacion inicial de los datafiles
 
 Evidencia: script/*_01-diagnostico.script.log.
@@ -72,6 +138,7 @@ usar Oracle Managed Files al crear archivos sin indicar su nombre.
 Para las migraciones del laboratorio se emplean rutas absolutas dentro
 del volumen.
 
+<a id="v3-comprobacion-5"></a>
 ### 5. Procedimiento de reubicacion
 
 Evidencias:
@@ -88,6 +155,7 @@ Los cinco tablespaces quedaron ONLINE, con archivos de 100 MB bajo
 La segunda ejecucion respondio "Nada que reubicar", demostrando
 idempotencia.
 
+<a id="v3-comprobacion-6"></a>
 ### 6. Migraciones y credenciales expuestas
 
 Evidencias:
@@ -110,6 +178,7 @@ Invalidarla impide utilizar la credencial expuesta.
 El ejecutor de migraciones utiliza autenticacion del sistema operativo
 dentro del contenedor: no pasa la contrasena de SYS como argumento.
 
+<a id="v3-comprobacion-7"></a>
 ### 7. Prueba de persistencia y definicion del contenedor
 
 Evidencia: script/*_03-prueba-persistencia.script.log.
@@ -167,6 +236,7 @@ El cambio de nombre registrado en Oracle no mueve fisicamente el archivo.
 
 ## Parte D. Instancia, base de datos y servicios
 
+<a id="v3-comprobacion-8"></a>
 ### 8. Tres datos de instancia y tres de base de datos
 
 Evidencias:
@@ -242,6 +312,7 @@ CREATED indica cuando se creo la base, no cuando se inicio la instancia.
 
 ## Parte E. Arranque por etapas y alert log
 
+<a id="v3-comprobacion-9"></a>
 ### 9. NOMOUNT, MOUNT y OPEN
 
 Evidencia:
@@ -337,6 +408,7 @@ Evidencias:
 - config/initFREE-lab4.ora.
 - config/initFREE-lab4-memoria.ora.
 
+<a id="v3-comprobacion-10"></a>
 ### 12. V$PARAMETER frente a V$SPPARAMETER
 
 V$PARAMETER muestra el valor efectivo de los parametros en la sesion.
@@ -367,6 +439,7 @@ es BOTH, siempre que el parametro admita esa modificacion.
 SCOPE=SPFILE modifica solo la configuracion persistente; permite
 preparar un cambio estatico para el siguiente arranque.
 
+<a id="v3-comprobacion-11"></a>
 ### 14. PROCESSES y limites de la metadata
 
 La consulta inicial muestra PROCESSES con ISSYS_MODIFIABLE=IMMEDIATE,
@@ -445,6 +518,7 @@ que impide el arranque.
 
 ## Parte G. Memoria y Buffer Cache
 
+<a id="v3-comprobacion-12"></a>
 ### 16. Modelo de gestion de memoria
 
 Evidencia: spool/*_08-memoria.spool.log.
@@ -477,6 +551,7 @@ El asesor mostro el mismo factor de tiempo estimado y las mismas
 lecturas fisicas para todos los tamanos considerados. Esta captura,
 con poca carga representativa, no basta para decidir reducir la SGA.
 
+<a id="v3-comprobacion-13"></a>
 ### 17. Experimento de cache
 
 Evidencia: script/*_08-experimento-cache.script.log.
@@ -538,6 +613,7 @@ pertenecen a la PGA; shared pool, log buffer y buffer cache son de la SGA.
 
 ## Parte H. Procesos Oracle y Linux
 
+<a id="v3-comprobacion-15"></a>
 ### 19. Correspondencia entre SPID y PID
 
 Evidencias:
@@ -723,6 +799,7 @@ Se conservaron los experimentos anteriores de memoria y Buffer Cache.
 La ampliacion se realizo mediante dos scripts separados:
 08-parse.sql y 08-pga.sql.
 
+<a id="v3-comprobacion-14"></a>
 #### G.3. Literales frente a variables de enlace
 
 Primera ejecucion de 08-parse.sql, como SYS en FREEPDB1:
@@ -825,6 +902,7 @@ Todos los scripts de este bloque terminaron con codigo 0.
 
 ### Parte I ampliada: contenedores, usuarios y diccionario
 
+<a id="v3-comprobacion-16"></a>
 #### I.1. Mapa de contenedores
 
 Como SYS en CDB$ROOT se observaron:
@@ -844,6 +922,8 @@ todos de CON_ID 3. El contexto de la sesion cambia el alcance observado.
 El redo aparecio con CON_ID 0, no asociado a una PDB concreta.
 El script del mapa termino con codigo 0.
 
+<a id="v3-comprobacion-19"></a>
+<a id="v3-comprobacion-18"></a>
 #### I.2. Usuario local y privilegio de esquema
 
 LAB4ANALISTA se creo en FREEPDB1 con solo CREATE SESSION.
@@ -868,6 +948,7 @@ El privilegio de lectura de esquema permite acceder a las tablas
 presentes y futuras de Academia, pero no concede escritura ni acceso
 a otros esquemas. Un permiso global de lectura seria mas amplio.
 
+<a id="v3-comprobacion-17"></a>
 #### I.2. Usuario comun y CONTAINER_DATA
 
 C##LAB4AUDITOR se creo con CREATE SESSION, SET CONTAINER y
@@ -909,6 +990,7 @@ DBA_TABLESPACES devolvio 5 y CDB_TABLESPACES 15:
 V$FIXED_TABLE mostro 1591 estructuras TABLE y 1803 VIEW.
 La definicion de GV$LOG incluyo X$KCCLE y X$KCCRT.
 
+<a id="v3-comprobacion-20"></a>
 #### I.4. Usuarios comunes/locales y ciclo de vida de una PDB
 
 Se comprobaron estos rechazos:
@@ -965,6 +1047,7 @@ El alert log mostro un aviso de escrituras de redo mas lentas de
 lo esperado. Se registra como hallazgo de rendimiento pendiente
 de investigar; no se ha demostrado su causa.
 
+<a id="v3-comprobacion-21"></a>
 #### J.2. Inventario desde Oracle
 
 El inventario se ejecuto como C##OPS_RO en CDB$ROOT.
@@ -996,6 +1079,7 @@ utilizaba FILENAME en V$PASSWORDFILE_INFO. Se corrigio a FILE_NAME.
 Se conserva la evidencia fallida y el inventario corregido termino
 con codigo 0. No fue necesario ampliar permisos para resolverlo.
 
+<a id="v3-comprobacion-22"></a>
 #### J.3. Contraste desde Linux
 
 Docker mostro un unico montaje de volumen en /opt/oracle/oradata.
@@ -1663,9 +1747,11 @@ Respuesta: A y B. Mas PCTFREE o filas mas grandes reducen las filas por
 bloque.
 
 ### Pregunta tipo examen P40
-Respuesta: B. FLUSH BUFFER_CACHE afecta a todas las sesiones: pasan a
-leer de disco hasta recalentar la cache, con picos de latencia. Solo se
-uso en el laboratorio.
+Respuesta: B, en el sentido del enunciado. FLUSH BUFFER_CACHE vacia
+la cache de Oracle a nivel de instancia y puede provocar mas lecturas
+fisicas y picos de latencia al recalentarla. No toda lectura tiene que
+llegar al dispositivo: la cache de Linux puede atenderla. Solo se uso
+en el laboratorio.
 
 ### Pregunta tipo examen P41
 Respuesta: B. La migrada cabia en un bloque y se mudo al crecer; la
@@ -1729,6 +1815,7 @@ de PDB.
 
 ## Preguntas de comprobacion 23-38
 
+<a id="v3-comprobacion-23"></a>
 ### 23. Puntos unicos de fallo en control files y redo
 Evidencia de la autopsia: dos control files, control01.ctl y
 control02.ctl, ambos en /opt/oracle/oradata/FREE; tres grupos de redo
@@ -1737,6 +1824,7 @@ Tener dos copias en el mismo volumen no demuestra independencia ante la
 perdida del almacenamiento, y un solo miembro por grupo no multiplexa
 el redo. Tres grupos no son tres copias del mismo redo.
 
+<a id="v3-comprobacion-24"></a>
 ### 24. ADR fuera del volumen
 Diag Trace y Diag Alert resuelven a /opt/oracle/diag/rdbms/free/FREE,
 fuera de /opt/oracle/oradata (comprobado con readlink -e). Recrear el
@@ -1744,6 +1832,7 @@ contenedor no pierde datos, pero si el alert log y las trazas: justo la
 evidencia de un postmortem, por ejemplo los incidentes ORA-00800. Se
 corrige con diagnostic_dest persistente o enviando los logs fuera.
 
+<a id="v3-comprobacion-25"></a>
 ### 25. ROWID del estudiante 101
 Mi ROWID es AAAR2mAAAAAAAMMAAH.
 DBMS_ROWID confirmo:
@@ -1763,6 +1852,7 @@ ROWID_TO_ABSOLUTE_FNO y se decodifica el bloque indicando BIGFILE.
 Evidencia: K.2 y
 docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt.
 
+<a id="v3-comprobacion-26"></a>
 ### 26. nrow, fsbo, fseo y avsp
 En mi volcado del bloque 780:
 - nrow=88: entradas del directorio de filas del bloque.
@@ -1779,6 +1869,7 @@ a todos los posibles estados de fragmentacion de un bloque.
 Evidencia: K.4 y
 docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt.
 
+<a id="v3-comprobacion-27"></a>
 ### 27. ITL y limpieza diferida de bloques
 El enunciado ilustra Lck=90; mi bloque mostro Lck=88 y Flag --U-.
 La fila 101 tenia lb=0x1, asociado a la primera entrada ITL.
@@ -1792,6 +1883,7 @@ completar esa limpieza, incluso durante una lectura.
 
 Evidencia: K.4 y la traza del bloque 780.
 
+<a id="v3-comprobacion-28"></a>
 ### 28. Tamano real de la fila 101
 El ejemplo del enunciado ocupa 78 bytes, pero mi fila ocupa 80.
 No se debe confundir su longitud exacta con AVG_ROW_LEN=78.
@@ -1810,6 +1902,7 @@ La ranura 7 apunta a 0x1d68; fb=--H-FL-- y cc=7.
 Evidencia: K.4 y
 docs/bitacora/lab4/evidencia/config/20261123T231323Z_12-volcado-bloque.trc.txt.
 
+<a id="v3-comprobacion-29"></a>
 ### 29. bfr y bloques de ACA_ESTUDIANTES
 Con 20000 filas, R=78, bloque de 8192 y PCTFREE=10:
 Unidad 3: bfr = floor((8192-96)*0.9/78) = 93; bloques = ceil(20000/93)
@@ -1819,6 +1912,7 @@ asignados. El recuento por bloque dio 237 bloques con filas, media
 84.39 filas. El modelo supone ocupacion ideal; no se ha aislado cuanto
 aporta cada causa de la diferencia.
 
+<a id="v3-comprobacion-30"></a>
 ### 30. Coste de lectura logica, fisica y secuencial
 Con las medidas de la Parte L:
 - Logica: 3.775 microsegundos de CPU por lectura (4 por busqueda).
@@ -1826,6 +1920,7 @@ Con las medidas de la Parte L:
 - Secuencial: 7.544 microsegundos por bloque (34.666 ms / 4595).
 Los tiempos de pared incluyen CPU y trabajo de la sesion.
 
+<a id="v3-comprobacion-31"></a>
 ### 31. Umbral con HDD
 Con Bw=150 MB/s (decimal) y latencia de 5 ms:
 csec = 8192 / 150000000 s = 54.6 microsegundos por bloque.
@@ -1834,12 +1929,14 @@ Umbral = cociente / bfr = 0.0109 / 85.543 = 0.000128, es decir
 0.0128 % de las filas (unas 51 de 400000). Con las cifras del
 contenedor el umbral fue 0.2496 %: otro hardware, otra decision.
 
+<a id="v3-comprobacion-32"></a>
 ### 32. Lecturas fisicas en microsegundos
 FLUSH BUFFER_CACHE vacia la cache de Oracle, no la de paginas de
 Linux; muchas lecturas fisicas salen de RAM del sistema operativo.
 No invalida el metodo, pero las cifras no son transferibles a un
 almacenamiento real: hay que repetir la medida alli.
 
+<a id="v3-comprobacion-33"></a>
 ### 33. Migracion frente a encadenamiento
 Migracion: un UPDATE agranda una fila que ya no cabe y se mueve;
 la cabeza queda con un nrid. Encadenamiento: la fila no cabe en ningun
@@ -1848,17 +1945,20 @@ table fetch continued row. La migracion se cura con MOVE (ONLINE
 preferible) y PCTFREE adecuado; el encadenamiento exige bloque mayor
 o redisenar la tabla. MIGRA y ANCHA lo mostraron en la Parte M.
 
+<a id="v3-comprobacion-34"></a>
 ### 34. Las 3.2 lecturas por busqueda
 Una busqueda normal costo 3 lecturas (indice de dos niveles mas tabla)
 y una migrada 4. En los ids 1 a 1000, 200 estaban migradas:
 800*3 + 200*4 = 3200 lecturas, o 3.2 por busqueda.
 
+<a id="v3-comprobacion-35"></a>
 ### 35. Por que MOVE deja el indice UNUSABLE
 MOVE reescribe las filas y cambia sus ROWID; el indice conserva
 direcciones antiguas. PK_MIGRA quedo UNUSABLE y volvio a VALID tras
 REBUILD. En produccion se usa MOVE ONLINE con el PCTFREE adecuado,
 que mantiene los indices validos, y despues se recogen estadisticas.
 
+<a id="v3-comprobacion-36"></a>
 ### 36. Tres hallazgos de la autopsia
 - H2, un miembro por grupo de redo: riesgo de perder cambios
   recientes; accion, multiplexar; prioridad alta en produccion.
@@ -1867,6 +1967,7 @@ que mantiene los indices validos, y despues se recogen estadisticas.
 - H6, ORA-00800 en VKTM y LGWR: riesgo no cuantificado; accion,
   revisar trazas y limites del entorno; prioridad media.
 
+<a id="v3-comprobacion-37"></a>
 ### 37. Por que C##OPS_RO y no SYSTEM
 Es una cuenta comun de solo lectura con SELECT_CATALOG_ROLE,
 CONTAINER_DATA y un permiso puntual sobre V$DIAG_ALERT_EXT: minimo
@@ -1874,6 +1975,7 @@ privilegio para observar. SYSTEM tiene mucho mas alcance. C##OPS_RO no
 administra la base ni recibe privilegios ANY de escritura segun la
 verificacion final.
 
+<a id="v3-comprobacion-38"></a>
 ### 38. Vias de exposicion de contrasenas corregidas
 Primera: contrasenas literales en la migracion V000, ya en el
 historial de Git; se invalidaron con cuentas de solo esquema (V003).
