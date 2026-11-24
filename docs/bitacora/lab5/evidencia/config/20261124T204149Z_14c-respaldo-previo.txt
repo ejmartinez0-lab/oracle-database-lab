@@ -1,0 +1,6 @@
+copia=/home/esteban/oracle-database-lab/backups/20261124T204154Z_lab5-pre-simulacro-c
+ddl_fk=docs/bitacora/lab5/evidencia/config/20261124T204149Z_14c-recrear-claves-ajenas.sql
+metadatos=docs/bitacora/lab5/evidencia/config/20261124T204149Z_14c-metadatos-previos.txt
+commit_previo=fcd1851da377ec5f0225d3a1e4b2633b5e149be3
+integridad_sha256=OK
+restauracion_ensayada=no
