@@ -1,0 +1,28 @@
+
+RUTA: /opt/oracle/product/26ai/dbhomeFree/dbs
+REAL: /opt/oracle/oradata/dbconfig/FREE/dbs
+UBICACION: dentro del volumen persistente
+
+RUTA: /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_1_1237845575.dbf
+REAL: /opt/oracle/oradata/dbconfig/FREE/dbs/arch1_1_1237845575.dbf
+UBICACION: dentro del volumen persistente
+
+RUTA: /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_2_1237845575.dbf
+REAL: /opt/oracle/oradata/dbconfig/FREE/dbs/arch1_2_1237845575.dbf
+UBICACION: dentro del volumen persistente
+
+RUTA: /opt/oracle/product/26ai/dbhomeFree/dbs/arch1_3_1237845575.dbf
+REAL: /opt/oracle/oradata/dbconfig/FREE/dbs/arch1_3_1237845575.dbf
+UBICACION: dentro del volumen persistente
+
+RUTA: /opt/oracle/product/26ai/dbhomeFree/dbs/spfileFREE.ora
+REAL: /opt/oracle/oradata/dbconfig/FREE/dbs/spfileFREE.ora
+UBICACION: dentro del volumen persistente
+
+RUTA: /opt/oracle/diag/rdbms/free/FREE/trace
+REAL: /opt/oracle/diag/rdbms/free/FREE/trace
+UBICACION: fuera del montaje /opt/oracle/oradata
+
+RUTA: /opt/oracle/diag/rdbms/free/FREE/alert
+REAL: /opt/oracle/diag/rdbms/free/FREE/alert
+UBICACION: fuera del montaje /opt/oracle/oradata

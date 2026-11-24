@@ -28,33 +28,38 @@ son propuestas para el seguimiento, no correcciones ya ejecutadas.
 
 ## Hallazgos y seguimiento
 
-### H1. Destino de archived logs fuera del montaje persistente mostrado
+### H1. Archivado persistente; respaldo y retencion por verificar
 
-Prioridad: alta.
+Prioridad: media para revisar respaldo y retencion.
+Persistencia de las rutas comprobadas: confirmada.
 
 Evidencia:
-- Seccion 2 de la ampliacion: destino 1, VALID, sin error informado.
-- Destino: /opt/oracle/product/26ai/dbhomeFree/dbs/arch.
-- Seccion 3: tres registros con nombre, secuencias 1, 2 y 3;
-  ARCHIVED=YES, DELETED=NO y STATUS=A.
-- Unico montaje mostrado: volumen oralab-26ai-data,
-  destino /opt/oracle/oradata.
+- Destino 1 de archivado VALID, sin error informado.
+- Ruta logica: /opt/oracle/product/26ai/dbhomeFree/dbs/arch.
+- arch es un prefijo de archivo, no una carpeta.
+- El directorio dbs resuelve a:
+  /opt/oracle/oradata/dbconfig/FREE/dbs.
+- Los archived logs de las secuencias 1, 2 y 3 existen y sus
+  rutas reales estan dentro de ese directorio persistente.
+- El SPFILE tambien existe bajo esa ruta real.
+- La comprobacion mediante readlink -e termino con resultado 0.
 
-Riesgo:
-La ruta configurada no esta bajo el montaje persistente mostrado.
-Si resuelve a la capa modificable del contenedor, los archivos
-nuevos se perderian al eliminarlo, comprometiendo la recuperacion
-que dependa de esos archived logs.
+Correccion de la interpretacion inicial:
+La ruta logica bajo ORACLE_HOME no demostraba que los archivos
+estuvieran en la capa modificable del contenedor.
+La Parte J ya documentaba la resolucion de estos enlaces.
+La comprobacion final confirma esa evidencia y retira la
+sospecha inicial de falta de persistencia del archivado.
+
+Riesgo pendiente de evaluar:
+Persistencia no equivale a respaldo independiente. Esta revision
+no demuestra la cobertura de copias de archived logs, su retencion
+ni la capacidad de recuperar hasta un momento determinado.
 
 Accion:
-Comprobar rutas reales, existencia de los archivos y copias.
-Planificar un destino persistente, una politica de respaldo
-y retencion, y una prueba de recuperacion.
-
-Limite:
-Los registros de V$ARCHIVED_LOG no verifican por si solos que
-los archivos existan fisicamente ni que se hayan respaldado.
-No se comprobaron posibles enlaces de la ruta.
+Revisar la politica de respaldo y retencion y probar recuperacion.
+No se propone mover el destino por una falta de persistencia
+que las comprobaciones han descartado para estas rutas.
 
 ### H2. Un solo miembro por grupo de redo
 
@@ -99,15 +104,15 @@ Evidencia:
 - ADR Home: /opt/oracle/diag/rdbms/free/FREE.
 - Diag Trace y Diag Alert bajo ese mismo directorio.
 - El unico montaje mostrado corresponde a /opt/oracle/oradata.
+- readlink -e confirma que Diag Trace y Diag Alert resuelven
+  a las mismas rutas bajo /opt/oracle/diag, fuera del montaje.
 
 Riesgo:
-Si esas rutas resuelven a la capa modificable, la recreacion
-del contenedor puede eliminar el historial necesario para
-investigar incidentes.
+Los diagnosticos escritos en la capa modificable del contenedor
+pueden perderse al eliminarlo, dificultando investigar incidentes.
 
 Accion:
-Verificar las rutas reales y planificar persistencia o
-recoleccion externa de diagnosticos.
+Planificar persistencia o recoleccion externa de diagnosticos.
 
 ### H5. Indices sin fecha de estadisticas en cuatro esquemas
 
@@ -184,7 +189,7 @@ antes de proponer cambios.
 ## Resumen ejecutivo
 
 La base esta operativa y la autopsia se completo con la cuenta de observacion.
-La prioridad es asegurar la persistencia y recuperabilidad del archivado y revisar la redundancia de archivos criticos.
+El archivado y el SPFILE comprobados son persistentes; la prioridad es revisar la redundancia de archivos criticos y la cobertura de recuperacion.
 Quedan propuestas mejoras de diagnosticos, estadisticas y configuracion del entorno; no se aplicaron cambios durante esta revision.
 
 ## Evidencias
@@ -192,3 +197,4 @@ Quedan propuestas mejoras de diagnosticos, estadisticas y configuracion del ento
 - docs/bitacora/lab4/evidencia/script/20261123T235131Z_15-ampliar-autopsia.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T235131Z_15-montajes.script.log
 - docs/bitacora/lab4/evidencia/spool/20261123T235015Z_15-autopsia-instancia.spool.log
+- docs/bitacora/lab4/evidencia/script/20261124T000039Z_17-rutas-reales-autopsia.script.log

@@ -1521,7 +1521,7 @@ docs/bitacora/lab4-autopsia.md
 
 Incluye evidencia, riesgo, accion propuesta y prioridad
 para siete hallazgos:
-- Destino de archived logs fuera del montaje persistente mostrado.
+- Archivado persistente, con respaldo y retencion por verificar.
 - Un solo miembro por grupo de redo.
 - Control files concentrados en el mismo volumen.
 - Diagnosticos fuera del montaje persistente mostrado.
@@ -1530,10 +1530,13 @@ para siete hallazgos:
 - Dos indices de Academia con factor de agrupamiento elevado
   segun el criterio de la consulta.
 
-El informe distingue observaciones de hechos no comprobados:
-no afirma la perdida fisica de archived logs ni la existencia
-de copias de respaldo de estos archivos. Las acciones propuestas
-no se ejecutaron durante la autopsia.
+El informe distingue observaciones de hechos no comprobados.
+La revision final corrigio la interpretacion inicial del archivado:
+los tres archived logs comprobados y el SPFILE existen y sus rutas
+reales estan dentro del volumen, como ya documentaba la Parte J.
+Los directorios de trazas y alertas si quedan fuera del montaje.
+No se ha demostrado la cobertura de respaldo de los archived logs.
+Las acciones propuestas no se ejecutaron durante la autopsia.
 
 La primera comprobacion local del informe termino con resultado 1
 al utilizar git diff --no-index --check contra /dev/null.
@@ -1573,3 +1576,4 @@ de entrega mediante Pull Request.
 - docs/bitacora/lab4/evidencia/script/20261123T235131Z_15-montajes.script.log
 - docs/bitacora/lab4/evidencia/script/20261123T235640Z_16-verificacion-final.script.log
 - docs/bitacora/lab4/evidencia/spool/20261123T235015Z_15-autopsia-instancia.spool.log
+- docs/bitacora/lab4/evidencia/script/20261124T000039Z_17-rutas-reales-autopsia.script.log
