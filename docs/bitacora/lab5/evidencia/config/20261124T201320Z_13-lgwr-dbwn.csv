@@ -1,0 +1,4 @@
+paso,descripcion,redo_kb,escrituras_lgwr,commits,bloques_dbwn,bloques_sucios_tabla
+0,Punto de partida,,,,,0
+1,UPDATE 20 000 filas + COMMIT,1786,3,1,0,237
+2,ALTER SYSTEM CHECKPOINT,8,1,0,355,0
