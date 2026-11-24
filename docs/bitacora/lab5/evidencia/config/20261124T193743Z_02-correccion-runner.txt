@@ -1,0 +1,8 @@
+El primer intento completo de la Parte C se detuvo al copiar la traza:
+el lanzador del kit utilizaba CONT_NAME, pero el repositorio define CONTNAME.
+
+Antes del fallo se ejecutaron el SQL de anatomia y los graficos de
+PK_PEDIDO e IX_PED_CLIENTE. Se conserva la evidencia original.
+
+Se adapto el lanzador a CONTNAME y se repitio el bloque diagnostico,
+seguido del reto de UX_CLI_EMAIL y de las comprobaciones finales.

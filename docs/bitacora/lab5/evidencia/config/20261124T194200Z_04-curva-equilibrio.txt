@@ -1,0 +1,4 @@
+CF bueno supera tabla: intervalo muestreado [50%, 100%]
+CF malo supera tabla: intervalo muestreado [0.5%, 1%]
+Cambio de plan: indice a completo: intervalo muestreado [0.1%, 0.2%]
+Cruces acotados por muestras, no umbrales exactos.

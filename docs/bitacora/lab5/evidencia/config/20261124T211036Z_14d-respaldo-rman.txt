@@ -1,0 +1,11 @@
+datafile_numero=16
+datafile_ruta=/opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf
+datafile_bytes=104857600
+tag=LAB5_D_20261124T211036Z
+inventario=docs/bitacora/lab5/evidencia/config/20261124T211036Z_14d-inventario-previo.txt
+backup_log=docs/bitacora/lab5/evidencia/script/20261124T211036Z_14d-backup-rman.script.log
+validacion_log=docs/bitacora/lab5/evidencia/script/20261124T211036Z_14d-validacion-rman.script.log
+commit_previo=08d1b67a151c98346658e81d10b25e50c3adb08c
+restore_validate=OK
+fila104_antes_del_cambio=ACTIVO
+fallo_de_medio_provocado=no

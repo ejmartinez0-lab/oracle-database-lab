@@ -1,0 +1,72 @@
+=== 1. ESTADO INICIAL ===
+
+Session altered.
+
+
+PL/SQL procedure successfully completed.
+
+=== 2. CAMBIO CONFIRMADO Y TRANSACCION ABIERTA ===
+
+PL/SQL procedure successfully completed.
+
+=== 3. CAIDA BRUSCA DESDE LA RAIZ ===
+ORACLE instance shut down.
+Codigo de la sesion interrumpida: 1
+Su salida queda conservada en: docs/bitacora/lab5/evidencia/script/20261124T203633Z_14a-transaccion-abierta.script.log
+=== 4. ARRANQUE NORMAL ===
+ORACLE instance started.
+
+Total System Global Area 1603398928 bytes
+Fixed Size		    5033232 bytes
+Variable Size		  536870912 bytes
+Database Buffers	 1056964608 bytes
+Redo Buffers		    4530176 bytes
+Database mounted.
+Database opened.
+
+PL/SQL procedure successfully completed.
+
+=== 5. COMPROBACION ANTES DE RESTAURAR LAS FILAS ===
+
+Session altered.
+
+OK: 102=EGRESADO, cambio confirmado conservado
+OK: 103=ACTIVO, cambio no confirmado deshecho
+
+PL/SQL procedure successfully completed.
+
+SIMULACRO_A_DATOS_RECUPERADOS_OK
+=== 6. LIMPIEZA DE LA FILA CONFIRMADA ===
+
+Session altered.
+
+
+1 row updated.
+
+
+Commit complete.
+
+
+PL/SQL procedure successfully completed.
+
+=== 7. ALERT LOG DE ESTA EJECUCION ===
+2026-11-24 20:36:40 *** 2026-11-24T20:36:40.537904+00:00
+Crash Recovery excluding pdb 2 which was cleanly closed.
+
+2026-11-24 20:36:40 [kcv.c:24899] kcvcrv: Beginning crash recovery of 1 threads
+2026-11-24 20:36:40  Thread 1: Recovery starting at checkpoint rba (logseq 25 block 28891), scn 0
+2026-11-24 20:36:40 Started redo scan
+2026-11-24 20:36:40 Completed redo scan
+2026-11-24 20:36:40  read 50 KB redo, 44 data blocks need recovery
+2026-11-24 20:36:40 Started redo application at
+2026-11-24 20:36:40 Completed redo application of 0.01MB
+2026-11-24 20:36:40 Completed crash recovery at
+Simulacro A: caida de instancia
+Inicio: inmediatamente antes de solicitar SHUTDOWN ABORT
+Fin: comprobacion correcta de las filas tras el arranque
+Tiempo observado hasta recuperacion verificada: 10 segundos
+RPO observado en el cambio confirmado de prueba: 0
+Fila 102 tras recuperar: EGRESADO
+Fila 103 tras recuperar: ACTIVO
+Estado despues de limpieza: ambas ACTIVO
+SIMULACRO_A_COMPLETO_OK

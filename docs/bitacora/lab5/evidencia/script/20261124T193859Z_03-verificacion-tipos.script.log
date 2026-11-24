@@ -1,0 +1,42 @@
+
+Session altered.
+
+=== ESTADO FINAL DEL BANCO ===
+OK: CLIENTE conserva 100000 filas
+OK: PEDIDO conserva 1000000 filas
+OK: Solo quedan siete indices en TIENDASUR
+OK: Los siete indices son los originales, validos y visibles
+OK: Solo quedan las dos tablas originales
+OK: Sin clusters de prueba
+OK: Columna virtual temporal eliminada
+OK: Clave ajena habilitada y validada
+OK: Herramienta MEDIR valida
+
+PL/SQL procedure successfully completed.
+
+=== RETO Q9: LOS 20 PEDIDOS MAS RECIENTES ===
+D_Q9_actual		       filas=	  20  lecturas l??gicas=      5  f??sicas=    0       .4 ms
+			       plan: COUNT STOPKEY > VIEW > TABLE ACCESS BY INDEX ROWID PEDIDO > INDEX FULL SCAN DESCENDING IX_PED_FECHA
+
+PL/SQL procedure successfully completed.
+
+=== TAMANOS PARA JUSTIFICAR LA DECISION DE Q9 ===
+
+SEGMENT_NAME															 SEGMENT_TYPE	    MB_ASIGNADOS
+-------------------------------------------------------------------------------------------------------------------------------- ------------------ ------------
+IX_PED_FECHA															 INDEX			      22
+PEDIDO																 TABLE			      42
+
+2 rows selected.
+
+
+INDEX_NAME															     ALTURA LEAF_BLOCKS   NUM_ROWS
+-------------------------------------------------------------------------------------------------------------------------------- ---------- ----------- ----------
+IX_PED_CLIENTE																  3	   2216    1000000
+IX_PED_FECHA																  3	   2653    1000000
+IX_PED_IMPORTE																  3	   2204    1000000
+PK_PEDIDO																  3	   1875    1000000
+
+4 rows selected.
+
+PARTE_D_VERIFICADA_OK

@@ -1,0 +1,27 @@
+TIENDASUR.UX_CLI_EMAIL
+Modelo: 7996 bytes utiles por hoja; ocupacion viva aproximada.
+Hojas=501; entradas vivas=100000; borradas=0
+Media de entradas vivas/hoja=199.60
+Ocupacion viva estimada=89.59%
+Espacio usado medio=89.59%
+Hojas sin entradas vivas=0
+Hojas con ocupacion viva inferior al 50%=1
+
+Histograma de ocupacion viva estimada
+00-  9%       1 
+10- 19%       0 
+20- 29%       0 
+30- 39%       0 
+40- 49%       0 
+50- 59%       0 
+60- 69%       0 
+70- 79%       0 
+80- 89%     500 ##################################################
+90-100%       0 
+
+Mapa en orden de recorrido de hojas del treedump
+|================================================================|
+Leyenda: espacio <10%; . <30%; : <50%; - <70%; = <90%; # >=90%.
+En un B-tree normal: izquierda claves bajas, derecha claves altas.
+En REVERSE el orden es el de la clave interna invertida.
+El mapa es diagnostico: no recomienda reconstruir por si solo.

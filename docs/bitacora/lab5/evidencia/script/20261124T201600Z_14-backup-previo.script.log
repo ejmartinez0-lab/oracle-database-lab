@@ -1,0 +1,92 @@
+1. Comprobaciones previas
+24.04: Pulling from library/ubuntu
+Digest: sha256:562111b88caa79c71391c0c4d3c2114a7d5c35915c20561fd893cb1e07929e6b
+Status: Image is up to date for ubuntu:24.04
+docker.io/library/ubuntu:24.04
+Volumen: 8908 MB; espacio disponible en backups: 974328 MB
+2. Inventario con la base abierta
+META|version|23.26.3.0.0
+META|base|FREE|logmode|ARCHIVELOG|scn|4407865
+FILE|datafile|/opt/oracle/oradata/FREE/system01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/pdbseed/system01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/sysaux01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/pdbseed/sysaux01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/users01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/pdbseed/undotbs01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/undotbs01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/system01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/undotbs01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/users01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/clinica01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/retail01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/logistica01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/fintech01.dbf
+FILE|datafile|/opt/oracle/oradata/FREE/FREEPDB1/tiendasur01.dbf
+FILE|tempfile|/opt/oracle/oradata/FREE/temp01.dbf
+FILE|tempfile|/opt/oracle/oradata/FREE/pdbseed/temp01.dbf
+FILE|tempfile|/opt/oracle/oradata/FREE/FREEPDB1/temp01.dbf
+FILE|redo|/opt/oracle/oradata/FREE/redo03.log
+FILE|redo|/opt/oracle/oradata/FREE/redo02.log
+FILE|redo|/opt/oracle/oradata/FREE/redo01.log
+FILE|redo|/opt/oracle/oradata/FREE/redo01b.log
+FILE|redo|/opt/oracle/oradata/FREE/redo02b.log
+FILE|redo|/opt/oracle/oradata/FREE/redo03b.log
+FILE|control|/opt/oracle/oradata/FREE/control01.ctl
+FILE|control|/opt/oracle/oradata/FREE/control02.ctl
+FILE|control|/opt/oracle/oradata/FREE/control03.ctl
+FILE|spfile|/opt/oracle/product/26ai/dbhomeFree/dbs/spfileFREE.ora
+FILE|pwfile|/opt/oracle/product/26ai/dbhomeFree/dbs/orapwFREE
+3. Cobertura del volumen: rutas reales
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/clinica01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/clinica01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/fintech01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/fintech01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/logistica01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/logistica01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/retail01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/retail01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/system01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/system01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/temp01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/temp01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/tiendasur01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/tiendasur01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/undotbs01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/undotbs01.dbf
+DENTRO: /opt/oracle/oradata/FREE/FREEPDB1/users01.dbf -> /opt/oracle/oradata/FREE/FREEPDB1/users01.dbf
+DENTRO: /opt/oracle/oradata/FREE/control01.ctl -> /opt/oracle/oradata/FREE/control01.ctl
+DENTRO: /opt/oracle/oradata/FREE/control02.ctl -> /opt/oracle/oradata/FREE/control02.ctl
+DENTRO: /opt/oracle/oradata/FREE/control03.ctl -> /opt/oracle/oradata/FREE/control03.ctl
+DENTRO: /opt/oracle/oradata/FREE/pdbseed/sysaux01.dbf -> /opt/oracle/oradata/FREE/pdbseed/sysaux01.dbf
+DENTRO: /opt/oracle/oradata/FREE/pdbseed/system01.dbf -> /opt/oracle/oradata/FREE/pdbseed/system01.dbf
+DENTRO: /opt/oracle/oradata/FREE/pdbseed/temp01.dbf -> /opt/oracle/oradata/FREE/pdbseed/temp01.dbf
+DENTRO: /opt/oracle/oradata/FREE/pdbseed/undotbs01.dbf -> /opt/oracle/oradata/FREE/pdbseed/undotbs01.dbf
+DENTRO: /opt/oracle/oradata/FREE/redo01.log -> /opt/oracle/oradata/FREE/redo01.log
+DENTRO: /opt/oracle/oradata/FREE/redo01b.log -> /opt/oracle/oradata/FREE/redo01b.log
+DENTRO: /opt/oracle/oradata/FREE/redo02.log -> /opt/oracle/oradata/FREE/redo02.log
+DENTRO: /opt/oracle/oradata/FREE/redo02b.log -> /opt/oracle/oradata/FREE/redo02b.log
+DENTRO: /opt/oracle/oradata/FREE/redo03.log -> /opt/oracle/oradata/FREE/redo03.log
+DENTRO: /opt/oracle/oradata/FREE/redo03b.log -> /opt/oracle/oradata/FREE/redo03b.log
+DENTRO: /opt/oracle/oradata/FREE/sysaux01.dbf -> /opt/oracle/oradata/FREE/sysaux01.dbf
+DENTRO: /opt/oracle/oradata/FREE/system01.dbf -> /opt/oracle/oradata/FREE/system01.dbf
+DENTRO: /opt/oracle/oradata/FREE/temp01.dbf -> /opt/oracle/oradata/FREE/temp01.dbf
+DENTRO: /opt/oracle/oradata/FREE/undotbs01.dbf -> /opt/oracle/oradata/FREE/undotbs01.dbf
+DENTRO: /opt/oracle/oradata/FREE/users01.dbf -> /opt/oracle/oradata/FREE/users01.dbf
+DENTRO: /opt/oracle/product/26ai/dbhomeFree/dbs/orapwFREE -> /opt/oracle/oradata/dbconfig/FREE/dbs/orapwFREE
+DENTRO: /opt/oracle/product/26ai/dbhomeFree/dbs/spfileFREE.ora -> /opt/oracle/oradata/dbconfig/FREE/dbs/spfileFREE.ora
+4. Parada limpia de Oracle y del contenedor
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+5. Copia del volumen conservando propietarios y permisos
+6. Copia de archivos externos al volumen
+Archivos externos: 0
+7. Manifiesto y SHA-256
+./extras.lst: OK
+./extras/mapa.txt: OK
+./inventario.txt: OK
+./manifiesto.txt: OK
+./volumen.tar.gz: OK
+8. Arranque y comprobacion
+t=0s docker=starting cdb+pdb=no-disponible
+t=10s docker=starting cdb+pdb=READWRITEREADWRITE
+Copia terminada:
+1.4G	/home/esteban/oracle-database-lab/backups/20261124T201601Z_lab5-pre-simulacros
+Carpeta: /home/esteban/oracle-database-lab/backups/20261124T201601Z_lab5-pre-simulacros
+Restauracion: bash scripts/ops/restaurar-estado.sh '/home/esteban/oracle-database-lab/backups/20261124T201601Z_lab5-pre-simulacros'

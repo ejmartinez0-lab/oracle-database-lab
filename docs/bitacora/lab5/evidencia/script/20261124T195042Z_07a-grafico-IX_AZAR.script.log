@@ -1,0 +1,27 @@
+LAB5_PRUEBAS.IX_AZAR
+Modelo: 7996 bytes utiles por hoja; ocupacion viva aproximada.
+Hojas=596; entradas vivas=200000; borradas=0
+Media de entradas vivas/hoja=335.57
+Ocupacion viva estimada=75.40%
+Espacio usado medio=75.40%
+Hojas sin entradas vivas=0
+Hojas con ocupacion viva inferior al 50%=14
+
+Histograma de ocupacion viva estimada
+00-  9%       0 
+10- 19%       0 
+20- 29%       0 
+30- 39%       0 
+40- 49%      14 ####
+50- 59%     129 ####################################
+60- 69%      50 ##############
+70- 79%     124 ##################################
+80- 89%     180 ##################################################
+90-100%      99 ############################
+
+Mapa en orden de recorrido de hojas del treedump
+|=#-=====-=##===------===========---==--============-====--======|
+Leyenda: espacio <10%; . <30%; : <50%; - <70%; = <90%; # >=90%.
+En un B-tree normal: izquierda claves bajas, derecha claves altas.
+En REVERSE el orden es el de la clave interna invertida.
+El mapa es diagnostico: no recomienda reconstruir por si solo.

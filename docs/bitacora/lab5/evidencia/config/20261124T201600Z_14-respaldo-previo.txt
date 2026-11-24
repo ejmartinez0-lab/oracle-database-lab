@@ -1,0 +1,7 @@
+Respaldo previo a los simulacros del Lab 5
+Carpeta: backups/20261124T201601Z_lab5-pre-simulacros
+Commit de codigo previo: 23f1ab3d283c90c43851f64c60e3b6ee150fc0b7
+Integridad SHA-256: comprobada
+Restauracion de esta copia: aun no ensayada
+No ejecutar la restauracion salvo necesidad:
+bash scripts/ops/restaurar-estado.sh "backups/20261124T201601Z_lab5-pre-simulacros"

@@ -1,0 +1,24 @@
+WHENEVER OSERROR EXIT FAILURE
+WHENEVER SQLERROR EXIT FAILURE
+ALTER SESSION SET CONTAINER = FREEPDB1;
+SET SERVEROUTPUT ON SIZE UNLIMITED
+DECLARE
+  valor VARCHAR2(30);
+  n NUMBER;
+BEGIN
+  SELECT estado INTO valor FROM admin_academia.aca_estudiantes
+   WHERE estudiante_id = 101;
+  IF valor IS NULL OR valor <> 'ACTIVO' THEN
+    RAISE_APPLICATION_ERROR(-20022, 'La fila 101 no esta en ACTIVO');
+  END IF;
+
+  SELECT COUNT(*) INTO n FROM admin_academia.aca_estudiantes;
+  IF n <> 20000 THEN
+    RAISE_APPLICATION_ERROR(-20022, 'Recuento de estudiantes inesperado');
+  END IF;
+
+  DBMS_OUTPUT.PUT_LINE('OK: fila 101 en ACTIVO; 20000 estudiantes');
+END;
+/
+PROMPT FILA_101_VERIFICADA_OK
+EXIT SUCCESS

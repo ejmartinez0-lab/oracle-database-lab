@@ -1,0 +1,64 @@
+
+Session altered.
+
+=== RETO: CONSULTA ORIGINAL, SIN INDICES ADICIONALES ===
+F_reto_original 	       filas=	 981  lecturas l??gicas=   1487  f??sicas=    0     45.2 ms
+			       plan: TABLE ACCESS FULL CLIENTE
+
+PL/SQL procedure successfully completed.
+
+=== SELECTIVIDAD DE CADA RAMA ===
+
+TOTAL_CLIENTES PREFIJO_600 APELLIDO_EXACTO_GIL
+-------------- ----------- -------------------
+	100000	       981		     0
+
+1 row selected.
+
+=== INDICES TEMPORALES PARA LAS DOS RAMAS DEL OR ===
+
+Index created.
+
+
+Index created.
+
+=== CONSULTA REESCRITA, CON INDICES DISPONIBLES ===
+Se mantiene la igualdad exacta del apellido; no se sustituye por un prefijo.
+F_reto_reescrita	       filas=	 981  lecturas l??gicas=   1548  f??sicas=    1       36 ms
+			       plan: VIEW  VW_ORE_838CF3A7 > UNION-ALL > TABLE ACCESS BY INDEX ROWID BATCHED CLIENTE > INDEX RANGE SCAN IX_CLI_TELEFONO > TABLE ACCESS BY INDEX ROWID BATCHED CLIENTE > INDEX RANGE SCAN IX_
+F_UPPER_APELLIDOS
+
+PL/SQL procedure successfully completed.
+
+=== COMPROBACION DE EQUIVALENCIA EN AMBOS SENTIDOS ===
+OK: mismos identificadores en ambas consultas
+
+PL/SQL procedure successfully completed.
+
+=== COSTE DE ESPACIO DE LOS INDICES DEL RETO ===
+
+SEGMENT_NAME															 MB_ASIGNADOS
+-------------------------------------------------------------------------------------------------------------------------------- ------------
+IX_CLI_TELEFONO 															    3
+IX_F_UPPER_APELLIDOS															    4
+
+2 rows selected.
+
+
+Index dropped.
+
+
+Index dropped.
+
+=== VERIFICACION FINAL ===
+OK: CLIENTE conserva 100000 filas
+OK: PEDIDO conserva 1000000 filas
+OK: Solo quedan siete indices
+OK: Son los siete indices iniciales, validos y visibles
+OK: Solo quedan las dos tablas originales
+OK: Clave ajena habilitada y validada
+OK: Paquete MEDIR valido
+
+PL/SQL procedure successfully completed.
+
+PARTE_F_VERIFICADA_OK

@@ -1,0 +1,10 @@
+Simulacro C: borrado logico y restauracion completa
+Copia restaurada: /home/esteban/oracle-database-lab/backups/20261124T204154Z_lab5-pre-simulacro-c
+Flashback + recreacion de FK + verificacion: 1 segundos
+Restauracion + verificacion de tabla y metadatos: 267 segundos
+Desde solicitud de DROP PURGE hasta tabla verificada: 268 segundos
+Punto de recuperacion: estado de la copia en frio indicada
+No se generaron cambios de negocio posteriores para medir perdida de datos.
+El intervalo temporal desde la copia no equivale por si solo a datos perdidos.
+Resultado: 60000 filas y metadatos originales comprobados.
+La comprobacion no es una comparacion fila a fila del contenido.

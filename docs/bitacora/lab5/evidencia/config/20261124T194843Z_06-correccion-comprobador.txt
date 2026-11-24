@@ -1,0 +1,10 @@
+El experimento G termino y aplico V005, pero el comprobador externo
+se detuvo porque exigia la etiqueta completa UPDATE importe.
+En el escenario del companero la etiqueta aparece como UPDATE import.
+
+Se conserva el log original sin editar. El nuevo comprobador acepta
+esa variante de formato y exige exactamente las doce medidas:
+tres escenarios por cuatro operaciones, con 2000 operaciones cada una.
+
+No se repitieron los experimentos ni se reaplico V005.
+El CSV extrae los valores por fila mostrados en el log, ya redondeados.

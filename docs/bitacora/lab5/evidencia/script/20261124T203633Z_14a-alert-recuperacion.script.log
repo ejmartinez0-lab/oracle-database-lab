@@ -1,0 +1,11 @@
+2026-11-24 20:36:40 *** 2026-11-24T20:36:40.537904+00:00
+Crash Recovery excluding pdb 2 which was cleanly closed.
+
+2026-11-24 20:36:40 [kcv.c:24899] kcvcrv: Beginning crash recovery of 1 threads
+2026-11-24 20:36:40  Thread 1: Recovery starting at checkpoint rba (logseq 25 block 28891), scn 0
+2026-11-24 20:36:40 Started redo scan
+2026-11-24 20:36:40 Completed redo scan
+2026-11-24 20:36:40  read 50 KB redo, 44 data blocks need recovery
+2026-11-24 20:36:40 Started redo application at
+2026-11-24 20:36:40 Completed redo application of 0.01MB
+2026-11-24 20:36:40 Completed crash recovery at

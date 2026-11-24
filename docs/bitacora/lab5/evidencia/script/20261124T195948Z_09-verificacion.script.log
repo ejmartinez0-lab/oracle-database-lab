@@ -1,0 +1,16 @@
+OK: tres copias registradas y sin estado anomalo
+OK: tercera copia persistida en SPFILE
+OK: CDB y FREEPDB1 en READ WRITE
+
+PL/SQL procedure successfully completed.
+
+
+NAME											   STATUS  BLOCK_SIZE FILE_SIZE_BLKS
+------------------------------------------------------------------------------------------ ------- ---------- --------------
+/opt/oracle/oradata/FREE/control01.ctl									16384		1146
+/opt/oracle/oradata/FREE/control02.ctl									16384		1146
+/opt/oracle/oradata/FREE/control03.ctl									16384		1146
+
+3 rows selected.
+
+PARTE_J_VERIFICADA_OK

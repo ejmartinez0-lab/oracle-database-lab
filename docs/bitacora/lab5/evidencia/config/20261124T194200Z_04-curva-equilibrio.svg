@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="700" viewBox="0 0 1100 700">
+<rect width="100%" height="100%" fill="white"/>
+<g font-family="sans-serif" font-size="13" fill="#222">
+<text x="100" y="30" font-size="21">TiendaSur: agrupamiento y punto de equilibrio medido</text>
+<path d="M 100.0 70 V 500" stroke="#ddd"/>
+<text x="100.0" y="523" text-anchor="middle">0.01%</text>
+<path d="M 340.0 70 V 500" stroke="#ddd"/>
+<text x="340.0" y="523" text-anchor="middle">0.1%</text>
+<path d="M 580.0 70 V 500" stroke="#ddd"/>
+<text x="580.0" y="523" text-anchor="middle">1%</text>
+<path d="M 820.0 70 V 500" stroke="#ddd"/>
+<text x="820.0" y="523" text-anchor="middle">10%</text>
+<path d="M 1060.0 70 V 500" stroke="#ddd"/>
+<text x="1060.0" y="523" text-anchor="middle">100%</text>
+<path d="M 100 500.0 H 1060" stroke="#ddd"/>
+<text x="90" y="504.0" text-anchor="end">1</text>
+<path d="M 100 438.57142857142856 H 1060" stroke="#ddd"/>
+<text x="90" y="442.57142857142856" text-anchor="end">10</text>
+<path d="M 100 377.14285714285717 H 1060" stroke="#ddd"/>
+<text x="90" y="381.14285714285717" text-anchor="end">100</text>
+<path d="M 100 315.7142857142857 H 1060" stroke="#ddd"/>
+<text x="90" y="319.7142857142857" text-anchor="end">1000</text>
+<path d="M 100 254.2857142857143 H 1060" stroke="#ddd"/>
+<text x="90" y="258.28571428571433" text-anchor="end">10000</text>
+<path d="M 100 192.85714285714283 H 1060" stroke="#ddd"/>
+<text x="90" y="196.85714285714283" text-anchor="end">100000</text>
+<path d="M 100 131.42857142857144 H 1060" stroke="#ddd"/>
+<text x="90" y="135.42857142857144" text-anchor="end">1e+06</text>
+<path d="M 100 70.0 H 1060" stroke="#ddd"/>
+<text x="90" y="74.0" text-anchor="end">1e+07</text>
+<path d="M 1060.0 70 V 500" stroke="#888" stroke-dasharray="5,5"/>
+<path d="M 580.0 70 V 500" stroke="#888" stroke-dasharray="5,5"/>
+<path d="M 412.2471989593555 70 V 500" stroke="#888" stroke-dasharray="5,5"/>
+<polyline points="100.00,463.02 267.75,448.09 340.00,436.03 412.25,421.45 507.75,400.29 580.00,383.10 652.25,364.77 747.75,340.49 820.00,322.04 892.25,303.58 987.75,279.15 1060.00,260.66" fill="none" stroke="#1570b8" stroke-width="2.5"/>
+<circle cx="100.0" cy="463.01631481842514" r="3" fill="#1570b8"/>
+<circle cx="267.7528010406445" cy="448.0868346848385" r="3" fill="#1570b8"/>
+<circle cx="340.0" cy="436.0287350545662" r="3" fill="#1570b8"/>
+<circle cx="412.2471989593555" cy="421.44799308432624" r="3" fill="#1570b8"/>
+<circle cx="507.7528010406445" cy="400.2861150184147" r="3" fill="#1570b8"/>
+<circle cx="580.0" cy="383.0959007990663" r="3" fill="#1570b8"/>
+<circle cx="652.2471989593555" cy="364.77131950602944" r="3" fill="#1570b8"/>
+<circle cx="747.7528010406445" cy="340.49474984008884" r="3" fill="#1570b8"/>
+<circle cx="820.0" cy="322.03669837427844" r="3" fill="#1570b8"/>
+<circle cx="892.2471989593555" cy="303.5786897634256" r="3" fill="#1570b8"/>
+<circle cx="987.7528010406445" cy="279.1473491321567" r="3" fill="#1570b8"/>
+<circle cx="1060.0" cy="260.65889402021367" r="3" fill="#1570b8"/>
+<text x="120" y="560" fill="#1570b8">Indice CF bueno</text>
+<polyline points="100.00,374.36 267.75,335.41 340.00,316.39 412.25,297.17 507.75,273.45 580.00,254.50 652.25,235.85 747.75,211.33 820.00,192.81 892.25,174.33 987.75,149.90 1060.00,131.40" fill="none" stroke="#c64436" stroke-width="2.5"/>
+<circle cx="100.0" cy="374.35873130310534" r="3" fill="#c64436"/>
+<circle cx="267.7528010406445" cy="335.40657206525555" r="3" fill="#c64436"/>
+<circle cx="340.0" cy="316.3897164642327" r="3" fill="#c64436"/>
+<circle cx="412.2471989593555" cy="297.16914022943723" r="3" fill="#c64436"/>
+<circle cx="507.7528010406445" cy="273.4529876264487" r="3" fill="#c64436"/>
+<circle cx="580.0" cy="254.4999972819576" r="3" fill="#c64436"/>
+<circle cx="652.2471989593555" cy="235.85129133582882" r="3" fill="#c64436"/>
+<circle cx="747.7528010406445" cy="211.32711837872972" r="3" fill="#c64436"/>
+<circle cx="820.0" cy="192.81262760740293" r="3" fill="#c64436"/>
+<circle cx="892.2471989593555" cy="174.33157381049682" r="3" fill="#c64436"/>
+<circle cx="987.7528010406445" cy="149.9004662678654" r="3" fill="#c64436"/>
+<circle cx="1060.0" cy="131.39500483949854" r="3" fill="#c64436"/>
+<text x="420" y="560" fill="#c64436">Indice CF malo</text>
+<polyline points="100.00,271.57 267.75,271.57 340.00,271.57 412.25,271.57 507.75,271.57 580.00,271.57 652.25,271.57 747.75,271.57 820.00,271.57 892.25,271.57 987.75,271.57 1060.00,271.57" fill="none" stroke="#238544" stroke-width="2.5"/>
+<circle cx="100.0" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="267.7528010406445" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="340.0" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="412.2471989593555" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="507.7528010406445" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="580.0" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="652.2471989593555" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="747.7528010406445" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="820.0" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="892.2471989593555" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="987.7528010406445" cy="271.56755340200414" r="3" fill="#238544"/>
+<circle cx="1060.0" cy="271.56755340200414" r="3" fill="#238544"/>
+<text x="720" y="560" fill="#238544">Tabla completa</text>
+<text x="450" y="540">Porcentaje nominal de filas (escala logaritmica)</text>
+<text x="100" y="55">Eje vertical: lecturas logicas, escala logaritmica</text>
+<text x="100" y="590">CF bueno supera tabla: intervalo muestreado [50%, 100%]</text>
+<text x="100" y="612">CF malo supera tabla: intervalo muestreado [0.5%, 1%]</text>
+<text x="100" y="634">Cambio de plan: indice a completo: intervalo muestreado [0.1%, 0.2%]</text>
+<text x="100" y="680">Lineas entre muestras: guia visual; no son mediciones intermedias. Plan: EXPLAIN PLAN.</text>
+</g></svg>

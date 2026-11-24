@@ -1,0 +1,120 @@
+
+Session altered.
+
+
+
+
+
+1 row selected.
+
+=== 1. ESTADO INICIAL ===
+
+    GROUP#    THREAD#  SEQUENCE#	 MB    MEMBERS ARC STATUS
+---------- ---------- ---------- ---------- ---------- --- ------------
+	 1	    1	      13	200	     1 YES INACTIVE
+	 2	    1	      14	200	     1 YES INACTIVE
+	 3	    1	      15	200	     1 NO  CURRENT
+
+3 rows selected.
+
+
+    GROUP# MEMBER											   TYPE    STATUS
+---------- ----------------------------------------------------------------------------------------------- ------- ------------
+	 1 /opt/oracle/oradata/FREE/redo01.log								   ONLINE
+	 2 /opt/oracle/oradata/FREE/redo02.log								   ONLINE
+	 3 /opt/oracle/oradata/FREE/redo03.log								   ONLINE
+
+3 rows selected.
+
+=== 2. SEGUNDO MIEMBRO EN GRUPOS CON UNO SOLO ===
+Grupo 1: segundo miembro /opt/oracle/oradata/FREE/redo01b.log
+Grupo 2: segundo miembro /opt/oracle/oradata/FREE/redo02b.log
+Grupo 3: segundo miembro /opt/oracle/oradata/FREE/redo03b.log
+Miembros incorporados: 3
+
+PL/SQL procedure successfully completed.
+
+=== 3. RECORRIDO DE LOS GRUPOS CON CAMBIOS DE LOG ===
+Cambio 1: CURRENT=1 secuencia=16
+Cambio 2: CURRENT=2 secuencia=17
+Cambio 3: CURRENT=3 secuencia=18
+
+PL/SQL procedure successfully completed.
+
+
+    GROUP# MEMBER											   STATUS
+---------- ----------------------------------------------------------------------------------------------- ------------
+	 1 /opt/oracle/oradata/FREE/redo01.log
+	 1 /opt/oracle/oradata/FREE/redo01b.log
+	 2 /opt/oracle/oradata/FREE/redo02.log
+	 2 /opt/oracle/oradata/FREE/redo02b.log
+	 3 /opt/oracle/oradata/FREE/redo03.log
+	 3 /opt/oracle/oradata/FREE/redo03b.log
+
+6 rows selected.
+
+=== 4. PROTECCIONES DEL GRUPO CURRENT ===
+OK esperado: borrar grupo CURRENT -> ORA-01623: log 3 is current log for instance FREE (thread 1) - cannot drop
+OK esperado: borrar miembro de CURRENT -> ORA-01609: log 3 is the current log for thread 1 - cannot drop members
+OMITIDO: intento de dejar un unico grupo. No se elimina ningun grupo no CURRENT.
+
+PL/SQL procedure successfully completed.
+
+=== 5. HISTORIAL Y DATOS PARA DIMENSIONAR ===
+
+ SEQUENCE# FIRST_CHANGE# INICIO
+---------- ------------- -------------------
+	16	 4403509 2026-11-24 20:02:11
+	17	 4403515 2026-11-24 20:02:11
+	15	 4397443 2026-11-24 19:51:13
+	14	 4394833 2026-11-24 19:50:56
+	13	 4393195 2026-11-24 19:50:49
+	12	 4391080 2026-11-24 19:47:07
+	11	 4389305 2026-11-24 19:46:43
+	10	 4369065 2026-11-24 19:39:42
+	 9	 4363344 2026-11-24 19:39:29
+	 8	 4360484 2026-11-24 19:39:08
+
+10 rows selected.
+
+Historial por hora de la base; incluye toda la actividad, no solo TiendaSur.
+
+HORA_BASE	 CAMBIOS
+------------- ----------
+2026-11-23 22	       1
+2026-11-24 05	       1
+2026-11-24 11	       1
+2026-11-24 19	       9
+2026-11-24 20	       2
+
+5 rows selected.
+
+=== 6. VERIFICACION FINAL ===
+OK: numero inicial de grupos conservado
+OK: todos los grupos tienen al menos dos miembros
+OK: miembros sin estado anomalo y base disponible
+
+PL/SQL procedure successfully completed.
+
+
+    GROUP#  SEQUENCE#	      MB    MEMBERS ARC STATUS
+---------- ---------- ---------- ---------- --- ------------
+	 1	   16	     200	  2 YES INACTIVE
+	 2	   17	     200	  2 YES ACTIVE
+	 3	   18	     200	  2 NO	CURRENT
+
+3 rows selected.
+
+
+    GROUP# MEMBER											   STATUS
+---------- ----------------------------------------------------------------------------------------------- ------------
+	 1 /opt/oracle/oradata/FREE/redo01.log
+	 1 /opt/oracle/oradata/FREE/redo01b.log
+	 2 /opt/oracle/oradata/FREE/redo02.log
+	 2 /opt/oracle/oradata/FREE/redo02b.log
+	 3 /opt/oracle/oradata/FREE/redo03.log
+	 3 /opt/oracle/oradata/FREE/redo03b.log
+
+6 rows selected.
+
+PARTE_K_VERIFICADA_OK

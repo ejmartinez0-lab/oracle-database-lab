@@ -1,0 +1,69 @@
+=== 1. INVENTARIO Y ESTADO INICIAL ===
+
+PL/SQL procedure successfully completed.
+
+Copia que se apartara: /opt/oracle/oradata/FREE/control03.ctl
+Copia sana para reparar: /opt/oracle/oradata/FREE/control01.ctl
+Ubicacion temporal: /opt/oracle/oradata/FREE/control03.ctl.simulacro-b-20261124T203833Z
+=== 2. PARADA LIMPIA Y AUSENCIA CONTROLADA ===
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+=== 3. ARRANQUE FALLIDO ESPERADO ===
+Fallo esperado confirmado; evidencia: docs/bitacora/lab5/evidencia/script/20261124T203833Z_14b-arranque-fallido.script.log
+Instancia STARTED: no se ha podido montar la base.
+=== 4. PARADA Y REPARACION DESDE LA COPIA SANA ===
+ORACLE instance shut down.
+Copia reparada e identica a la copia sana antes del arranque.
+=== 5. ARRANQUE Y VERIFICACION ===
+ORACLE instance started.
+
+Total System Global Area 1603398928 bytes
+Fixed Size		    5033232 bytes
+Variable Size		  536870912 bytes
+Database Buffers	 1056964608 bytes
+Redo Buffers		    4530176 bytes
+Database mounted.
+Database opened.
+
+PL/SQL procedure successfully completed.
+
+
+NAME												     STATUS
+---------------------------------------------------------------------------------------------------- -------
+/opt/oracle/oradata/FREE/control01.ctl
+/opt/oracle/oradata/FREE/control02.ctl
+/opt/oracle/oradata/FREE/control03.ctl
+
+
+PL/SQL procedure successfully completed.
+
+
+Session altered.
+
+
+PL/SQL procedure successfully completed.
+
+SIMULACRO_B_DATOS_RECUPERADOS_OK
+=== 6. DIAGNOSTICO DEL FALLO EN EL ALERT LOG ===
+2026-11-24 20:38:38   control_files	       = "/opt/oracle/oradata/FREE/control03.ctl"
+2026-11-24 20:38:40 ORA-00210: cannot open the specified control file
+ORA-00202: control file: '/opt/oracle/oradata/FREE/control03.ctl'
+ORA-27037: unable to obtain file status
+Linux-x86_64 Error: 2: No such file or direc
+
+2026-11-24 20:38:40 Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_mz00_2236.trc:
+ORA-00202: control file: '/opt/oracle/oradata/FREE/control03.ctl'
+ORA-27037: unable to obtain file status
+Linux-x86_64 Error:
+
+2026-11-24 20:38:42   control_files	       = "/opt/oracle/oradata/FREE/control03.ctl"
+Simulacro B: ausencia de una copia del control file
+Archivo afectado: /opt/oracle/oradata/FREE/control03.ctl
+Copia sana utilizada: /opt/oracle/oradata/FREE/control01.ctl
+Fallo esperado: ORA-00205; instancia STARTED/NOMOUNT
+Tiempo desde solicitud de parada hasta datos verificados: 15 segundos
+Tiempo desde inicio de reparacion hasta datos verificados: 9 segundos
+Alcance de comprobacion: 20000 estudiantes y filas 102/103 ACTIVO
+Recuperacion: copia multiplexada actual; sin RESETLOGS
+SIMULACRO_B_COMPLETO_OK

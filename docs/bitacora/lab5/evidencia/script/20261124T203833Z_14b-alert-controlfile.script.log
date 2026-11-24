@@ -1,0 +1,12 @@
+2026-11-24 20:38:38   control_files	       = "/opt/oracle/oradata/FREE/control03.ctl"
+2026-11-24 20:38:40 ORA-00210: cannot open the specified control file
+ORA-00202: control file: '/opt/oracle/oradata/FREE/control03.ctl'
+ORA-27037: unable to obtain file status
+Linux-x86_64 Error: 2: No such file or direc
+
+2026-11-24 20:38:40 Errors in file /opt/oracle/diag/rdbms/free/FREE/trace/FREE_mz00_2236.trc:
+ORA-00202: control file: '/opt/oracle/oradata/FREE/control03.ctl'
+ORA-27037: unable to obtain file status
+Linux-x86_64 Error:
+
+2026-11-24 20:38:42   control_files	       = "/opt/oracle/oradata/FREE/control03.ctl"

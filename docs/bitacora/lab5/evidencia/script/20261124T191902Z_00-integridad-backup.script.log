@@ -1,0 +1,5 @@
+./extras.lst: OK
+./extras/mapa.txt: OK
+./inventario.txt: OK
+./manifiesto.txt: OK
+./volumen.tar.gz: OK
