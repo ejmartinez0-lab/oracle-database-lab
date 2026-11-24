@@ -1,0 +1,32 @@
+WHENEVER OSERROR EXIT FAILURE
+WHENEVER SQLERROR EXIT FAILURE
+ALTER SESSION SET CONTAINER = FREEPDB1;
+SET SERVEROUTPUT ON
+DECLARE
+  n NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO n FROM dba_indexes WHERE owner = 'TIENDASUR';
+  IF n <> 7 THEN
+    RAISE_APPLICATION_ERROR(-20016, 'No se parte de los siete indices iniciales');
+  END IF;
+
+  SELECT COUNT(*) INTO n FROM dba_indexes
+   WHERE owner = 'TIENDASUR'
+     AND status = 'VALID' AND visibility = 'VISIBLE'
+     AND index_name IN (
+       'PK_CLIENTE', 'UX_CLI_EMAIL', 'IX_CLI_PAIS_CIUDAD',
+       'PK_PEDIDO', 'IX_PED_CLIENTE', 'IX_PED_FECHA', 'IX_PED_IMPORTE'
+     );
+  IF n <> 7 THEN
+    RAISE_APPLICATION_ERROR(-20016, 'Estado inicial de indices incorrecto');
+  END IF;
+
+  SELECT COUNT(*) INTO n FROM tiendasur.pedido;
+  IF n <> 1000000 THEN
+    RAISE_APPLICATION_ERROR(-20016, 'Recuento inicial de PEDIDO incorrecto');
+  END IF;
+
+  DBMS_OUTPUT.PUT_LINE('PARTE_G_ENTRADA_OK');
+END;
+/
+EXIT SUCCESS

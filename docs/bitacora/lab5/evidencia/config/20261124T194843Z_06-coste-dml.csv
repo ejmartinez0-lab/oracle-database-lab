@@ -1,0 +1,13 @@
+escenario,operacion,operaciones,bloques_modificados_por_fila,bytes_redo_por_fila
+hoy,INSERT,2000,10.1,1313
+hoy,UPDATE estado,2000,2.0,264
+hoy,UPDATE importe,2000,6.0,754
+hoy,DELETE,2000,10.1,1246
+companero,INSERT,2000,20.2,2578
+companero,UPDATE estado,2000,6.0,726
+companero,UPDATE importe,2000,6.0,754
+companero,DELETE,2000,20.1,2424
+V005,INSERT,2000,12.1,1611
+V005,UPDATE estado,2000,8.1,1035
+V005,UPDATE importe,2000,6.0,812
+V005,DELETE,2000,10.1,1274
