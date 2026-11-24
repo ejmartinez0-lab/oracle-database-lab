@@ -1,0 +1,11 @@
+Incidencia del simulacro D:
+- El primer intento paro despues de ejecutar DATAFILE 16 OFFLINE.
+- La comprobacion exigia OFFLINE en V$DATAFILE, que mostraba RECOVER.
+- El diagnostico confirmo archivo presente y cabecera OFFLINE/RECOVER=YES.
+- No se habia ejecutado el borrado.
+- Se conserva la evidencia del intento fallido.
+- Se corrigio el script original para admitir OFFLINE o RECOVER.
+- Se reanudo sin repetir el cambio confirmado ni crear otra copia.
+- La continuacion comprobo nuevamente identidad, estado y respaldo.
+- Los tiempos de continuacion excluyen la pausa de diagnostico.
+- No representan la indisponibilidad total desde el primer OFFLINE.

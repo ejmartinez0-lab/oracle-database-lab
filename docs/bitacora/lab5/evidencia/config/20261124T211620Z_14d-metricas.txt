@@ -1,0 +1,11 @@
+Simulacro D: perdida controlada de un datafile
+Variante: archivo OFFLINE antes de eliminarlo; no fallo inesperado en linea
+Datafile: 16 | /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf
+Copia utilizada: LAB5_D_20261124T211036Z
+Desde reanudacion previa al borrado hasta datos verificados: 9 segundos
+Desde ausencia fisica hasta datos verificados: 9 segundos
+Desde inicio RESTORE/RECOVER hasta datos verificados: 9 segundos
+RPO observado para la transaccion de prueba: 0
+Prueba: fila 104=EGRESADO confirmada despues del backup y recuperada
+Estado final de fila 104 tras limpieza: ACTIVO
+No se ha probado el cierre automatico de la PDB por fallo de medio.
