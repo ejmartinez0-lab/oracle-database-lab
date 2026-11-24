@@ -1,0 +1,60 @@
+
+Session altered.
+
+=== RETO MTTR: FOTO INICIAL DESDE LA RAIZ ===
+
+
+
+
+1 row selected.
+
+=== UPDATE DE 20000 FILAS SIN CAMBIAR EL VALOR ===
+
+Session altered.
+
+OK: 20000 filas actualizadas sin cambiar su estado
+
+PL/SQL procedure successfully completed.
+
+
+Session altered.
+
+=== FOTO POSTERIOR: SIN CHECKPOINT EXPLICITO ENTRE FOTOS ===
+
+MTTR_ANTES_S MTTR_DESPUES_S DIFERENCIA_MTTR_S REDO_ANTES_BLOQUES REDO_DESPUES_BLOQUES DIFERENCIA_REDO_BLOQUES
+------------ -------------- ----------------- ------------------ -------------------- -----------------------
+	  11		 11		    0		    2800		 6477			 3677
+
+1 row selected.
+
+=== VERIFICACION DE DISPONIBILIDAD Y AVANCE DEL SCN ===
+OK: SCN inicial=4401113 posterior=4401114
+OK: CDB y PDB abiertas; cabeceras legibles sin errores
+
+PL/SQL procedure successfully completed.
+
+=== COMPARACION ACTUAL DE CHECKPOINTS POR ARCHIVO ===
+
+     FILE#     CON_ID ARCHIVO									       SCN_CONTROLFILE SCN_CABECERA REC FUZ
+---------- ---------- -------------------------------------------------------------------------------- --------------- ------------ --- ---
+	 1	    1 /opt/oracle/oradata/FREE/system01.dbf						       4401053	    4401053 NO	YES
+	 2	    2 /opt/oracle/oradata/FREE/pdbseed/system01.dbf					       2098101	    2098101	NO
+	 3	    1 /opt/oracle/oradata/FREE/sysaux01.dbf						       4401053	    4401053 NO	YES
+	 4	    2 /opt/oracle/oradata/FREE/pdbseed/sysaux01.dbf					       2098101	    2098101	NO
+	 7	    1 /opt/oracle/oradata/FREE/users01.dbf						       4401053	    4401053 NO	YES
+	 9	    2 /opt/oracle/oradata/FREE/pdbseed/undotbs01.dbf					       2098101	    2098101	NO
+	11	    1 /opt/oracle/oradata/FREE/undotbs01.dbf						       4401053	    4401053 NO	YES
+	12	    3 /opt/oracle/oradata/FREE/FREEPDB1/system01.dbf					       4401053	    4401053 NO	YES
+	13	    3 /opt/oracle/oradata/FREE/FREEPDB1/sysaux01.dbf					       4401053	    4401053 NO	YES
+	14	    3 /opt/oracle/oradata/FREE/FREEPDB1/undotbs01.dbf					       4401053	    4401053 NO	YES
+	15	    3 /opt/oracle/oradata/FREE/FREEPDB1/users01.dbf					       4401053	    4401053 NO	YES
+	16	    3 /opt/oracle/oradata/FREE/FREEPDB1/academia01.dbf					       4401053	    4401053 NO	YES
+	17	    3 /opt/oracle/oradata/FREE/FREEPDB1/clinica01.dbf					       4401053	    4401053 NO	YES
+	18	    3 /opt/oracle/oradata/FREE/FREEPDB1/retail01.dbf					       4401053	    4401053 NO	YES
+	19	    3 /opt/oracle/oradata/FREE/FREEPDB1/logistica01.dbf 				       4401053	    4401053 NO	YES
+	20	    3 /opt/oracle/oradata/FREE/FREEPDB1/fintech01.dbf					       4401053	    4401053 NO	YES
+	25	    3 /opt/oracle/oradata/FREE/FREEPDB1/tiendasur01.dbf 				       4401053	    4401053 NO	YES
+
+17 rows selected.
+
+PARTE_I_VERIFICADA_OK

@@ -1,0 +1,56 @@
+
+Session altered.
+
+OK: CLIENTE conserva 100000 filas
+OK: PEDIDO conserva 1000000 filas
+OK: PEDIDO tiene exactamente los cinco indices de V005
+OK: Nueve indices totales: cuatro en CLIENTE y cinco en PEDIDO
+OK: Todos los indices validos y visibles
+OK: DNI protegido por indice unico
+OK: El indice unico corresponde a DNI
+OK: Cubriente correcto, con ID_CLIENTE como primera columna
+OK: Clave ajena habilitada y validada
+OK: Columna virtual FECHA_PENDIENTE presente
+OK: Columna parcial con 20000 valores no nulos
+OK: Columna virtual coherente con estado y fecha
+OK: Sin tablas adicionales de prueba
+OK: Paquete MEDIR valido
+
+PL/SQL procedure successfully completed.
+
+
+TABLE_NAME
+--------------------------------------------------------------------------------------------------------------------------------
+INDEX_NAME															 UNIQUENES STATUS   VISIBILIT
+-------------------------------------------------------------------------------------------------------------------------------- --------- -------- ---------
+CLIENTE
+IX_CLI_PAIS_CIUDAD														 NONUNIQUE VALID    VISIBLE
+
+CLIENTE
+PK_CLIENTE															 UNIQUE    VALID    VISIBLE
+
+CLIENTE
+UX_CLI_DNI															 UNIQUE    VALID    VISIBLE
+
+CLIENTE
+UX_CLI_EMAIL															 UNIQUE    VALID    VISIBLE
+
+PEDIDO
+IX_PED_CLI_FEC_CUB														 NONUNIQUE VALID    VISIBLE
+
+PEDIDO
+IX_PED_CP															 NONUNIQUE VALID    VISIBLE
+
+PEDIDO
+IX_PED_FECHA															 NONUNIQUE VALID    VISIBLE
+
+PEDIDO
+IX_PED_PENDIENTES														 NONUNIQUE VALID    VISIBLE
+
+PEDIDO
+PK_PEDIDO															 UNIQUE    VALID    VISIBLE
+
+
+9 rows selected.
+
+PARTE_G_VERIFICADA_OK
